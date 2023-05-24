@@ -1,0 +1,43 @@
+
+
+<div class="wrapper fadeInDown">
+
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <h3 class="col-5 mx-auto"style="font-weight: bold;margin-top: 20px">SIGN IN</h3>
+      <!-- Login Form -->
+      <form name="form" #auth="ngForm" (ngSubmit)="authenticat()">
+
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="login (First Name)" ngModel
+               required #fn="ngModel" [(ngModel)]="form.username">
+        <a class="alert alert-danger" *ngIf="fn.invalid && fn.touched">
+          Username is a Required Field !
+        </a>
+
+        <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password"
+               ngModel required #p="ngModel" [(ngModel)]="form.password">
+
+
+        <a class="alert alert-danger" *ngIf="p.invalid && p.touched">
+          Password is a Required Field !
+        </a>
+
+        <input href="client" type="submit" [disabled]="auth.invalid" class="fadeIn fourth" value="Log In" (click)="authenticat()" style="margin-left: 120px;margin-top: 20px;">
+      </form>
+
+      <div class="alert alert-primary"style="margin-top: 100px;">{{msg}}</div>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="home/createaccount">Dont have an account yet ?</a>
+      </div>
+      <div id="formFootera">
+        <a class="underlineHover" href="home/forgot" >Forgot Your Password ?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
