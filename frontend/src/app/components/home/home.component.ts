@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
         const word = words[currentWordIndex];
 
         // Check if it's the first word to be displayed
-        if (this.chatLog.length === 0) {
+        if (this.chatLog.length === 0 || this.chatLog[this.chatLog.length - 1].type === 'user') {
           this.chatLog.push({ content: word, type: 'bot' });
         } else {
           // Append the word to the previous bot message
@@ -57,12 +57,16 @@ export class HomeComponent implements OnInit {
         }
 
         currentWordIndex++;
-        setTimeout(showNextWord, 1000); // Adjust the delay (in milliseconds) between words here
+        setTimeout(showNextWord, 300); // Adjust the delay (in milliseconds) between words here
+      } else {
+        // Add a new line after the bot message
+        this.chatLog.push({ content: '', type: 'bot' });
       }
     };
 
     showNextWord();
   }
+
 
 
   processUserMessage(message: string): void {
