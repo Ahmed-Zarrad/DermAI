@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.idea",
+    "\\controllers",
+    "\\middlewares",
+    "\\ml-model",
+    "\\models",
+    "\\services",
+    "\\utils"
+  ],
+  "SelectedNode": "\\app.js",
+  "PreviewInSolutionExplorer": false
+}
