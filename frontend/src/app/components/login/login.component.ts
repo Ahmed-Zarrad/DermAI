@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../../models/user.model';
 import { Login } from '../../models/login.model';
 import { LoginService } from '../../services/login/login.service';
 import { TokenstorageService } from '../../services/tokenStorage/tokenstorage.service';
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
         this.tokenstorage.saveUsername(data.username)
         this.tokenstorage.saveAuthorities(data.authorities)
 
-        this.router.navigate(["/home"])
+        this.router.navigate(["/chatbot"])
       },
       error => {
         this.msg = 'Username Or password Invalid';

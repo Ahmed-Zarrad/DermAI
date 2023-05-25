@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
-import { User } from '../../models/user.model';
 import { Login } from '../../models/login.model';
 import { JwtResponse } from '../../models/jwt-response.model';
 import { TokenstorageService } from '../tokenStorage/tokenstorage.service';
@@ -21,7 +20,7 @@ export class LoginService {
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
-  authenticateURL = 'http://localhost:3001/api/v1/login/';
+  private  authenticateURL = 'http://localhost:3001/api/v1/login/';
 
 
   constructor(private authhttp: HttpClient, private tokenstorage: TokenstorageService, private router: Router) {

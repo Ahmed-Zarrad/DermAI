@@ -7,11 +7,17 @@ import { LoginComponent } from './Components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './Components/home/home.component';
 import { AuthInterceptorService } from './Services/AuthInterceptor/auth-interceptor.service';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ChatbotComponent,
+    SignupComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
