@@ -29,7 +29,7 @@ export class ChatbotComponent implements OnInit {
   }
 
   displayUserMessage(message: string): void {
-    this.chatLog.push({ content: message, type: 'user',backgroundColor:'#202123' });
+    this.chatLog.push({ content: message, type: 'user',backgroundColor:'#343541' });
   }
 
 
@@ -46,7 +46,7 @@ export class ChatbotComponent implements OnInit {
 
         // Check if it's the first word to be displayed
         if (this.chatLog.length === 0 || this.chatLog[this.chatLog.length - 1].type === 'user') {
-          this.chatLog.push({ content: word, type: 'bot',backgroundColor:'#3e3f4b' });
+          this.chatLog.push({ content: word, type: 'bot',backgroundColor:'#444654' });
         } else {
           // Append the word to the previous bot message
           const lastMessageIndex = this.chatLog.length - 1;
