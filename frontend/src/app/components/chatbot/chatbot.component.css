@@ -6,7 +6,6 @@
 body{
   height:100%;
   width:100%;
-  position:absolute;
   top:0;
   left:0;
   overflow:auto;
@@ -198,14 +197,18 @@ body{
 
 .input-text {
   display: flex;
+  bottom: 0;
+  position: fixed;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 6.5%;
+  width: 70%;
+  margin-left:10% ;
+  margin-bottom: 10px;
 }
 
 .input-text textarea {
-  width: 65%;;
+  width: 65%;
   height: auto;
   min-height: 24px;
   max-height: 200px;
