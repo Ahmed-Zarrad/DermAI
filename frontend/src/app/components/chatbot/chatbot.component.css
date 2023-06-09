@@ -202,8 +202,8 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 70%;
-  margin-left:10% ;
+  width: 80%;
+  margin-left:2% ;
   margin-bottom: 10px;
 }
 
@@ -249,7 +249,7 @@ span {
 
 .input-text button {
   position: relative;
-  right: -1750%;
+  right: -1600%;
   bottom: 40px;
   background-color: transparent;
   border: transparent;
