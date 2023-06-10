@@ -6,7 +6,7 @@
     <!-- Tabs Titles -->
     <!-- Icon -->
     <div class="fadeIn first">
-      <h3 class="col-5 mx-auto"style="font-weight: bold;margin-top: 20px">SIGN IN</h3>
+      <h3 class="col-5 mx-auto">SIGN IN</h3>
       <!-- Login Form -->
       <form name="form" #auth="ngForm" (ngSubmit)="authenticat()">
 
@@ -24,10 +24,10 @@
           Password is a Required Field !
         </a>
 
-        <input href="client" type="submit" [disabled]="auth.invalid" class="fadeIn fourth" value="Log In" (click)="authenticat()" style="margin-left: 120px;margin-top: 20px;">
+        <input href="client" type="submit" [disabled]="auth.invalid" class="fadeIn fourth" value="Log In" (click)="authenticat()">
       </form>
 
-      <div class="alert alert-primary"style="margin-top: 100px;">{{msg}}</div>
+      <div class="alert alert-primary">{{msg}}</div>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">

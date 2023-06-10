@@ -11,6 +11,7 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+
 @NgModule({
   declarations: [
     AppComponent,

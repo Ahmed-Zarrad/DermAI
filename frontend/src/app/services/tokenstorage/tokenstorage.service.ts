@@ -34,5 +34,8 @@ export class TokenstorageService {
     window.localStorage.removeItem(AUTHORITIES_KEY);
     window.localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
   }
+  logOut() {
+    localStorage.clear();
+  }
 
 }

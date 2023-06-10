@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Message} from "../../models/message.model";
+import { Router } from '@angular/router';
+import {SkinResultsService} from "../../services/skin-results/skin-results.service";
+// @ts-ignore
+import {TokenstorageService} from "../../services/tokenstorage/tokenstorage.service";
 
 @Component({
   selector: 'app-chatbot',
@@ -11,7 +15,15 @@ export class ChatbotComponent implements OnInit {
   userInput: string = '';
   hideData: boolean =true;
   showData: boolean =false;
-  constructor(){}
+  dispatch: any;
+  err:any
+  result: any = null;
+  loading = false;
+
+  constructor(dispatch: any, private router: Router, private skinResultsService:SkinResultsService, private tokenstorageService:TokenstorageService){
+    this.dispatch = dispatch;
+    this.router = router;
+  }
   ngOnInit(): void {
 
   }
@@ -78,5 +90,89 @@ export class ChatbotComponent implements OnInit {
       this.displayBotMessage(response);
     }, 1000);
   }
+  async handleImageUpload(e: any) {
+    this.loading = true;
+    if (e.target.files.length > 0) {
+      const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
+      if (!allowedTypes.includes(e.target.files[0].type)) {
+        this.loading = false;
+
+        return this.dispatch({
+          type: 'UPDATE_NOTIFICATION',
+          payload: {
+            msg: 'Invalid image type (only png, jpg, jpeg are allowed).',
+            error: true
+          }
+        });
+      }
+
+      if (e.target.files[0].size > 3000000) {
+        this.loading = false;
+        return this.dispatch({
+          type: 'UPDATE_NOTIFICATION',
+          payload: {
+            msg: 'Image size must be less than 1MB',
+            error: true
+          }
+        });
+      }
+
+      try {
+        const data = await this.skinResultsService.uploadSkinImage(e.target.files[0]);
+
+        this.result = data;
+        this.loading = false;
+        this.dispatch(null);
+      } catch (err) {
+        this.loading = false;
+
+        if (this.err.response && this.err.response.status === 500) {
+          return this.dispatch({
+            type: 'UPDATE_NOTIFICATION',
+            payload: {
+              msg: 'Failed to connect to the server.',
+              error: true
+            }
+          });
+        }
+
+        if (this.err.response && this.err.response.data?.error?.token) {
+          this.tokenstorageService.logOut();
+
+
+          this.router.navigate(['/']);
+
+          return this.dispatch({
+            type: 'UPDATE_NOTIFICATION',
+            payload: {
+              msg: 'Token expired. You must login to continue',
+              error: false
+            }
+          });
+        }
+
+        if (this.err.response && this.err.response.data) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx (and the server sends error message)
+          return this.dispatch({
+            type: 'UPDATE_NOTIFICATION',
+            payload: {
+              msg: 'Invalid image.',
+              error: true
+            }
+          });
+        }
+
+        this.dispatch({
+          type: 'UPDATE_NOTIFICATION',
+          payload: {
+            msg: 'Failed to connect to the server.',
+            error: true
+          }
+        });
+
+      }
+    }
+  }
 }

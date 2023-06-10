@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { SkinResults} from "../../models/skin-results.model";
+// @ts-ignore
+import {TokenstorageService} from "../tokenstorage/tokenstorage.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,25 +14,34 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SkinResultsService {
-  private baseURL = 'http://localhost:3001/api/v1/skin-results/';
-  constructor(private httpClient: HttpClient) { }
+  private baseUrl = 'http://localhost:3001/api/v1/skin-results/';
+  constructor(private httpClient: HttpClient, private tokenstorage: TokenstorageService, private router: Router) { }
 
-  uploadSkinImage(skinimage: string): Observable<Object>{
-    return this.httpClient.post(`${this.baseURL}`, skinimage);
-  }
-  getPreviousResults(): Observable<SkinResults[]>{
-    return this.httpClient.get<SkinResults[]>(`${this.baseURL}`);
+  public async uploadSkinImage(imageObj: File): Promise<any> {
+    const formData = new FormData();
+    formData.append('skinImage', imageObj);
+
+    return this.httpClient.post(this.baseUrl, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${this.tokenstorage.getToken()}`,
+      },
+    });
   }
 
-  getResultById(id: number): Observable<SkinResults>{
-    return this.httpClient.get<SkinResults>(`${this.baseURL}/${id}`);
+  public async getPreviousResults(): Promise<any> {
+    return this.httpClient.get(this.baseUrl, {
+      headers: {
+        Authorization: `Bearer ${this.tokenstorage.getToken()}`,
+      },
+    });
   }
 
-  // updateResult(id: number, candidat: Candidat): Observable<Object>{
-  //   return this.httpClient.put(`${this.baseURL}/${id}`, candidat);
-  // }
-  //
-  // deleteResult(id: number): Observable<Object>{
-  //   return this.httpClient.delete(`${this.baseURL}/${id}`);
-  // }
+  public async getResultById(id: string): Promise<any> {
+    return this.httpClient.get(`${this.baseUrl}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${this.tokenstorage.getToken()}`,
+      },
+    });
+  }
 }
