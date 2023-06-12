@@ -13,20 +13,23 @@ import {TokenstorageService} from "../../services/tokenstorage/tokenstorage.serv
 export class ChatbotComponent implements OnInit {
   chatLog: Message[] = [];
   userInput: string = '';
-  hideData: boolean =true;
-  showData: boolean =false;
+  hideData: boolean = true;
+  showData: boolean = false;
   dispatch: any;
-  err:any
+  err: any
   result: any = null;
   loading = false;
+  msg = '';
 
-  constructor(dispatch: any, private router: Router, private skinResultsService:SkinResultsService, private tokenstorageService:TokenstorageService){
-    this.dispatch = dispatch;
+  constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
+
     this.router = router;
   }
+
   ngOnInit(): void {
 
   }
+
   sendMessage(): void {
 
     const message = this.userInput.trim();
@@ -41,7 +44,7 @@ export class ChatbotComponent implements OnInit {
   }
 
   displayUserMessage(message: string): void {
-    this.chatLog.push({ content: message, type: 'user',backgroundColor:'#343541' });
+    this.chatLog.push({content: message, type: 'user', backgroundColor: '#343541'});
   }
 
 
@@ -58,7 +61,7 @@ export class ChatbotComponent implements OnInit {
 
         // Check if it's the first word to be displayed
         if (this.chatLog.length === 0 || this.chatLog[this.chatLog.length - 1].type === 'user') {
-          this.chatLog.push({ content: word, type: 'bot',backgroundColor:'#444654' });
+          this.chatLog.push({content: word, type: 'bot', backgroundColor: '#444654'});
         } else {
           // Append the word to the previous bot message
           const lastMessageIndex = this.chatLog.length - 1;
@@ -71,7 +74,6 @@ export class ChatbotComponent implements OnInit {
     };
     showNextWord();
   }
-
 
 
   processUserMessage(message: string): void {
@@ -90,6 +92,7 @@ export class ChatbotComponent implements OnInit {
       this.displayBotMessage(response);
     }, 1000);
   }
+
   async handleImageUpload(e: any) {
     this.loading = true;
     if (e.target.files.length > 0) {
@@ -97,14 +100,7 @@ export class ChatbotComponent implements OnInit {
 
       if (!allowedTypes.includes(e.target.files[0].type)) {
         this.loading = false;
-
-        return this.dispatch({
-          type: 'UPDATE_NOTIFICATION',
-          payload: {
-            msg: 'Invalid image type (only png, jpg, jpeg are allowed).',
-            error: true
-          }
-        });
+        return this.msg = 'Invalid image type (only png, jpg, jpeg are allowed).'
       }
 
       if (e.target.files[0].size > 3000000) {
@@ -123,18 +119,13 @@ export class ChatbotComponent implements OnInit {
 
         this.result = data;
         this.loading = false;
-        this.dispatch(null);
+        this.msg='';
       } catch (err) {
         this.loading = false;
 
         if (this.err.response && this.err.response.status === 500) {
-          return this.dispatch({
-            type: 'UPDATE_NOTIFICATION',
-            payload: {
-              msg: 'Failed to connect to the server.',
-              error: true
-            }
-          });
+
+          return this.msg = 'Failed to connect to the server.';
         }
 
         if (this.err.response && this.err.response.data?.error?.token) {
@@ -143,36 +134,17 @@ export class ChatbotComponent implements OnInit {
 
           this.router.navigate(['/']);
 
-          return this.dispatch({
-            type: 'UPDATE_NOTIFICATION',
-            payload: {
-              msg: 'Token expired. You must login to continue',
-              error: false
-            }
-          });
+          return this.msg = 'Token expired. You must login to continue';
         }
+      }
 
-        if (this.err.response && this.err.response.data) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx (and the server sends error message)
-          return this.dispatch({
-            type: 'UPDATE_NOTIFICATION',
-            payload: {
-              msg: 'Invalid image.',
-              error: true
-            }
-          });
-        }
+      if (this.err.response && this.err.response.data) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx (and the server sends error message)
 
-        this.dispatch({
-          type: 'UPDATE_NOTIFICATION',
-          payload: {
-            msg: 'Failed to connect to the server.',
-            error: true
-          }
-        });
-
+        return this.msg = 'Invalid image.';
       }
     }
+    return this.msg = 'Failed to connect to the server.';
   }
 }

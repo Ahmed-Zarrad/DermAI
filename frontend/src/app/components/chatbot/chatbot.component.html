@@ -83,6 +83,7 @@
     -->
   <div class="right">
     <h1>DermAI</h1>
+    <p class="p" >{{msg}}</p>
     <div class="examples" *ngIf="hideData">
       <div class="example">
         <div class="example-img">
@@ -116,8 +117,20 @@
     </div>
     <div id="chat-log" >
       <p *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" style="color: white; text-align: center; padding: 5px ; background-color: black;">
-        {{ message.content }}
+<!--        {{ message.content }}  -->
       </p>
+      <p *ngIf="result"  style="color: white; text-align: center; padding: 5px ; background-color: black;">
+
+
+              [image]="result.image"
+              [skinType]="result.skinType"
+              [probability]="result.probability"
+              [symptoms]="result.symptoms"
+              [howCommon]="result.howCommon"
+              [treatments]="result.treatments"
+              [duration]="result.duration"
+        </p>
+
     </div>
     <div class="input-text">
       <textarea  placeholder="send a message." [(ngModel)]="userInput" name="userinput" ></textarea>
@@ -131,7 +144,6 @@
           </td>
         </tr>
       </table>
-
     <p class="p"><span>ChatGPT Mar 14 Version</span>. Free Research Preview. Our goal is to make AI systems more
       natural and safe
       to interact with. Your feedback will help us improve.</p>
@@ -139,5 +151,5 @@
 
   </div>
 </div>
-<input type="file" id="file-input" name="file-input" accept="image/*" class="hide" >
+<input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" class="hide" (change)="handleImageUpload($event)" [disabled]="loading" >
 
