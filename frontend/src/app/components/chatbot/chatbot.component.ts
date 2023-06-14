@@ -21,9 +21,11 @@ export class ChatbotComponent implements OnInit {
   loading = false;
   msg = '';
 
+
   constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
 
     this.router = router;
+
   }
 
   ngOnInit(): void {
@@ -93,58 +95,146 @@ export class ChatbotComponent implements OnInit {
     }, 1000);
   }
 
-  async handleImageUpload(e: any) {
+  // async handleImageUpload(event: any) {
+  //   this.loading = true;
+  //   if (event.target.files.length > 0) {
+  //     const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+  //
+  //     if (!allowedTypes.includes(event.target.files[0].type)) {
+  //       this.loading = false;
+  //       return this.msg = 'Invalid image type (only png, jpg, jpeg are allowed).'
+  //     }
+  //
+  //     if (event.target.files[0].size > 3000000) {
+  //       this.loading = false;
+  //       return this.msg= 'Image size must be less than 1MB';
+  //         }
+  //
+  //     try {
+  //       const data = await this.skinResultsService.uploadSkinImage(event.target.files[0]);
+  //
+  //       this.result = data;
+  //       this.loading = false;
+  //       this.msg = '';
+  //     } catch (err) {
+  //       this.loading = false;
+  //
+  //       if (this.err.response && this.err.response.status === 500) {
+  //
+  //         return this.msg = 'Failed to connect to the server.';
+  //       }
+  //
+  //       if (this.err.response && this.err.response.data?.error?.token) {
+  //         this.tokenstorageService.logOut();
+  //
+  //
+  //         //this.router.navigate(['/']);
+  //
+  //         return this.msg = 'Token expired. You must login to continue';
+  //       }
+  //
+  //
+  //       if (this.err.response && this.err.response.data) {
+  //         // The request was made and the server responded with a status code
+  //         // that falls out of the range of 2xx (and the server sends error message)
+  //
+  //         return this.msg = 'Invalid image.';
+  //       }
+  //
+  //       return this.msg = 'Failed to connect to the server.';
+  //     }
+  //     return this.msg = 'success';
+  //   }
+  //   return this.msg = 'success2';
+  // }
+  // handleImageUpload(event: any): void {
+  //   this.loading = true;
+  //   const file = event.target.files[0];
+  //
+  //   if (file) {
+  //     const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+  //
+  //     if (!allowedTypes.includes(file.type)) {
+  //       this.setMsg('Invalid image type (only png, jpg, jpeg are allowed).');
+  //       this.loading = false;
+  //       return;
+  //     }
+  //
+  //     if (file.size > 3000000) {
+  //       this.setMsg('Invalid image type (only png, jpg, jpeg are allowed).');
+  //       this.loading = false;
+  //       return;
+  //     }
+  //
+  //     this.skinResultsService.uploadSkinImage(file).then(
+  //       data => {
+  //         console.log(data);
+  //         this.result = data;
+  //         this.loading = false;
+  //         this.setMsg('');
+  //       },
+  //       error => {
+  //         console.log(error);
+  //         this.loading = false;
+  //
+  //         if (error.response && error.response.status === 500) {
+  //           this.setMsg('Invalid image type (only png, jpg, jpeg are allowed).');
+  //           return;
+  //         }
+  //
+  //         if (error.response && error.response.data?.error?.token) {
+  //           this.tokenstorageService.logOut();
+  //           this.router.navigate(['/']);
+  //           this.setMsg('token');
+  //           return;
+  //         }
+  //
+  //         if (error.response && error.response.data) {
+  //           this.setMsg('Invalid image type (only png, jpg, jpeg are allowed).');
+  //           return;
+  //         }
+  //
+  //         this.setMsg('Invalid image type (only png, jpg, jpeg are allowed).');
+  //       });
+  //   }
+  // }
+
+  setMsg(message: string): void {
+    this.msg = message;
+  }
+  // handleImageUpload(event: any){
+  //   this.loading = true;
+  //   const skinImage:File = event.target.files[0];
+  //   this.skinResultsService.uploadSkinImage(skinImage).subscribe(
+  //         data => {
+  //           console.log(data);
+  //           this.result = data;
+  //           this.loading = false;
+  //           this.setMsg('success');
+  //         },
+  //         error => {
+  //           console.log(error);
+  //           this.loading = false;
+  //           this.setMsg('erooorrr');
+  //         });
+  // }
+  handleImageUpload(event: any) {
     this.loading = true;
-    if (e.target.files.length > 0) {
-      const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-
-      if (!allowedTypes.includes(e.target.files[0].type)) {
-        this.loading = false;
-        return this.msg = 'Invalid image type (only png, jpg, jpeg are allowed).'
-      }
-
-      if (e.target.files[0].size > 3000000) {
-        this.loading = false;
-        return this.dispatch({
-          type: 'UPDATE_NOTIFICATION',
-          payload: {
-            msg: 'Image size must be less than 1MB',
-            error: true
-          }
-        });
-      }
-
-      try {
-        const data = await this.skinResultsService.uploadSkinImage(e.target.files[0]);
-
+    const skinImage: File = event.target.files[0];
+    this.skinResultsService.uploadSkinImage(skinImage).subscribe(
+      data => {
+        console.log(data);
         this.result = data;
         this.loading = false;
-        this.msg='';
-      } catch (err) {
+        this.setMsg('success');
+        // Set success message or perform any other actions
+      },
+      error => {
+        console.log(error);
         this.loading = false;
-
-        if (this.err.response && this.err.response.status === 500) {
-
-          return this.msg = 'Failed to connect to the server.';
-        }
-
-        if (this.err.response && this.err.response.data?.error?.token) {
-          this.tokenstorageService.logOut();
-
-
-          this.router.navigate(['/']);
-
-          return this.msg = 'Token expired. You must login to continue';
-        }
+        this.setMsg('erooorrr');
+        // Set error message or perform any other error handling
       }
-
-      if (this.err.response && this.err.response.data) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx (and the server sends error message)
-
-        return this.msg = 'Invalid image.';
-      }
-    }
-    return this.msg = 'Failed to connect to the server.';
+    );
   }
 }

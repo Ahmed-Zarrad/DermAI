@@ -83,54 +83,242 @@
     -->
   <div class="right">
     <h1>DermAI</h1>
-    <p class="p" >{{msg}}</p>
-    <div class="examples" *ngIf="hideData">
-      <div class="example">
-        <div class="example-img">
-          <img src="assets/Icons/icons8-sun-100.png" alt="" style="height: 28%;width: 28%;">
-          <p>Examples</p>
-        </div>
-        <button>"Explain quantum computing in simple terms" →</button>
-        <button>"Got any creative ideas for a 10 year old's birthday?" →</button>
-        <button>"How do I make an HTTP request in Javascript?" →</button>
-      </div>
 
-      <div class="example">
-        <div class="example-img">
-          <img src="assets/Icons/icons8-flash-on-100.png" alt="" style="height: 28%;width: 28%;">
-          <p>Capabilities</p>
-        </div>
-        <button>Remembers what user said earlier in the conversation</button>
-        <button>Allows user to provide follow-up corrections</button>
-        <button>Trained to decline inappropriate requests</button>
-      </div>
+<!--    <div class="examples" *ngIf="hideData">-->
+<!--      <div class="example">-->
+<!--        <div class="example-img">-->
+<!--          <img src="assets/Icons/icons8-sun-100.png" alt="" style="height: 28%;width: 28%;">-->
+<!--          <p>Examples</p>-->
+<!--        </div>-->
+<!--        <button>"Explain quantum computing in simple terms" →</button>-->
+<!--        <button>"Got any creative ideas for a 10 year old's birthday?" →</button>-->
+<!--        <button>"How do I make an HTTP request in Javascript?" →</button>-->
+<!--      </div>-->
 
-      <div class="example down">
-        <div class="example-img">
-          <img src="assets/Icons/icons8-medium-risk-100.png" alt="" style="height: 28%;width: 28%;">
-          <p>Limitations</p>
-        </div>
-        <button>May occasionally generate incorrect information</button>
-        <button>May occasionally produce harmful instructions or biased content</button>
-        <button>Limited knowledge of world and events after 2021</button>
-      </div>
-    </div>
+<!--      <div class="example">-->
+<!--        <div class="example-img">-->
+<!--          <img src="assets/Icons/icons8-flash-on-100.png" alt="" style="height: 28%;width: 28%;">-->
+<!--          <p>Capabilities</p>-->
+<!--        </div>-->
+<!--        <button>Remembers what user said earlier in the conversation</button>-->
+<!--        <button>Allows user to provide follow-up corrections</button>-->
+<!--        <button>Trained to decline inappropriate requests</button>-->
+<!--      </div>-->
+
+<!--      <div class="example down">-->
+<!--        <div class="example-img">-->
+<!--          <img src="assets/Icons/icons8-medium-risk-100.png" alt="" style="height: 28%;width: 28%;">-->
+<!--          <p>Limitations</p>-->
+<!--        </div>-->
+<!--        <button>May occasionally generate incorrect information</button>-->
+<!--        <button>May occasionally produce harmful instructions or biased content</button>-->
+<!--        <button>Limited knowledge of world and events after 2021</button>-->
+<!--      </div>-->
+<!--    </div>-->
     <div id="chat-log" >
-      <p *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" style="color: white; text-align: center; padding: 5px ; background-color: black;">
-<!--        {{ message.content }}  -->
-      </p>
-      <p *ngIf="result"  style="color: white; text-align: center; padding: 5px ; background-color: black;">
+<!--      <p *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" style="color: white; text-align: center; padding: 5px ; background-color: black;">-->
+<!--        {{ message.content }}-->
+<!--      </p>-->
+<!--      <p *ngIf="result"  style="color: white; text-align: center; padding: 5px ; background-color: black;">-->
 
 
-              [image]="result.image"
-              [skinType]="result.skinType"
-              [probability]="result.probability"
-              [symptoms]="result.symptoms"
-              [howCommon]="result.howCommon"
-              [treatments]="result.treatments"
-              [duration]="result.duration"
-        </p>
+<!--              [image]="result.image"-->
+<!--              [skinType]="result.skinType"-->
+<!--              [probability]="result.probability"-->
+<!--              [symptoms]="result.symptoms"-->
+<!--              [howCommon]="result.howCommon"-->
+<!--              [treatments]="result.treatments"-->
+<!--              [duration]="result.duration"-->
+<!--        </p>-->
 
+
+      <div>
+        <div
+
+          [ngClass]="{
+      'center-align': result && result.skinType === 'Healthy skin',
+      'start-align': result && result.skinType !== 'Healthy skin'
+    }"
+
+        >
+          <div >
+            <ng-container *ngIf="result && result.skinType !== 'Healthy skin'">
+              <div>
+                <div
+                  [ngStyle]="{
+              padding: '2px',
+              boxShadow: '3px',
+              borderRadius: '1px',
+              marginBottom: '5px'
+            }"
+                  align="center"
+                >
+                  <p
+
+                    [ngStyle]="{
+                paddingY: '1px',
+                fontWeight: '500',
+                textAlign: 'center'
+              }"
+                  >
+                    Uploaded image
+                  </p>
+
+                  <img [src]="result.image" alt="Uploaded" width="300px" />
+                </div>
+              </div>
+            </ng-container>
+
+            <div [ngStyle]="{ marginX: '10px' }" >
+              <p class="p" >{{msg}}</p>
+              <p><img [src]="result.image" alt="Uploaded" width="300px" /></p>
+              <p>{{result.skinType}}</p>
+            </div>
+
+            <ng-container *ngIf="!loading">
+              <div>
+                <p v align="center" [ngStyle]="{ marginBottom: '2px' }">
+                  {{ result ? 'Scan another photo?' : 'Add a photo to scan' }}
+                </p>
+              </div>
+            </ng-container>
+
+            <div >
+              <div class="file is-centered is-boxed is-medium">
+                <label class="file-label">
+                  <input
+                    class="file-input"
+                    type="file"
+                    accept=".png, .jpg, .jpeg"
+                    name="resume"
+                    (change)="handleImageUpload($event)"
+                    [disabled]="loading"
+                  />
+
+                  <ng-container *ngIf="loading">
+                    <div class="file-cta">
+                      <div
+                        [ngStyle]="{ margin: result ? '3px' : '5px' }"
+                        size="35"
+
+                      ></div>
+                      <p >Processing...</p>
+                    </div>
+                  </ng-container>
+
+                  <ng-container *ngIf="!loading">
+                    <div class="file-cta">
+                <span class="file-icon icon-text">
+                  <i class="fas fa-upload"></i>
+                </span>
+                      <span class="file-label">Upload photo</span>
+                    </div>
+                  </ng-container>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <ng-container *ngIf="result">
+            <div item xs="12" sm="12" md="8">
+              <div class="to-replace">gggg
+<!--                [image]="result.image"-->
+<!--                [skinType]="result.skinType"-->
+<!--                [probability]="result.probability"-->
+<!--                [symptoms]="result.symptoms"-->
+<!--                [howCommon]="result.howCommon"-->
+<!--                [treatments]="result.treatments"-->
+<!--                [duration]="result.duration">-->
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!--achghal che9a-->
     </div>
     <div class="input-text">
       <textarea  placeholder="send a message." [(ngModel)]="userInput" name="userinput" ></textarea>
