@@ -20,6 +20,7 @@ export class ChatbotComponent implements OnInit {
   result: any = null;
   loading = false;
   msg = '';
+  test: any;
 
 
   constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
@@ -48,34 +49,37 @@ export class ChatbotComponent implements OnInit {
   displayUserMessage(message: string): void {
     this.chatLog.push({content: message, type: 'user', backgroundColor: '#343541'});
   }
-
-
-  // displayBotMessage(message: string): void {
-  //   this.chatLog.push({ content: message, type: 'bot' });
-  // }
-  displayBotMessage(message: string): void {
-    const words = message.split(' ');
-    let currentWordIndex = 0;
-
-    const showNextWord = () => {
-      if (currentWordIndex < words.length) {
-        const word = words[currentWordIndex];
-
-        // Check if it's the first word to be displayed
-        if (this.chatLog.length === 0 || this.chatLog[this.chatLog.length - 1].type === 'user') {
-          this.chatLog.push({content: word, type: 'bot', backgroundColor: '#444654'});
-        } else {
-          // Append the word to the previous bot message
-          const lastMessageIndex = this.chatLog.length - 1;
-          this.chatLog[lastMessageIndex].content += ' ' + word;
-        }
-
-        currentWordIndex++;
-        setTimeout(showNextWord, 300); // Adjust the delay (in milliseconds) between words here
-      }
-    };
-    showNextWord();
+  displayImageMessage(message: string): void {
+    const wrappedMessage = '<span>' + message + '</span>';
+    this.chatLog.push({content: wrappedMessage, type: 'user', backgroundColor: '#343541'});
   }
+
+  displayBotMessage(message: string): void {
+    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#444654' });
+  }
+  // displayBotMessage(message: string): void {
+  //   const words = message.split(' ');
+  //   let currentWordIndex = 0;
+  //
+  //   const showNextWord = () => {
+  //     if (currentWordIndex < words.length) {
+  //       const word = words[currentWordIndex];
+  //
+  //       // Check if it's the first word to be displayed
+  //       if (this.chatLog.length === 0 || this.chatLog[this.chatLog.length - 1].type === 'user') {
+  //         this.chatLog.push({content: word, type: 'bot', backgroundColor: '#444654'});
+  //       } else {
+  //         // Append the word to the previous bot message
+  //         const lastMessageIndex = this.chatLog.length - 1;
+  //         this.chatLog[lastMessageIndex].content += ' ' + word;
+  //       }
+  //
+  //       currentWordIndex++;
+  //       setTimeout(showNextWord, 300); // Adjust the delay (in milliseconds) between words here
+  //     }
+  //   };
+  //   showNextWord();
+  // }
 
 
   processUserMessage(message: string): void {
@@ -85,7 +89,7 @@ export class ChatbotComponent implements OnInit {
       response = 'Bonjour, comment puis-je vous aider aujourd\'hui?';
     } else if (message.toLowerCase() === 'j\'ai une photo de la condition de la peau') {
       response = 'Bien sûr, veuillez envoyer une photo de votre état de peau.';
-    } else {
+     }else {
       // Default response for unrecognized inputs
       response = 'Désolé, je ne peux pas comprendre votre demande.';
     }
@@ -95,9 +99,6 @@ export class ChatbotComponent implements OnInit {
     }, 1000);
   }
 
-  setMsg(message: string): void {
-    this.msg = message;
-  }
   handleImageUpload(event: any):void {
     this.loading = true;
     if (event.target.files.length > 0) {
@@ -105,12 +106,12 @@ export class ChatbotComponent implements OnInit {
 
       if (!allowedTypes.includes(event.target.files[0].type)) {
         this.loading = false;
-        this.msg = 'Invalid image type (only png, jpg, jpeg are allowed).'
+        this.displayBotMessage(this.msg= 'Invalid image type (only png, jpg, jpeg are allowed).');
       }
 
-      if (event.target.files[0].size > 3000000) {
+      else if (event.target.files[0].size > 3000000) {
         this.loading = false;
-        this.msg = 'Image size must be less than 1MB';
+        this.displayBotMessage(this.msg = 'Image size must be less than 1MB');
       }
 
       const skinImage: File = event.target.files[0];
@@ -119,39 +120,28 @@ export class ChatbotComponent implements OnInit {
           console.log(data);
           this.result = data;
           this.loading = false;
-          this.setMsg('success');
+          this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
+          this.displayBotMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
+          this.displayImageMessage(this.msg='<img src="http://res.cloudinary.com/dhttl3pbz/image/upload/v1686904531/skin-images/yrn5btdivmztqjl7nwex.jpg" alt="Uploaded" width="300px" />');
         },
         error => {
           console.log(error);
+          this.err= error;
           this.loading = false;
-          this.setMsg('erooorrr');
-          if (this.err.response && this.err.response.status === 500) {
-
-        return this.msg = 'Failed to connect to the server.';
-      }
-
-      if (this.err.response && this.err.response.data?.error?.token) {
-        this.tokenstorageService.logOut();
-
-
-        //this.router.navigate(['/']);
-
-        return this.msg = 'Token expired. You must login to continue';
-      }
-
-
-      if (this.err.response && this.err.response.data) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx (and the server sends error message)
-
-        return this.msg = 'Invalid image.';
-      }
-
-      return this.msg = 'Failed to connect to the server.';
-
-
+          if (this.err.status===401) {
+            this.displayBotMessage(this.msg = 'Token expired. You must login to continue');
+            setTimeout(() => {
+            this.tokenstorageService.logOut();}, 4000);
           }
-      );
+          else if (this.err.status === 500) {
+
+            this.displayBotMessage(this.msg = 'Failed to connect to the server.');
+      }
+
+      else {
+            this.displayBotMessage(this.msg = 'Invalid image.');
+      }
+    });
     }
   }
 }

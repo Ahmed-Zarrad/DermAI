@@ -36,7 +36,7 @@ export class TokenstorageService {
   }
   logOut() {
     localStorage.clear();
-    this.router.navigate(["/home"])
+    this.router.navigate(["/login"])
 
   }
 
