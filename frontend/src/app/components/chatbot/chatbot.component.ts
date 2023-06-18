@@ -14,7 +14,7 @@ export class ChatbotComponent implements OnInit {
   chatLog: Message[] = [];
   userInput: string = '';
   hideData: boolean = true;
-  showData: boolean = false;
+  hideWindow: boolean = true;
   dispatch: any;
   err: any
   result: any = null;
@@ -33,7 +33,9 @@ export class ChatbotComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+  hidewindow(): void {
+    this.hideWindow = !this.hideWindow;
+  }
   sendMessage(): void {
 
     const message = this.userInput.trim();

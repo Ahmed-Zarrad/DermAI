@@ -6,7 +6,7 @@
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="dark-theme">
 
 <div class="home">
-  <div class="left">
+  <div class="left" *ngIf="hideWindow">
     <div class="new-chat">
       <img src="https://cdn-icons-png.flaticon.com/128/9312/9312231.png" alt="">
       <p>New chat</p>
@@ -80,7 +80,7 @@
       </div>
     </div>
   </div>
-  <div class="window border">
+  <div class="window border" type="submit" (click)="hidewindow()">
     <i class="fa-solid fa-bars"></i>
   </div>
   <!-- right
@@ -88,9 +88,10 @@
 
     -->
   <div class="right">
+    <div *ngIf="hideData">
     <h1>DermAI</h1>
 
-    <div class="examples" *ngIf="hideData">
+    <div class="examples">
       <div class="example">
         <div class="example-img">
           <img src="assets/Icons/icons8-sun-100.png" alt="" style="height: 28%;width: 28%;">
@@ -121,7 +122,8 @@
         <button>Limited knowledge of world and events after 2021</button>
       </div>
     </div>
-    <div id="chat-log" >
+    </div>
+    <div class="chat-log" id="chat-log" >
       <p *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" style="color: white; text-align: center; padding: 5px ; background-color: black;"[innerHTML]="message.content">
 
       </p>
