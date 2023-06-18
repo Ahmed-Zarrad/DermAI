@@ -21,6 +21,7 @@ export class ChatbotComponent implements OnInit {
   loading = false;
   msg = '';
   test: any;
+  initialRowHeight = 20;
 
 
   constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
@@ -143,5 +144,10 @@ export class ChatbotComponent implements OnInit {
       }
     });
     }
+  }
+  autoResize(event: Event): void {
+    const element = event.target as HTMLTextAreaElement;
+    element.style.height = `${this.initialRowHeight}px`;
+    element.style.height = `${element.scrollHeight}px`;
   }
 }

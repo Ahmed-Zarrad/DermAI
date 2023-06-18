@@ -14,7 +14,6 @@ body{
   display: flex;
 
 }
-
 .left {
   width: 260px;
   background-color: #202123;
@@ -37,12 +36,33 @@ body{
   align-items: center;
   cursor: pointer;
 }
+list-container-add {
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  color: #FFFFFF;
 
+}
+
+.border {
+  border: 1px solid hsla(0,0%,100%,.2);
+  padding: 12px;
+  border-radius: 5px;
+}
+
+.window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 20px;
+}
 .new-chat img {
   filter: invert(1);
   width: 15px;
   margin-left: 1px;
 }
+
 
 .chats {
   display: flex;
@@ -198,34 +218,47 @@ body{
 .input-text {
   display: flex;
   bottom: 0;
-  position: fixed;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 80%;
   margin-left:2% ;
   margin-bottom: 10px;
+  position: fixed;
 }
 
 .input-text textarea {
-  width: 65%;
+  width: 800px;
   height: auto;
   min-height: 24px;
   max-height: 200px;
-  padding: 12px 16px;
+  padding-left:12px;
+  padding-top: 16px;
+  padding-right: 100px;
   border: 1px solid #303139;
-  border-radius: 0.375rem;
+  border-radius: 6px;
   box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
   background-color: #40414f;
   cursor: text;
   color: white;
-  /*color: #8e8ea0;*/
-  overflow: hidden;
-  resize:none ;
+  outline: none;
+  resize: none;
+  overflow: auto;
   font-size: 16px;
 }
+textarea::-webkit-scrollbar{
+  width: 6px;
+}
+textarea::-webkit-scrollbar-track{
+  background-color: transparent;
+  border-radius: 100px;
+}
+textarea::-webkit-scrollbar-thumb{
+  background-color: lightgray;
+  border-radius: 100px;
+}
 
-.input-text input:focus {
+.input-text textarea:focus {
   outline: none;
 }
 
@@ -249,7 +282,7 @@ span {
 
 .input-text button {
   position: relative;
-  right: -1600%;
+  right: -1800%;
   bottom: 40px;
   background-color: transparent;
   border: transparent;
