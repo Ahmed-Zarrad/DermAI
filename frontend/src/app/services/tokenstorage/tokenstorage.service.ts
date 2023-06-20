@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 const TOKEN_KEY = 'AuthToken';
@@ -9,7 +9,7 @@ const AUTHORITIES_KEY = 'AuthAuthorities';
   providedIn: 'root'
 })
 export class TokenstorageService {
-
+  hideWindow: EventEmitter<any> = new EventEmitter<any>();
   constructor(private router: Router) {}
 
   public saveToken(token: string) {
@@ -39,5 +39,10 @@ export class TokenstorageService {
     this.router.navigate(["/login"])
 
   }
-
+  setHideWindow(value:any) {
+    this.hideWindow.emit(value);
+  }
+  getHideWindow(): any{
+    return this.hideWindow;
+  }
 }

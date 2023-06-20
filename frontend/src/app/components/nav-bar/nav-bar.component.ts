@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+// @ts-ignore
+import {TokenstorageService} from "../../services/tokenstorage/tokenstorage.service";
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -8,5 +11,15 @@ import { Router } from '@angular/router';
 
 export class NavBarComponent {
   public router: Router;
-  constructor(router: Router) {this.router = router;}
+  showWindow: boolean = true;
+  hideWindow: boolean = true;
+  constructor(router: Router,private tokenStorageService:TokenstorageService, private route: ActivatedRoute) {
+    this.router = router;
+  }
+  ngOnInit(): void {
+  }
+  public hidewindow(){
+    this.hideWindow=!this.hideWindow;
+    this.tokenStorageService.setHideWindow(this.hideWindow);
+  }
 }

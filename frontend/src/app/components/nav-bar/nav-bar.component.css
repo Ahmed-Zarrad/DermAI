@@ -11781,3 +11781,24 @@ body.light-theme .contact-section .footer .links a {
 body.dark-theme {
   background: #212529;
 }
+.border {
+  border: 1px solid hsla(0,0%,100%,.2);
+  padding: 12px;
+  border-radius: 5px;
+}
+.window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 44px;
+  background-color: #202123;
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  margin-left: 8px
+}
+.window i{
+  color: white;
+
+}

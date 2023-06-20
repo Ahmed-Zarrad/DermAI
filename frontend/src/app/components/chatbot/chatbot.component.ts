@@ -14,7 +14,6 @@ export class ChatbotComponent implements OnInit {
   chatLog: Message[] = [];
   userInput: string = '';
   hideData: boolean = true;
-  hideWindow: boolean = true;
   dispatch: any;
   err: any
   result: any = null;
@@ -22,8 +21,7 @@ export class ChatbotComponent implements OnInit {
   msg = '';
   test: any;
   initialRowHeight = 20;
-
-
+  hideWindow: boolean =true
   constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
 
     this.router = router;
@@ -31,11 +29,11 @@ export class ChatbotComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.tokenstorageService.hideWindow.subscribe((value: any)=>{
+      this.hideWindow = value;
+    });
+  }
 
-  }
-  hidewindow(): void {
-    this.hideWindow = !this.hideWindow;
-  }
   sendMessage(): void {
 
     const message = this.userInput.trim();

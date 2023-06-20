@@ -4,7 +4,7 @@
   <ul class="nav-navbar container">
     <li class="nav-item"><a routerLink="home" class="nav-link" >Home</a></li>
     <li class="nav-item"><a routerLink="login" class="nav-link">Log in</a></li>
-    <li class="nav-item"><a routerLink="chatbot" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" style="height: 45%;width: 45%"></a></li>
+    <li class="nav-item"><a routerLink="chatbot" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
     <li class="nav-item"><a routerLink="signup" class="nav-link">Sign up</a></li>
     <li class="nav-item search">
       <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i> Search</a>
@@ -16,12 +16,34 @@
     </li>
   </ul>
 </nav><!-- end of page navbar -->
-<nav *ngIf="router.url === '/chatbot'" class="page-navbar" data-spy="affix" data-offset-top="10" style="background-color: #202123;height:8%;margin-left: 260px" >
-  <ul class="nav-navbar container" style="margin-left: 120px">
+<nav *ngIf="router.url === '/chatbot'&&hideWindow" class="page-navbar" data-spy="affix" data-offset-top="10" style="background-color: #202123;margin-left: 200px;height: 62px" >
+  <ul class="nav-navbar container" style="margin-left: 9%">
+    <li class="window border" type="submit" (click)="hidewindow()">
+      <i class="fa-solid fa-bars"></i>
+    </li>
     <li class="nav-item"><a routerLink="home" class="nav-link" >Home</a></li>
     <li class="nav-item"><a routerLink="login" class="nav-link">Log in</a></li>
-    <li class="nav-item"><a routerLink="chatbot" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" style="height: 45%;width: 45%"></a></li>
+    <li class="nav-item"><a routerLink="chatbot" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
     <li class="nav-item"><a routerLink="signup" class="nav-link">Sign up</a></li>
+    <li class="nav-item search">
+      <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i> Search</a>
+      <div class="search-wrapper">
+        <form>
+          <input type="search" class="form-control" name="" placeholder="hit enter to search">
+        </form>
+      </div>
+    </li>
+  </ul>
+</nav><!-- end of page navbar -->
+<nav *ngIf="router.url === '/chatbot'&&!hideWindow" class="page-navbar" data-spy="affix" data-offset-top="10" style="background-color: #202123;height:62px;" >
+  <ul class="nav-navbar container" >
+    <li class="window border" type="submit" (click)="hidewindow()">
+      <i class="fa-solid fa-bars"></i>
+    </li>
+    <li class="nav-item"><a routerLink="home" class="nav-link" >Home</a></li>
+    <li class="nav-item"><a routerLink="login" class="nav-link">Log in</a></li>
+    <li class="nav-item"><a routerLink="chatbot" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
+    <li class="nav-item"><a type="submit" (click)="hidewindow()" class="nav-link">Sign up</a></li>
     <li class="nav-item search">
       <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i> Search</a>
       <div class="search-wrapper">
