@@ -4,7 +4,6 @@
       crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="dark-theme">
-
 <div class="home">
   <div class="left" *ngIf="hideWindow">
     <div class="new-chat">
@@ -62,17 +61,8 @@
         <p>Clear conversations</p>
       </div>
       <div class="feature">
-        <img class="user" src="https://cdn-icons-png.flaticon.com/128/2815/2815428.png" alt="">
-        <p>Upgrade to Plus</p>
-        <div class="new">NEW</div>
-      </div>
-      <div class="feature">
         <img src="https://cdn-icons-png.flaticon.com/128/9580/9580357.png" alt="">
         <p>Dark mode</p>
-      </div>
-      <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/128/3405/3405255.png" alt="">
-        <p>Updates & FAQ</p>
       </div>
       <div class="feature">
         <img src="https://cdn-icons-png.flaticon.com/128/9297/9297112.png" alt="">
@@ -227,13 +217,13 @@
 <!--          <ng-container *ngIf="result">-->
 <!--            <div item xs="12" sm="12" md="8">-->
 <!--              <div class="to-replace">gggg-->
-<!--&lt;!&ndash;                [image]="result.image"&ndash;&gt;-->
-<!--&lt;!&ndash;                [skinType]="result.skinType"&ndash;&gt;-->
-<!--&lt;!&ndash;                [probability]="result.probability"&ndash;&gt;-->
-<!--&lt;!&ndash;                [symptoms]="result.symptoms"&ndash;&gt;-->
-<!--&lt;!&ndash;                [howCommon]="result.howCommon"&ndash;&gt;-->
-<!--&lt;!&ndash;                [treatments]="result.treatments"&ndash;&gt;-->
-<!--&lt;!&ndash;                [duration]="result.duration">&ndash;&gt;-->
+<!--                [image]="result.image"-->
+<!--                [skinType]="result.skinType"-->
+<!--                [probability]="result.probability"-->
+<!--                [symptoms]="result.symptoms"-->
+<!--                [howCommon]="result.howCommon"-->
+<!--                [treatments]="result.treatments"-->
+<!--                [duration]="result.duration">-->
 <!--              </div>-->
 <!--            </div>-->
 <!--          </ng-container>-->
@@ -326,14 +316,17 @@
       <!--achghal che9a-->
     </div>
     <div class="input-text">
+      <div *ngIf="loading">
+        processing ...
+      </div>
       <textarea  placeholder="send a message." [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" ></textarea>
       <table >
         <tr>
           <td>
-            <button  onclick="document.getElementById('file-input').click()"><img src="assets/Icons/icons8-add-camera-100.png" alt=""> </button>
+            <button  onclick="document.getElementById('file-input').click()" [disabled]="loading"><img src="assets/Icons/icons8-add-camera-100.png" alt=""> </button>
           </td>
           <td>
-            <button style="margin-left: 0.5px" type="submit" (click)="sendMessage()" ><img src="assets/Icons/icons8-send-100.png" alt=""> </button >
+            <button style="margin-left: 0.5px" type="submit" (click)="sendMessage()" [disabled]="loading" ><img src="assets/Icons/icons8-send-100.png" alt=""> </button >
           </td>
         </tr>
       </table>
