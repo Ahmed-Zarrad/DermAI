@@ -121,9 +121,15 @@ export class ChatbotComponent implements OnInit {
           console.log(data);
           this.result = data;
           this.loading = false;
+          this.hideData = false;
           this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-          this.displayBotMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-          this.displayImageMessage(this.msg='<img src="http://res.cloudinary.com/dhttl3pbz/image/upload/v1686904531/skin-images/yrn5btdivmztqjl7nwex.jpg" alt="Uploaded" width="300px" />');
+          this.displayBotMessage(this.msg='<table><tr>'+'<td>'+'<img src="'+this.result.image+'" alt="Uploaded" width="300px" />'+'</td>'+'<td>'+
+            '                <ul style="text-align: left">'+this.result.skinType+'</ul>' +
+            '                <ul style="text-align: left">'+this.result.probability+'</ul>' +
+            '                <ul style="text-align: left">'+this.result.symptoms+'</ul>' +
+            '                <ul style="text-align: left">'+this.result.howCommon+'</ul>' +
+            '                <ul style="text-align: left">'+this.result.treatments+'</ul>' +
+            '                <ul style="text-align: left">'+this.result.duration+'</ul>'+'</td>'+'</tr>'+'</table>');
         },
         error => {
           console.log(error);

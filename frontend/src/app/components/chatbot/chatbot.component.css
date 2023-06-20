@@ -208,7 +208,7 @@ body{
 }
 
 .input-text textarea {
-  width: 800px;
+  width: 760px;
   height: auto;
   min-height: 24px;
   max-height: 200px;
@@ -261,11 +261,24 @@ span {
 }
 .chat-log{
   margin-top: 100px;
+  height: 68%;
+  overflow-y: scroll;
+}
+.chat-log::-webkit-scrollbar{
+  width: 10px;
+}
+.chat-log::-webkit-scrollbar-track{
+  background-color: transparent;
+  border-radius: 100px;
+}
+.chat-log::-webkit-scrollbar-thumb{
+  background-color: lightgray;
+  border-radius: 100px;
 }
 
 .input-text button {
   position: relative;
-  right: -1800%;
+  right: -1750%;
   bottom: 40px;
   background-color: transparent;
   border: transparent;
