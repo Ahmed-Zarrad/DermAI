@@ -123,13 +123,47 @@ export class ChatbotComponent implements OnInit {
           this.loading = false;
           this.hideData = false;
           this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-          this.displayBotMessage(this.msg='<table><tr>'+'<td>'+'<img src="'+this.result.image+'" alt="Uploaded" width="300px" />'+'</td>'+'<td>'+
-            '                <ul style="text-align: left">'+this.result.skinType+'</ul>' +
-            '                <ul style="text-align: left">'+this.result.probability+'</ul>' +
-            '                <ul style="text-align: left">'+this.result.symptoms+'</ul>' +
-            '                <ul style="text-align: left">'+this.result.howCommon+'</ul>' +
-            '                <ul style="text-align: left">'+this.result.treatments+'</ul>' +
-            '                <ul style="text-align: left">'+this.result.duration+'</ul>'+'</td>'+'</tr>'+'</table>');
+          this.displayBotMessage(this.msg='<table><tr>'+'<td>'+'<img src="'+this.result.image+'" alt="Uploaded" width="300px" />'+'</td>'+'<td>'+'<div style="    box-sizing: border-box;' +
+            '    margin: 0;' +
+            '    -webkit-flex-direction: row;' +
+            '    -ms-flex-direction: row;' +
+            '    flex-direction: row;">'+
+            '<div style="    margin:0;font-family: "Roboto","Helvetica","Arial",sans-serif;font-weight: 400;font-size: 1.5rem;line-height: 1.334;letter-spacing: 0em;padding-left: 16px;padding-right: 16px;padding-top: 16px;font-weight: 500; text-align: center;">'+'Predictions'+'</div>'+
+            '<div style="padding-bottom: 24px;">'+'<ul style="    list-style: none;' +
+            '    margin: 0;' +
+            '    padding: 0;' +
+            '    position: relative;' +
+            '    padding-top: 8px;' +
+            '    padding-bottom: 8px;' +
+            '    width: 100%;' +
+            '    background-color: #fff;">'+'<li style="    display: -webkit-box; ' +
+            '    display: -webkit-flex; ' +
+            '    display: -ms-flexbox; ' +
+            '    display: flex; ' +
+            '    -webkit-box-pack: start; ' +
+            '    -ms-flex-pack: start; ' +
+            '    -webkit-justify-content: flex-start; ' +
+            '    justify-content: flex-start; ' +
+            '    -webkit-align-items: center; ' +
+            '    -webkit-box-align: center; ' +
+            '    -ms-flex-align: center; ' +
+            '    align-items: center; ' +
+            '    position: relative; ' +
+            '    -webkit-text-decoration: none; ' +
+            '    text-decoration: none; ' +
+            '    width: 100%; ' +
+            '    box-sizing: border-box; ' +
+            '    text-align: left; ' +
+            '    padding-top: 8px; ' +
+            '    padding-bottom: 8px; ' +
+            '    padding-left: 16px; ' +
+            '    padding-right: 16px;">'+
+            '                <div style="text-align: left">'+this.result.skinType+'</div>' +'</li>'+
+            '                <div style="text-align: left">'+this.result.probability+'</div>' +
+            '                <div style="text-align: left">'+this.result.symptoms+'</div>' +
+            '                <div style="text-align: left">'+this.result.howCommon+'</div>' +
+            '                <div style="text-align: left">'+this.result.treatments+'</div>' +
+            '                <div style="text-align: left">'+this.result.duration+'</div>'+'</ul>'+'</div>'+'</div>'+'</td>'+'</tr>'+'</table>');
         },
         error => {
           console.log(error);
