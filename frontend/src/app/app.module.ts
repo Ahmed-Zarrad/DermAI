@@ -11,6 +11,7 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ResultComponent } from './components/result/result.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     ChatbotComponent,
     SignupComponent,
     PageNotFoundComponent,
-    NavBarComponent
+    NavBarComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,

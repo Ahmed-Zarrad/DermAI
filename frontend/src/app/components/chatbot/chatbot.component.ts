@@ -130,6 +130,9 @@ export class ChatbotComponent implements OnInit {
             '                <div>'+this.result.howCommon+'</div>' +
             '                <div>'+this.result.treatments+'</div>' +
             '                <div>'+this.result.duration+'</div>'+'</td>'+'</tr>'+'</table>');
+          this.displayBotMessage(this.msg=''
+
+          );
         },
         error => {
           console.log(error);
