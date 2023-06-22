@@ -122,17 +122,16 @@ export class ChatbotComponent implements OnInit {
           this.result = data;
           this.loading = false;
           this.hideData = false;
+          this.tokenstorageService.setResult(this.result);
           this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-          this.displayBotMessage(this.msg='<table><tr>'+'<td>'+'<img src="'+this.result.image+'" alt="Uploaded" width="300px" />'+'</td>'+'<td>'+
-            '                <div>'+this.result.skinType+'</div>' +
-            '                <div>'+this.result.probability+'</div>' +
-            '                <div>'+this.result.symptoms+'</div>' +
-            '                <div>'+this.result.howCommon+'</div>' +
-            '                <div>'+this.result.treatments+'</div>' +
-            '                <div>'+this.result.duration+'</div>'+'</td>'+'</tr>'+'</table>');
-          this.displayBotMessage(this.msg=''
-
-          );
+          // this.displayBotMessage(this.msg='<table><tr>'+'<td>'+'<img src="'+this.result.image+'" alt="Uploaded" width="300px" />'+'</td>'+'<td>'+
+          //   '                <div>'+this.result.skinType+'</div>' +
+          //   '                <div>'+this.result.probability+'</div>' +
+          //   '                <div>'+this.result.symptoms+'</div>' +
+          //   '                <div>'+this.result.howCommon+'</div>' +
+          //   '                <div>'+this.result.treatments+'</div>' +
+          //   '                <div>'+this.result.duration+'</div>'+'</td>'+'</tr>'+'</table>');
+          // this.displayBotMessage(this.msg='<app-result></app-result>');
         },
         error => {
           console.log(error);
