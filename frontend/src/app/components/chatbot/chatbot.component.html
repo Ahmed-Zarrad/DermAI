@@ -111,9 +111,9 @@
     </div>
     </div>
     <div class="chat-log" id="chat-log" >
-      <p *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" style="color: white; text-align: center; padding: 5px ; background-color: black;"[innerHTML]="message.content">
+      <div *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" style="color: white; text-align: center; padding: 5px ; background-color: black;"[innerHTML]="message.content">
 
-      </p>
+      </div>
     </div>
     <div class="input-text">
       <div *ngIf="loading">
