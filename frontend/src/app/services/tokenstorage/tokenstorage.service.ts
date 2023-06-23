@@ -10,7 +10,6 @@ const AUTHORITIES_KEY = 'AuthAuthorities';
 })
 export class TokenstorageService {
   hideWindow: EventEmitter<any> = new EventEmitter<any>();
-  result: EventEmitter<any> = new EventEmitter<any>();
   constructor(private router: Router) {}
 
   public saveToken(token: string) {
@@ -42,8 +41,5 @@ export class TokenstorageService {
   }
   setHideWindow(value:any) {
     this.hideWindow.emit(value);
-  }
-  setResult(value:any) {
-    this.result.emit(value);
   }
 }

@@ -1,6 +1,8 @@
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="dark-theme">
+
+
 <!-- page navbar -->
-<nav *ngIf="router.url !== '/chatbot'"class="page-navbar" data-spy="affix" data-offset-top="10">
+<nav *ngIf="router.url === '/home'"class="page-navbar" data-spy="affix" data-offset-top="10">
   <ul class="nav-navbar container">
     <li class="nav-item"><a routerLink="home" class="nav-link" >Home</a></li>
     <li class="nav-item"><a routerLink="login" class="nav-link">Log in</a></li>
@@ -35,15 +37,12 @@
     </li>
   </ul>
 </nav><!-- end of page navbar -->
-<nav *ngIf="router.url === '/chatbot'&&!hideWindow" class="page-navbar" data-spy="affix" data-offset-top="10" style="background-color: #202123;height:62px;" >
+<nav *ngIf="router.url !== '/chatbot'&&router.url !== '/home'" class="page-navbar" data-spy="affix" data-offset-top="10" style="background-color: #202123;height:62px;" >
   <ul class="nav-navbar container" >
-    <li class="window border" type="submit" (click)="hidewindow()">
-      <i class="fa-solid fa-bars"></i>
-    </li>
     <li class="nav-item"><a routerLink="home" class="nav-link" >Home</a></li>
     <li class="nav-item"><a routerLink="login" class="nav-link">Log in</a></li>
     <li class="nav-item"><a routerLink="chatbot" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
-    <li class="nav-item"><a type="submit" (click)="hidewindow()" class="nav-link">Sign up</a></li>
+    <li class="nav-item"><a routerLink="signup" class="nav-link">Sign up</a></li>
     <li class="nav-item search">
       <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i> Search</a>
       <div class="search-wrapper">
@@ -54,3 +53,31 @@
     </li>
   </ul>
 </nav><!-- end of page navbar -->
+<nav *ngIf="router.url === '/chatbot'&&!hideWindow" class="page-navbar" data-spy="affix" data-offset-top="10" style="background-color: #202123;height:62px;" >
+  <ul class="nav-navbar container" >
+    <li class="window border" type="submit" (click)="hidewindow()">
+      <i class="fa-solid fa-bars"></i>
+    </li>
+    <li class="nav-item"><a routerLink="home" class="nav-link" >Home</a></li>
+    <li class="nav-item"><a routerLink="login" class="nav-link">Log in</a></li>
+    <li class="nav-item"><a routerLink="chatbot" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
+    <li class="nav-item"><a routerLink="signup" class="nav-link">Sign up</a></li>
+    <li class="nav-item search">
+      <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i> Search</a>
+      <div class="search-wrapper">
+        <form>
+          <input type="search" class="form-control" name="" placeholder="hit enter to search">
+        </form>
+      </div>
+    </li>
+  </ul>
+</nav><!-- end of page navbar -->
+<!-- core  -->
+<script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+<script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+
+<!-- bootstrap affix -->
+<script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+
+<!-- Dorang js -->
+<script src="assets/js/dorang.js"></script>

@@ -320,3 +320,93 @@ span {
   left: -9999px;
   visibility: hidden;
 }
+.container {
+  margin-top: 100px;
+  margin-left: 20px;
+
+
+}
+
+.card {
+  padding: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  margin-top: 0;
+
+
+}
+
+.stack {
+  flex-direction: column;
+}
+
+.grid {
+  horiz-align: center;
+  vertical-align: top;
+}
+.grid2{
+  horiz-align: center;
+  vertical-align: top;
+  border-left: 1px solid #ccc;
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 22px;
+}
+
+.uploaded-image {
+  padding: 8px;
+  width: 300px;
+  object-fit: contain;
+}
+
+.card-content {
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+
+
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+
+}
+
+.avatar {
+
+  border-radius:40px;
+  height: 40px;
+  width: 40px;
+  background-color: darkgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+}
+
+.avatar i {
+
+}
+.list-item{
+  border-bottom: 1px solid #ccc;
+}
+.item-title {
+  font-size: 17px;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+}
+
+.item-text {
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+}

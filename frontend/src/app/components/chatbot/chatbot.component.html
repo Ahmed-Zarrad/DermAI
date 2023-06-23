@@ -111,12 +111,8 @@
     </div>
     </div>
     <div class="chat-log" id="chat-log" >
-      <div *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" style="color: white; text-align: center; padding: 5px ; background-color: black;"[innerHTML]="message.content">
-        <app-result></app-result>
-        <img *ngIf="result" class="uploaded-image" alt="Uploaded image" src="{{result.image}}" />
-        <p *ngIf="result" class="item-text">{{result.skinType}}</p>
-        <p *ngIf="result" class="item-text" [innerHTML]="result.probability"></p>
-        <p class="item-text" [ngClass]="result.duration"></p>
+      <div *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" [innerHTML]="message.content">
+
       </div>
     </div>
     <div class="input-text">

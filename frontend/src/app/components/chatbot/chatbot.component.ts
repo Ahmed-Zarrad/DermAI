@@ -122,16 +122,183 @@ export class ChatbotComponent implements OnInit {
           this.result = data;
           this.loading = false;
           this.hideData = false;
-          this.tokenstorageService.setResult(this.result);
           this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-          // this.displayBotMessage(this.msg='<table><tr>'+'<td>'+'<img src="'+this.result.image+'" alt="Uploaded" width="300px" />'+'</td>'+'<td>'+
-          //   '                <div>'+this.result.skinType+'</div>' +
-          //   '                <div>'+this.result.probability+'</div>' +
-          //   '                <div>'+this.result.symptoms+'</div>' +
-          //   '                <div>'+this.result.howCommon+'</div>' +
-          //   '                <div>'+this.result.treatments+'</div>' +
-          //   '                <div>'+this.result.duration+'</div>'+'</td>'+'</tr>'+'</table>');
-          // this.displayBotMessage(this.msg='<app-result></app-result>');
+          this.displayBotMessage(this.msg='<table><tr>'+'<td>'+'<img src="'+this.result.image+'" alt="Uploaded" width="300px" />'+'</td>'+'<td>'+
+            '                <div>'+this.result.skinType+'</div>' +
+            '                <div>'+this.result.probability+'</div>' +
+            '                <div>'+this.result.symptoms+'</div>' +
+            '                <div>'+this.result.howCommon+'</div>' +
+            '                <div>'+this.result.treatments+'</div>' +
+            '                <div>'+this.result.duration+'</div>'+'</td>'+'</tr>'+'</table>');
+          this.displayBotMessage(this.msg= ' <style> .container { ' +
+            '          margin-top: 100px; ' +
+            '          margin-left: 20px; ' +
+            ' ' +
+            ' ' +
+            '        } ' +
+            ' ' +
+            '        .card { ' +
+            '          padding: 16px; ' +
+            '          box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); ' +
+            '          border-radius: 2px; ' +
+            '          margin-top: 0; ' +
+            ' ' +
+            ' ' +
+            '        } ' +
+            ' ' +
+            '        .stack { ' +
+            '          flex-direction: column; ' +
+            '        } ' +
+            ' ' +
+            '        .grid { ' +
+            '          horiz-align: center; ' +
+            '          vertical-align: top; ' +
+            '        } ' +
+            '        .grid2{ ' +
+            '          horiz-align: center; ' +
+            '          vertical-align: top; ' +
+            '          border-left: 1px solid #ccc; ' +
+            '        } ' +
+            ' ' +
+            '        .title { ' +
+            '          text-align: center; ' +
+            '          font-weight: bold; ' +
+            '          font-family: Helvetica, sans-serif; ' +
+            '          font-size: 22px; ' +
+            '        } ' +
+            ' ' +
+            '        .uploaded-image { ' +
+            '          padding: 8px; ' +
+            '          width: 300px; ' +
+            '          object-fit: contain; ' +
+            '        } ' +
+            ' ' +
+            '        .card-content { ' +
+            '        } ' +
+            ' ' +
+            '        .list { ' +
+            '          list-style-type: none; ' +
+            '          padding: 0; ' +
+            ' ' +
+            ' ' +
+            '        } ' +
+            ' ' +
+            '        .list li { ' +
+            '          display: flex; ' +
+            '          align-items: center; ' +
+            '          padding-left: 16px; ' +
+            '          padding-right: 16px; ' +
+            ' ' +
+            '        } ' +
+            ' ' +
+            '        .avatar { ' +
+            ' ' +
+            '          border-radius:40px; ' +
+            '          height: 40px; ' +
+            '          width: 40px; ' +
+            '          background-color: darkgray; ' +
+            '          display: flex; ' +
+            '          align-items: center; ' +
+            '          justify-content: center; ' +
+            '          margin-right: 16px; ' +
+            '        } ' +
+            ' ' +
+            '        .avatar i { ' +
+            ' ' +
+            '        } ' +
+            '        .list-item{ ' +
+            '          border-bottom: 1px solid #ccc; ' +
+            '        } ' +
+            '        .item-title { ' +
+            '          font-size: 17px; ' +
+            '          font-weight: bold; ' +
+            '          font-family: Helvetica, sans-serif; ' +
+            '        } ' +
+            ' ' +
+            '        .item-text { ' +
+            '          font-size: 15px; ' +
+            '          font-weight: bold; ' +
+            '          font-family: Helvetica, sans-serif; ' +
+            '        } ' +
+            '        </style>'+
+            '  <table class="card"> ' +
+            '    <tr class="stack"> ' +
+            '      <td class="grid"> ' +
+            '        <h5 class="title">Uploaded image</h5> ' +
+            '        <img class="uploaded-image" alt="Uploaded image" src="'+this.result.image+'" /> ' +
+            '      </td> ' +
+            '      <td class="grid2"> ' +
+            '        <h5 class="title">Predictions</h5> ' +
+            '        <div class="card-content"> ' +
+            '          <ul class="list"> ' +
+            '            <li> ' +
+            '              <div class="avatar"> ' +
+            '                <i class="fa-solid fa-virus-covid" [ngStyle]="{ color: \'red\' }"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item"> ' +
+            '                <p class="item-title">Skin type</p> ' +
+            '                <p class="item-text"> '+this.result.skinType+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <li> ' +
+            '              <div class="avatar"> ' +
+            '                <i class="fa-solid fa-percent"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item"> ' +
+            '                <p class="item-title">Probability</p> ' +
+            '                <p class="item-text"> '+this.result.probability+' % </p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <!-- Check if symptoms exist --> ' +
+            '            <!-- If yes, loop through symptoms and generate list items --> ' +
+            '            <li> ' +
+            '              <div class="avatar"> ' +
+            '                <i class="fa-solid fa-magnifying-glass" style="color: saddlebrown"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item"> ' +
+            '                <p class="item-title">Symptoms</p> ' +
+            '                <p class="item-text"> '+this.result.symptoms+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <!-- Check if treatments exist --> ' +
+            '            <!-- If yes, loop through treatments and generate list items --> ' +
+            '            <li> ' +
+            '              <div class="avatar"> ' +
+            '                <i class="fa-solid fa-book-medical" style="color: dodgerblue"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item"> ' +
+            '                <p class="item-title">Treatments</p> ' +
+            '                <p class="item-text"> '+this.result.treatments+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <!-- Check if howCommon exists --> ' +
+            '            <li> ' +
+            '              <div class="avatar"> ' +
+            '                <i class="fa-solid fa-users" style="color: yellow"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item"> ' +
+            '                <p class="item-title">How common</p> ' +
+            '                <p class="item-text">'+this.result.howCommon+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <!-- Check if duration exists --> ' +
+            '            <li> ' +
+            '              <div class="avatar"> ' +
+            '                <i class="fa-regular fa-clock" style="color: steelblue"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item"> ' +
+            '                <p class="item-title">Duration</p> ' +
+            '                <p class="item-text"> '+this.result.duration+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '          </ul> ' +
+            '        </div> ' +
+            '      </td> ' +
+            '    </tr> ' +
+            '  </table> ' +
+            ' '
+
+          );
         },
         error => {
           console.log(error);
