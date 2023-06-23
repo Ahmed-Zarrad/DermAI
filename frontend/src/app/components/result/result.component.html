@@ -3,7 +3,7 @@
     <tr class="stack">
       <td class="grid">
         <h5 class="title">Uploaded image</h5>
-        <img class="uploaded-image" alt="Uploaded image" src="{{result.image}}" />
+        <img class="uploaded-image" alt="Uploaded image" src="{{image}}" />
       </td>
       <td class="grid2">
         <h5 class="title">Predictions</h5>
@@ -15,7 +15,7 @@
               </div>
               <div class="list-item">
                 <p class="item-title">Skin type</p>
-                <p class="item-text">{{result.skinType}}</p>
+                <p class="item-text">{{skinType}}</p>
               </div>
             </li>
             <li>
@@ -24,7 +24,7 @@
               </div>
               <div class="list-item">
                 <p class="item-title">Probability</p>
-                <p class="item-text">{{result.probability}} % </p>
+                <p class="item-text">{{probability}} % </p>
               </div>
             </li>
             <!-- Check if symptoms exist -->
@@ -35,7 +35,7 @@
               </div>
               <div class="list-item">
                 <p class="item-title">Symptoms</p>
-                <p class="item-text">{{result.symptoms}}</p>
+                <p class="item-text">{{symptoms}}</p>
               </div>
             </li>
             <!-- Check if treatments exist -->
@@ -46,7 +46,7 @@
               </div>
               <div class="list-item">
                 <p class="item-title">Treatments</p>
-                <p class="item-text">{{result.treatments}}</p>
+                <p class="item-text">{{treatments}}</p>
               </div>
             </li>
             <!-- Check if howCommon exists -->
@@ -56,7 +56,7 @@
               </div>
               <div class="list-item">
                 <p class="item-title">How common</p>
-                <p class="item-text">{{result.howCommon}}</p>
+                <p class="item-text">{{howCommon}}</p>
               </div>
             </li>
             <!-- Check if duration exists -->
@@ -66,7 +66,7 @@
               </div>
               <div class="list-item">
                 <p class="item-title">Duration</p>
-                <p class="item-text">{{result.duration}}</p>
+                <p class="item-text">{{duration}}</p>
               </div>
             </li>
           </ul>
