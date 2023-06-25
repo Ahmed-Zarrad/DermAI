@@ -28,8 +28,8 @@ export class ChatbotComponent implements OnInit {
   msg: any;
   initialRowHeight = 20;
   hideWindow: boolean =true
-  hidden: boolean=false;
-  constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService, private sanitized: DomSanitizer) {
+  hidden: boolean=true;
+  constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
 
     this.router = router;
   }
@@ -38,11 +38,6 @@ export class ChatbotComponent implements OnInit {
     this.tokenstorageService.hideWindow.subscribe((value: any)=>{
       this.hideWindow = value;
     });
-    const targetDiv = document.getElementById('targetDiv');
-    const sourceDiv = document.getElementById('sourceDiv');
-
-    // @ts-ignore
-    targetDiv.innerHTML = sourceDiv.innerHTML;
   }
   sendMessage(): void {
 
@@ -58,15 +53,16 @@ export class ChatbotComponent implements OnInit {
   }
 
   displayUserMessage(message: any): void {
-    this.chatLog.push({content: message, type: 'user', backgroundColor: '#343541'});
+    const wrappedMessage = '<p style="color: white; text-align: center; padding: 5px ;">' + message + '</p>';
+    this.chatLog.push({content: wrappedMessage, type: 'user', backgroundColor: '#444654'});
   }
-  displayImageMessage(message: any): void {
-    const wrappedMessage = '<span>' + message + '</span>';
-    this.chatLog.push({content: wrappedMessage, type: 'user', backgroundColor: '#343541'});
+  displayBotMessage(message: any): void {
+    const wrappedMessage = '<p style="color: white; text-align: center; padding: 5px ;">' + message + '</p>';
+    this.chatLog.push({content: wrappedMessage, type: 'bot', backgroundColor: '#343541'});
   }
 
-  displayBotMessage(message: any): void {
-    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#444654' });
+  displayImageMessage(message: any): void {
+    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#343541' });
   }
   // displayBotMessage(message: any): void {
   //   const words = message.split(' ');
@@ -75,15 +71,8 @@ export class ChatbotComponent implements OnInit {
   //   const showNextWord = () => {
   //     if (currentWordIndex < words.length) {
   //       const word = words[currentWordIndex];
-  //
-  //       // Check if it's the first word to be displayed
-  //       if (this.chatLog.length === 0 || this.chatLog[this.chatLog.length - 1].type === 'user') {
-  //         this.chatLog.push({content: word, type: 'bot', backgroundColor: '#444654'});
-  //       } else {
-  //         // Append the word to the previous bot message
   //         const lastMessageIndex = this.chatLog.length - 1;
   //         this.chatLog[lastMessageIndex].content += ' ' + word;
-  //       }
   //
   //       currentWordIndex++;
   //       setTimeout(showNextWord, 300); // Adjust the delay (in milliseconds) between words here
@@ -136,7 +125,7 @@ export class ChatbotComponent implements OnInit {
           this.loading = false;
           this.hideData = false;
           this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-          this.displayBotMessage(this.msg=
+          this.displayImageMessage(this.msg=
             '  <table class="card" style=" padding: 16px;' +
             '  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); ' +
             '  border-radius: 2px; ' +
