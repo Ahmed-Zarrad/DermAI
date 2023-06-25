@@ -112,7 +112,7 @@
     </div>
     </div>
     <div class="chat-log" id="chat-log" >
-      <div  *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" #div [innerHTML]="message.content | safeHtml" style="color: white; text-align: center; padding: 5px ;">
+      <div  *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" #div [innerHTML]="message.content | safeHtml" style="color: white">
 
       </div>
     </div>
@@ -137,9 +137,4 @@
     </div>
   </div>
 </div>
-<input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" class="hide" (change)="handleImageUpload($event)" [disabled]="loading" >
-<div id="sourceDiv" class="hide">
-<app-result
-
-></app-result>
-</div>
+<input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" (change)="handleImageUpload($event)" [disabled]="loading" [hidden]="hidden" >

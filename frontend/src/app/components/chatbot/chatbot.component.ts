@@ -136,110 +136,184 @@ export class ChatbotComponent implements OnInit {
           this.loading = false;
           this.hideData = false;
           this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-          // this.displayBotMessage(this.msg='<table><tr>'+'<td>'+'<img src="'+this.result.image+'" alt="Uploaded" width="300px" />'+'</td>'+'<td>'+
-          //   '                <div>'+this.result.skinType+'</div>' +
-          //   '                <div>'+this.result.probability+'</div>' +
-          //   '                <div>'+this.result.symptoms+'</div>' +
-          //   '                <div>'+this.result.howCommon+'</div>' +
-          //   '                <div>'+this.result.treatments+'</div>' +
-          //   '                <div>'+this.result.duration+'</div>'+'</td>'+'</tr>'+'</table>');
-          // this.displayBotMessage(this.msg=
-          //   '  <table class="card"> ' +
-          //   '    <tr class="stack"> ' +
-          //   '      <td class="grid"> ' +
-          //   '        <h5 class="title">Uploaded image</h5> ' +
-          //   '        <img class="uploaded-image" alt="Uploaded image" src="'+this.result.image+'" /> ' +
-          //   '      </td> ' +
-          //   '      <td class="grid2"> ' +
-          //   '        <h5 class="title">Predictions</h5> ' +
-          //   '        <div class="card-content"> ' +
-          //   '          <ul class="list"> ' +
-          //   '            <li> ' +
-          //   '              <div class="avatar"> ' +
-          //   '                <i class="fa-solid fa-virus-covid" [ngStyle]="{ color: \'red\' }"></i> ' +
-          //   '              </div> ' +
-          //   '              <div class="list-item"> ' +
-          //   '                <p class="item-title">Skin type</p> ' +
-          //   '                <p class="item-text"> '+this.result.skinType+'</p> ' +
-          //   '              </div> ' +
-          //   '            </li> ' +
-          //   '            <li> ' +
-          //   '              <div class="avatar"> ' +
-          //   '                <i class="fa-solid fa-percent"></i> ' +
-          //   '              </div> ' +
-          //   '              <div class="list-item"> ' +
-          //   '                <p class="item-title">Probability</p> ' +
-          //   '                <p class="item-text"> '+this.result.probability+' % </p> ' +
-          //   '              </div> ' +
-          //   '            </li> ' +
-          //   '            <!-- Check if symptoms exist --> ' +
-          //   '            <!-- If yes, loop through symptoms and generate list items --> ' +
-          //   '            <li> ' +
-          //   '              <div class="avatar"> ' +
-          //   '                <i class="fa-solid fa-magnifying-glass" style="color: saddlebrown"></i> ' +
-          //   '              </div> ' +
-          //   '              <div class="list-item"> ' +
-          //   '                <p class="item-title">Symptoms</p> ' +
-          //   '                <p class="item-text"> '+this.result.symptoms+'</p> ' +
-          //   '              </div> ' +
-          //   '            </li> ' +
-          //   '            <!-- Check if treatments exist --> ' +
-          //   '            <!-- If yes, loop through treatments and generate list items --> ' +
-          //   '            <li> ' +
-          //   '              <div class="avatar"> ' +
-          //   '                <i class="fa-solid fa-book-medical" style="color: dodgerblue"></i> ' +
-          //   '              </div> ' +
-          //   '              <div class="list-item"> ' +
-          //   '                <p class="item-title">Treatments</p> ' +
-          //   '                <p class="item-text"> '+this.result.treatments+'</p> ' +
-          //   '              </div> ' +
-          //   '            </li> ' +
-          //   '            <!-- Check if howCommon exists --> ' +
-          //   '            <li> ' +
-          //   '              <div class="avatar"> ' +
-          //   '                <i class="fa-solid fa-users" style="color: yellow"></i> ' +
-          //   '              </div> ' +
-          //   '              <div class="list-item"> ' +
-          //   '                <p class="item-title">How common</p> ' +
-          //   '                <p class="item-text">'+this.result.howCommon+'</p> ' +
-          //   '              </div> ' +
-          //   '            </li> ' +
-          //   '            <!-- Check if duration exists --> ' +
-          //   '            <li> ' +
-          //   '              <div class="avatar"> ' +
-          //   '                <i class="fa-regular fa-clock" style="color: steelblue"></i> ' +
-          //   '              </div> ' +
-          //   '              <div class="list-item"> ' +
-          //   '                <p class="item-title">Duration</p> ' +
-          //   '                <p class="item-text"> '+this.result.duration+'</p> ' +
-          //   '              </div> ' +
-          //   '            </li> ' +
-          //   '          </ul> ' +
-          //   '        </div> ' +
-          //   '      </td> ' +
-          //   '    </tr> ' +
-          //   '  </table> ' +
-          //   ' '
-          //
-          // );
-          // this.displayBotMessage( this.msg='  <app-result\n' +
-          //   '    [image]="'+this.result.image+'"\n' +
-          //   '    [skinType]="'+this.result.skinTyp+'"\n' +
-          //   '    [probability]="'+this.result.probability+'"\n' +
-          //   '    [symptoms]="'+this.result.symptoms+'"\n' +
-          //   '    [howCommon]="'+this.result.howCommon+'"\n' +
-          //   '    [treatments]="'+this.result.treatments+'"\n' +
-          //   '    [duration]="'+this.result.duration+'"\n' +
-          //   '  ></app-result>');
-          // this.displayBotMessage( this.msg ='<app-result'+
-          //   '[image]="${this.result.image}"'+
-          //   '[skinType]="${this.result.skinType}"'+
-          //   '[probability]="${this.result.probability}"'+
-          //   '[symptoms]="${JSON.stringify(this.result.symptoms)}"'+
-          //   '[howCommon]="${this.result.howCommon}"'+
-          //   '[treatments]="${JSON.stringify(this.result.treatments)}"'+
-          //   '[duration]="${this.result.duration}" ></app-result>');
-          this.displayBotMessage(this.msg = '<div id="targetDiv"></div>' );
+          this.displayBotMessage(this.msg=
+            '  <table class="card" style=" padding: 16px;' +
+            '  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); ' +
+            '  border-radius: 2px; ' +
+            '  margin-top: 0;"> ' +
+            '    <tr class="stack" style="flex-direction: column;"> ' +
+            '      <td class="grid" style="  horiz-align: center; ' +
+            '  vertical-align: top;"> ' +
+            '        <h5 class="title" style="  text-align: center; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif; ' +
+            '  font-size: 22px;">Uploaded image</h5> ' +
+            '        <img class="uploaded-image" style="  padding: 8px; ' +
+            '  width: 300px; ' +
+            '  object-fit: contain;" alt="Uploaded image" src="'+this.result.image+'" /> ' +
+            '      </td> ' +
+            '      <td class="grid2" style="horiz-align: center; ' +
+            '  vertical-align: top; ' +
+            '  border-left: 1px solid #ccc;"> ' +
+            '        <h5 class="title" style="text-align: center; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif; ' +
+            '  font-size: 22px;">Predictions</h5> ' +
+            '        <div class="card-content"> ' +
+            '          <ul class="list" style="list-style-type: none; ' +
+            '  padding: 0;"> ' +
+            '            <li style="display: flex; ' +
+            '  align-items: center; ' +
+            '  padding-left: 16px; ' +
+            '  padding-right: 16px;"> ' +
+            '              <div class="avatar" style="  border-radius:40px; ' +
+            '  height: 40px; ' +
+            '  width: 40px; ' +
+            '  background-color: darkgray; ' +
+            '  display: flex; ' +
+            '  align-items: center; ' +
+            '  justify-content: center; ' +
+            '  margin-right: 16px;"> ' +
+            '                <i class="fa-solid fa-virus-covid" style="color:red"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+            '                <p class="item-title" style="font-size: 17px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;">Skin type</p> ' +
+            '                <p class="item-text" style="  font-size: 15px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;"> '+this.result.skinType+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <li style="  display: flex; ' +
+            '  align-items: center; ' +
+            '  padding-left: 16px; ' +
+            '  padding-right: 16px;"> ' +
+            '              <div class="avatar" style="border-radius:40px; ' +
+            '  height: 40px; ' +
+            '  width: 40px; ' +
+            '  background-color: darkgray; ' +
+            '  display: flex; ' +
+            '  align-items: center; ' +
+            '  justify-content: center; ' +
+            '  margin-right: 16px;"> ' +
+            '                <i class="fa-solid fa-percent"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+            '                <p class="item-title" style="font-size: 17px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;">Probability</p> ' +
+            '                <p class="item-text" style=" font-size: 15px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;"> '+this.result.probability+' % </p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <!-- Check if symptoms exist --> ' +
+            '            <!-- If yes, loop through symptoms and generate list items --> ' +
+            '            <li style=" display: flex; ' +
+            '  align-items: center; ' +
+            '  padding-left: 16px; ' +
+            '  padding-right: 16px;"> ' +
+            '              <div class="avatar" style="border-radius:40px; ' +
+            '  height: 40px; ' +
+            '  width: 40px; ' +
+            '  background-color: darkgray; ' +
+            '  display: flex; ' +
+            '  align-items: center; ' +
+            '  justify-content: center; ' +
+            '  margin-right: 16px;"> ' +
+            '                <i class="fa-solid fa-magnifying-glass" style="color: saddlebrown"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+            '                <p class="item-title" style=" font-size: 17px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;">Symptoms</p> ' +
+            '                <p class="item-text" style=" font-size: 15px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;"> '+this.result.symptoms+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <!-- Check if treatments exist --> ' +
+            '            <!-- If yes, loop through treatments and generate list items --> ' +
+            '            <li style=" display: flex; ' +
+            '  align-items: center; ' +
+            '  padding-left: 16px; ' +
+            '  padding-right: 16px;"> ' +
+            '              <div class="avatar" style=" border-radius:40px; ' +
+            '  height: 40px; ' +
+            '  width: 40px; ' +
+            '  background-color: darkgray; ' +
+            '  display: flex; ' +
+            '  align-items: center; ' +
+            '  justify-content: center; ' +
+            '  margin-right: 16px;"> ' +
+            '                <i class="fa-solid fa-book-medical" style="color: dodgerblue"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+            '                <p class="item-title" style="font-size: 17px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;">Treatments</p> ' +
+            '                <p class="item-text" style="font-size: 15px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;"> '+this.result.treatments+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <!-- Check if howCommon exists --> ' +
+            '            <li style="display: flex; ' +
+            '  align-items: center; ' +
+            '  padding-left: 16px; ' +
+            '  padding-right: 16px;"> ' +
+            '              <div class="avatar" style="border-radius:40px; ' +
+            '  height: 40px; ' +
+            '  width: 40px; ' +
+            '  background-color: darkgray; ' +
+            '  display: flex; ' +
+            '  align-items: center; ' +
+            '  justify-content: center; ' +
+            '  margin-right: 16px;"> ' +
+            '                <i class="fa-solid fa-users" style="color: yellow"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+            '                <p class="item-title" '+'style="font-size: 17px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;">How common</p> ' +
+            '                <p class="item-text" style="font-size: 15px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;">'+this.result.howCommon+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '            <!-- Check if duration exists --> ' +
+            '            <li style="  display: flex; ' +
+            '  align-items: center; ' +
+            '  padding-left: 16px; ' +
+            '  padding-right: 16px; "> ' +
+            '              <div class="avatar" style="  border-radius:40px; ' +
+            '  height: 40px; ' +
+            '  width: 40px; ' +
+            '  background-color: darkgray; ' +
+            '  display: flex; ' +
+            '  align-items: center; ' +
+            '  justify-content: center; ' +
+            '  margin-right: 16px;"> ' +
+            '                <i class="fa-regular fa-clock" style="color: steelblue"></i> ' +
+            '              </div> ' +
+            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+            '                <p class="item-title" style="font-size: 17px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;">Duration</p> ' +
+            '                <p class="item-text" style="  font-size: 15px; ' +
+            '  font-weight: bold; ' +
+            '  font-family: Helvetica, sans-serif;"> '+this.result.duration+'</p> ' +
+            '              </div> ' +
+            '            </li> ' +
+            '          </ul> ' +
+            '        </div> ' +
+            '      </td> ' +
+            '    </tr> ' +
+            '  </table> ' +
+            ' '
+
+          );
         },
         error => {
           console.log(error);
