@@ -1,0 +1,6 @@
+.hide{
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+  color: red;
+}

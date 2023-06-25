@@ -1,10 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Message} from "../../models/message.model";
 import { Router } from '@angular/router';
 import {SkinResultsService} from "../../services/skin-results/skin-results.service";
 // @ts-ignore
 import {TokenstorageService} from "../../services/tokenstorage/tokenstorage.service";
-
+import {DomSanitizer} from "@angular/platform-browser";
+@Pipe({ name: 'safeHtml'})
+export class SafeHtmlPipe implements PipeTransform  {
+  constructor(private sanitized: DomSanitizer) {}
+  transform(value:any) {
+    return this.sanitized.bypassSecurityTrustHtml(value);
+  }
+}
 @Component({
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
@@ -12,28 +19,31 @@ import {TokenstorageService} from "../../services/tokenstorage/tokenstorage.serv
 })
 export class ChatbotComponent implements OnInit {
   chatLog: Message[] = [];
-  userInput: string = '';
+  userInput: any;
   hideData: boolean = true;
   dispatch: any;
   err: any
   result: any = null;
   loading = false;
-  msg = '';
-  test: any;
+  msg: any;
   initialRowHeight = 20;
   hideWindow: boolean =true
-  constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
+  hidden: boolean=false;
+  constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService, private sanitized: DomSanitizer) {
 
     this.router = router;
-
   }
 
   ngOnInit(): void {
     this.tokenstorageService.hideWindow.subscribe((value: any)=>{
       this.hideWindow = value;
     });
-  }
+    const targetDiv = document.getElementById('targetDiv');
+    const sourceDiv = document.getElementById('sourceDiv');
 
+    // @ts-ignore
+    targetDiv.innerHTML = sourceDiv.innerHTML;
+  }
   sendMessage(): void {
 
     const message = this.userInput.trim();
@@ -47,18 +57,18 @@ export class ChatbotComponent implements OnInit {
     this.hideData = false;
   }
 
-  displayUserMessage(message: string): void {
+  displayUserMessage(message: any): void {
     this.chatLog.push({content: message, type: 'user', backgroundColor: '#343541'});
   }
-  displayImageMessage(message: string): void {
+  displayImageMessage(message: any): void {
     const wrappedMessage = '<span>' + message + '</span>';
     this.chatLog.push({content: wrappedMessage, type: 'user', backgroundColor: '#343541'});
   }
 
-  displayBotMessage(message: string): void {
+  displayBotMessage(message: any): void {
     this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#444654' });
   }
-  // displayBotMessage(message: string): void {
+  // displayBotMessage(message: any): void {
   //   const words = message.split(' ');
   //   let currentWordIndex = 0;
   //
@@ -83,14 +93,17 @@ export class ChatbotComponent implements OnInit {
   // }
 
 
-  processUserMessage(message: string): void {
+
+  processUserMessage(message: any): void {
     let response = '';
 
     if (message.toLowerCase() === 'bonjour') {
       response = 'Bonjour, comment puis-je vous aider aujourd\'hui?';
     } else if (message.toLowerCase() === 'j\'ai une photo de la condition de la peau') {
       response = 'Bien sûr, veuillez envoyer une photo de votre état de peau.';
-     }else {
+    } else if (message.toLowerCase() === 'test') {
+      response = '<div  id="test">sddsd</div>';
+    }else {
       // Default response for unrecognized inputs
       response = 'Désolé, je ne peux pas comprendre votre demande.';
     }
@@ -130,97 +143,7 @@ export class ChatbotComponent implements OnInit {
           //   '                <div>'+this.result.howCommon+'</div>' +
           //   '                <div>'+this.result.treatments+'</div>' +
           //   '                <div>'+this.result.duration+'</div>'+'</td>'+'</tr>'+'</table>');
-          // this.displayBotMessage(this.msg= ' <style> .container { ' +
-          //   '          margin-top: 100px; ' +
-          //   '          margin-left: 20px; ' +
-          //   ' ' +
-          //   ' ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .card { ' +
-          //   '          padding: 16px; ' +
-          //   '          box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); ' +
-          //   '          border-radius: 2px; ' +
-          //   '          margin-top: 0; ' +
-          //   ' ' +
-          //   ' ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .stack { ' +
-          //   '          flex-direction: column; ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .grid { ' +
-          //   '          horiz-align: center; ' +
-          //   '          vertical-align: top; ' +
-          //   '        } ' +
-          //   '        .grid2{ ' +
-          //   '          horiz-align: center; ' +
-          //   '          vertical-align: top; ' +
-          //   '          border-left: 1px solid #ccc; ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .title { ' +
-          //   '          text-align: center; ' +
-          //   '          font-weight: bold; ' +
-          //   '          font-family: Helvetica, sans-serif; ' +
-          //   '          font-size: 22px; ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .uploaded-image { ' +
-          //   '          padding: 8px; ' +
-          //   '          width: 300px; ' +
-          //   '          object-fit: contain; ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .card-content { ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .list { ' +
-          //   '          list-style-type: none; ' +
-          //   '          padding: 0; ' +
-          //   ' ' +
-          //   ' ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .list li { ' +
-          //   '          display: flex; ' +
-          //   '          align-items: center; ' +
-          //   '          padding-left: 16px; ' +
-          //   '          padding-right: 16px; ' +
-          //   ' ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .avatar { ' +
-          //   ' ' +
-          //   '          border-radius:40px; ' +
-          //   '          height: 40px; ' +
-          //   '          width: 40px; ' +
-          //   '          background-color: darkgray; ' +
-          //   '          display: flex; ' +
-          //   '          align-items: center; ' +
-          //   '          justify-content: center; ' +
-          //   '          margin-right: 16px; ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .avatar i { ' +
-          //   ' ' +
-          //   '        } ' +
-          //   '        .list-item{ ' +
-          //   '          border-bottom: 1px solid #ccc; ' +
-          //   '        } ' +
-          //   '        .item-title { ' +
-          //   '          font-size: 17px; ' +
-          //   '          font-weight: bold; ' +
-          //   '          font-family: Helvetica, sans-serif; ' +
-          //   '        } ' +
-          //   ' ' +
-          //   '        .item-text { ' +
-          //   '          font-size: 15px; ' +
-          //   '          font-weight: bold; ' +
-          //   '          font-family: Helvetica, sans-serif; ' +
-          //   '        } ' +
-          //   '        </style>'+
+          // this.displayBotMessage(this.msg=
           //   '  <table class="card"> ' +
           //   '    <tr class="stack"> ' +
           //   '      <td class="grid"> ' +
@@ -299,7 +222,24 @@ export class ChatbotComponent implements OnInit {
           //   ' '
           //
           // );
-          this.displayBotMessage(
+          // this.displayBotMessage( this.msg='  <app-result\n' +
+          //   '    [image]="'+this.result.image+'"\n' +
+          //   '    [skinType]="'+this.result.skinTyp+'"\n' +
+          //   '    [probability]="'+this.result.probability+'"\n' +
+          //   '    [symptoms]="'+this.result.symptoms+'"\n' +
+          //   '    [howCommon]="'+this.result.howCommon+'"\n' +
+          //   '    [treatments]="'+this.result.treatments+'"\n' +
+          //   '    [duration]="'+this.result.duration+'"\n' +
+          //   '  ></app-result>');
+          // this.displayBotMessage( this.msg ='<app-result'+
+          //   '[image]="${this.result.image}"'+
+          //   '[skinType]="${this.result.skinType}"'+
+          //   '[probability]="${this.result.probability}"'+
+          //   '[symptoms]="${JSON.stringify(this.result.symptoms)}"'+
+          //   '[howCommon]="${this.result.howCommon}"'+
+          //   '[treatments]="${JSON.stringify(this.result.treatments)}"'+
+          //   '[duration]="${this.result.duration}" ></app-result>');
+          this.displayBotMessage(this.msg = '<div id="targetDiv"></div>' );
         },
         error => {
           console.log(error);

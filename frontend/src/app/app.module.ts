@@ -12,6 +12,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ResultComponent } from './components/result/result.component';
+import { TestComponent } from './components/test/test.component';
+import {SafeHtmlPipe} from "./components/chatbot/chatbot.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ResultComponent } from './components/result/result.component';
     SignupComponent,
     PageNotFoundComponent,
     NavBarComponent,
-    ResultComponent
+    ResultComponent,
+    TestComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
