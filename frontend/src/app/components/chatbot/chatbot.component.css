@@ -18,9 +18,11 @@ body{
   width: 260px;
   background-color: #202123;
   min-height: 100vh;
+  position: fixed;
 }
 .right{
   background-color: #343541;
+  margin-left: 260px;
 }
 
 .new-chat {

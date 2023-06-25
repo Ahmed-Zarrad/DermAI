@@ -112,7 +112,7 @@
     </div>
     </div>
     <div class="chat-log" id="chat-log" >
-      <div  *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" #div [innerHTML]="message.content | safeHtml" style="color: white">
+      <div  *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" [style.color]="message.color" [style.text-align]="message.textalign" [style.padding]="message.padding" #div [innerHTML]="message.content | safeHtml">
 
       </div>
     </div>

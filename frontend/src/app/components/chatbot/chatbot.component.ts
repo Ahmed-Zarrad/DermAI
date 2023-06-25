@@ -53,33 +53,32 @@ export class ChatbotComponent implements OnInit {
   }
 
   displayUserMessage(message: any): void {
-    const wrappedMessage = '<p style="color: white; text-align: center; padding: 5px ;">' + message + '</p>';
-    this.chatLog.push({content: wrappedMessage, type: 'user', backgroundColor: '#444654'});
-  }
-  displayBotMessage(message: any): void {
-    const wrappedMessage = '<p style="color: white; text-align: center; padding: 5px ;">' + message + '</p>';
-    this.chatLog.push({content: wrappedMessage, type: 'bot', backgroundColor: '#343541'});
-  }
-
-  displayImageMessage(message: any): void {
-    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#343541' });
+    this.chatLog.push({content: message, type: 'user', backgroundColor: '#444654',color: 'white', textalign: 'center', padding:'5px'});
   }
   // displayBotMessage(message: any): void {
-  //   const words = message.split(' ');
-  //   let currentWordIndex = 0;
-  //
-  //   const showNextWord = () => {
-  //     if (currentWordIndex < words.length) {
-  //       const word = words[currentWordIndex];
-  //         const lastMessageIndex = this.chatLog.length - 1;
-  //         this.chatLog[lastMessageIndex].content += ' ' + word;
-  //
-  //       currentWordIndex++;
-  //       setTimeout(showNextWord, 300); // Adjust the delay (in milliseconds) between words here
-  //     }
-  //   };
-  //   showNextWord();
+  //   this.chatLog.push({content: message, type: 'bot', backgroundColor: '#343541', color: 'white', textalign: 'center', padding:'5px'});
   // }
+
+  displayImageMessage(message: any): void {
+    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#343541', color: 'white', textalign: null, padding:null });
+  }
+  displayBotMessage(message: any): void {
+    this.chatLog.push({content: '', type: 'bot', backgroundColor: '#343541', color: 'white', textalign: 'center', padding:'5px'});
+    const words = message.split(' ');
+    let currentWordIndex = 0;
+
+    const showNextWord = () => {
+      if (currentWordIndex < words.length) {
+        const word = words[currentWordIndex];
+          const lastMessageIndex = this.chatLog.length - 1;
+          this.chatLog[lastMessageIndex].content += ' ' + word;
+
+        currentWordIndex++;
+        setTimeout(showNextWord, 300); // Adjust the delay (in milliseconds) between words here
+      }
+    };
+    showNextWord();
+  }
 
 
 
