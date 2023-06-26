@@ -130,7 +130,9 @@ export class ChatbotComponent implements OnInit {
               '  box-shadow: 0 0 8px rgba(255,255,255,0.2); ' +
               '  background-color: rgba(0,0,0,0.2); '+
               '  border-radius: 2px; ' +
-              '  margin-top: 0;"> ' +
+              '  margin-top: 0;' +
+              '  margin-left: auto;' +
+              '  margin-right: auto;"> ' +
               '    <tr class="stack" style="flex-direction: column;"> ' +
               '      <td class="grid" style="  horiz-align: center; ' +
               '  vertical-align: top;"> ' +
@@ -217,7 +219,9 @@ export class ChatbotComponent implements OnInit {
               '  box-shadow: 0 0 8px rgba(255,255,255,0.2); ' +
               '  background-color: rgba(0,0,0,0.2); '+
               '  border-radius: 2px; ' +
-              '  margin-top: 0;"> ' +
+              '  margin-top: 0;' +
+              '  margin-left: auto;' +
+              '  margin-right: auto;"> ' +
               '    <tr class="stack" style="flex-direction: column;"> ' +
               '      <td class="grid" style="  horiz-align: center; ' +
               '  vertical-align: top;"> ' +
@@ -312,7 +316,7 @@ export class ChatbotComponent implements OnInit {
               '            </li> ' +
               '            <!-- Check if treatments exist --> ' +
               '            <!-- If yes, loop through treatments and generate list items --> ' +
-              '            <li "style=" display: flex; ' +
+              '            <li style=" display: flex; ' +
               '  align-items: center; ' +
               '  padding-left: 16px; ' +
               '  padding-right: 16px;"> ' +

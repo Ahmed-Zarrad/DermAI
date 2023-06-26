@@ -13,13 +13,17 @@ export class NavBarComponent {
   public router: Router;
   showWindow: boolean = true;
   hideWindow: boolean = true;
+  user: any = localStorage.getItem('AuthUsername');
+  NotConnected = true;
   constructor(router: Router,private tokenStorageService:TokenstorageService, private route: ActivatedRoute) {
     this.router = router;
   }
   ngOnInit(): void {
+    this.NotConnected = this.user === null;
   }
   public hidewindow(){
     this.hideWindow=!this.hideWindow;
     this.tokenStorageService.setHideWindow(this.hideWindow);
   }
+
 }

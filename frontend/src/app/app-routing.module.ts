@@ -6,6 +6,7 @@ import {ChatbotComponent} from "./components/chatbot/chatbot.component";
 import {SignupComponent} from "./components/signup/signup.component";
 import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 import {TestComponent} from "./components/test/test.component";
+import {ResultComponent} from "./components/result/result.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'chatbot', component: ChatbotComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'test', component: TestComponent },
+  { path: 'result', component: ResultComponent },
 
   { path: '**', component: PageNotFoundComponent }
 ];
