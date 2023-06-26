@@ -7,6 +7,7 @@ import {SignupComponent} from "./components/signup/signup.component";
 import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 import {TestComponent} from "./components/test/test.component";
 import {ResultComponent} from "./components/result/result.component";
+import {ProfileComponent} from "./components/profile/profile.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'test', component: TestComponent },
   { path: 'result', component: ResultComponent },
+  { path: 'profile', component: ProfileComponent },
 
   { path: '**', component: PageNotFoundComponent }
 ];

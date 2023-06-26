@@ -14,6 +14,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ResultComponent } from './components/result/result.component';
 import { TestComponent } from './components/test/test.component';
 import {SafeHtmlPipe} from "./components/chatbot/chatbot.component";
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {SafeHtmlPipe} from "./components/chatbot/chatbot.component";
     NavBarComponent,
     ResultComponent,
     TestComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
