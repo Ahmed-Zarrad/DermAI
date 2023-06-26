@@ -44,7 +44,11 @@ export class ChatbotComponent implements OnInit {
     const message = this.userInput.trim();
 
     if (message.length === 0) return;
-
+    const UserMessage = '<table style=" margin-left: auto;margin-right: auto;"><tr><td><img  src="../../../assets/imgs/mainphotosquare.png" style="  width: 4vh;\n' +
+      '  height: 4vh;' +
+      '  border-radius: 100%;' +
+      '  cursor: pointer;' +
+      '  outline: none;" alt=""></td><td>'+ message + '</td></tr></table>' ;
     this.displayUserMessage(message);
     this.processUserMessage(message);
 
@@ -60,7 +64,7 @@ export class ChatbotComponent implements OnInit {
   // }
 
   displayImageMessage(message: any): void {
-    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#444654', color: 'white', textalign: null, padding:null });
+    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#444654', color: 'white', textalign: null, padding:'20px'});
   }
   displayBotMessage(message: any): void {
     this.chatLog.push({content: '', type: 'bot', backgroundColor: '#444654', color: 'white', textalign: 'center', padding:'5px'});

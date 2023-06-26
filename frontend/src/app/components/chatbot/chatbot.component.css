@@ -322,4 +322,10 @@ span {
   left: -9999px;
   visibility: hidden;
 }
-
+.img-container {
+  width: 6vh;
+  height: 6vh;
+  border-radius: 100%;
+  cursor: pointer;
+  outline: none;
+}
