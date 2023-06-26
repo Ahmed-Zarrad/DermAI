@@ -11781,11 +11781,7 @@ body.light-theme .contact-section .footer .links a {
 body.dark-theme {
   background: #212529;
 }
-.border {
-  border: 1px solid hsla(0,0%,100%,.2);
-  padding: 12px;
-  border-radius: 5px;
-}
+
 .window {
   display: flex;
   justify-content: center;
@@ -11796,7 +11792,10 @@ body.dark-theme {
   position: absolute;
   cursor: pointer;
   left: 0;
-  margin-left: 8px
+  margin-left: 8px;
+  border: 1px solid hsla(0, 0%, 100%, 0.2);
+  padding: 12px;
+  border-radius: 5px;
 }
 .window i{
   color: white;
@@ -11809,13 +11808,17 @@ body.dark-theme {
   outline: none;
 
 }
-small{
+.username{
   font-size: calc(12px + (15 - 12) * ((100vw - 300px) / (1300 - 300)));
   text-decoration:none;
   margin-left: 5px;
   display:inline-block;
   font-weight: bold;
 }
+body.light-theme nav.page-navbar.affix .username {
+  color: #343a40;
+}
+
 .profile{
   color:#fff;
   display:inline-block;
