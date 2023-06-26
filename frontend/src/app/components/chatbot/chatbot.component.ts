@@ -53,17 +53,17 @@ export class ChatbotComponent implements OnInit {
   }
 
   displayUserMessage(message: any): void {
-    this.chatLog.push({content: message, type: 'user', backgroundColor: '#444654',color: 'white', textalign: 'center', padding:'5px'});
+    this.chatLog.push({content: message, type: 'user', backgroundColor: '#343541',color: 'white', textalign: 'center', padding:'5px'});
   }
   // displayBotMessage(message: any): void {
-  //   this.chatLog.push({content: message, type: 'bot', backgroundColor: '#343541', color: 'white', textalign: 'center', padding:'5px'});
+  //   this.chatLog.push({content: message, type: 'bot', backgroundColor: '#444654', color: 'white', textalign: 'center', padding:'5px'});
   // }
 
   displayImageMessage(message: any): void {
-    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#343541', color: 'white', textalign: null, padding:null });
+    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#444654', color: 'white', textalign: null, padding:null });
   }
   displayBotMessage(message: any): void {
-    this.chatLog.push({content: '', type: 'bot', backgroundColor: '#343541', color: 'white', textalign: 'center', padding:'5px'});
+    this.chatLog.push({content: '', type: 'bot', backgroundColor: '#444654', color: 'white', textalign: 'center', padding:'5px'});
     const words = message.split(' ');
     let currentWordIndex = 0;
 
@@ -123,185 +123,275 @@ export class ChatbotComponent implements OnInit {
           this.result = data;
           this.loading = false;
           this.hideData = false;
-          this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-          this.displayImageMessage(this.msg=
-            '  <table class="card" style=" padding: 16px;' +
-            '  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); ' +
-            '  border-radius: 2px; ' +
-            '  margin-top: 0;"> ' +
-            '    <tr class="stack" style="flex-direction: column;"> ' +
-            '      <td class="grid" style="  horiz-align: center; ' +
-            '  vertical-align: top;"> ' +
-            '        <h5 class="title" style="  text-align: center; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif; ' +
-            '  font-size: 22px;">Uploaded image</h5> ' +
-            '        <img class="uploaded-image" style="  padding: 8px; ' +
-            '  width: 300px; ' +
-            '  object-fit: contain;" alt="Uploaded image" src="'+this.result.image+'" /> ' +
-            '      </td> ' +
-            '      <td class="grid2" style="horiz-align: center; ' +
-            '  vertical-align: top; ' +
-            '  border-left: 1px solid #ccc;"> ' +
-            '        <h5 class="title" style="text-align: center; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif; ' +
-            '  font-size: 22px;">Predictions</h5> ' +
-            '        <div class="card-content"> ' +
-            '          <ul class="list" style="list-style-type: none; ' +
-            '  padding: 0;"> ' +
-            '            <li style="display: flex; ' +
-            '  align-items: center; ' +
-            '  padding-left: 16px; ' +
-            '  padding-right: 16px;"> ' +
-            '              <div class="avatar" style="  border-radius:40px; ' +
-            '  height: 40px; ' +
-            '  width: 40px; ' +
-            '  background-color: darkgray; ' +
-            '  display: flex; ' +
-            '  align-items: center; ' +
-            '  justify-content: center; ' +
-            '  margin-right: 16px;"> ' +
-            '                <i class="fa-solid fa-virus-covid" style="color:red"></i> ' +
-            '              </div> ' +
-            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-            '                <p class="item-title" style="font-size: 17px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;">Skin type</p> ' +
-            '                <p class="item-text" style="  font-size: 15px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;"> '+this.result.skinType+'</p> ' +
-            '              </div> ' +
-            '            </li> ' +
-            '            <li style="  display: flex; ' +
-            '  align-items: center; ' +
-            '  padding-left: 16px; ' +
-            '  padding-right: 16px;"> ' +
-            '              <div class="avatar" style="border-radius:40px; ' +
-            '  height: 40px; ' +
-            '  width: 40px; ' +
-            '  background-color: darkgray; ' +
-            '  display: flex; ' +
-            '  align-items: center; ' +
-            '  justify-content: center; ' +
-            '  margin-right: 16px;"> ' +
-            '                <i class="fa-solid fa-percent"></i> ' +
-            '              </div> ' +
-            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-            '                <p class="item-title" style="font-size: 17px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;">Probability</p> ' +
-            '                <p class="item-text" style=" font-size: 15px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;"> '+this.result.probability+' % </p> ' +
-            '              </div> ' +
-            '            </li> ' +
-            '            <!-- Check if symptoms exist --> ' +
-            '            <!-- If yes, loop through symptoms and generate list items --> ' +
-            '            <li style=" display: flex; ' +
-            '  align-items: center; ' +
-            '  padding-left: 16px; ' +
-            '  padding-right: 16px;"> ' +
-            '              <div class="avatar" style="border-radius:40px; ' +
-            '  height: 40px; ' +
-            '  width: 40px; ' +
-            '  background-color: darkgray; ' +
-            '  display: flex; ' +
-            '  align-items: center; ' +
-            '  justify-content: center; ' +
-            '  margin-right: 16px;"> ' +
-            '                <i class="fa-solid fa-magnifying-glass" style="color: saddlebrown"></i> ' +
-            '              </div> ' +
-            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-            '                <p class="item-title" style=" font-size: 17px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;">Symptoms</p> ' +
-            '                <p class="item-text" style=" font-size: 15px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;"> '+this.result.symptoms+'</p> ' +
-            '              </div> ' +
-            '            </li> ' +
-            '            <!-- Check if treatments exist --> ' +
-            '            <!-- If yes, loop through treatments and generate list items --> ' +
-            '            <li style=" display: flex; ' +
-            '  align-items: center; ' +
-            '  padding-left: 16px; ' +
-            '  padding-right: 16px;"> ' +
-            '              <div class="avatar" style=" border-radius:40px; ' +
-            '  height: 40px; ' +
-            '  width: 40px; ' +
-            '  background-color: darkgray; ' +
-            '  display: flex; ' +
-            '  align-items: center; ' +
-            '  justify-content: center; ' +
-            '  margin-right: 16px;"> ' +
-            '                <i class="fa-solid fa-book-medical" style="color: dodgerblue"></i> ' +
-            '              </div> ' +
-            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-            '                <p class="item-title" style="font-size: 17px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;">Treatments</p> ' +
-            '                <p class="item-text" style="font-size: 15px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;"> '+this.result.treatments+'</p> ' +
-            '              </div> ' +
-            '            </li> ' +
-            '            <!-- Check if howCommon exists --> ' +
-            '            <li style="display: flex; ' +
-            '  align-items: center; ' +
-            '  padding-left: 16px; ' +
-            '  padding-right: 16px;"> ' +
-            '              <div class="avatar" style="border-radius:40px; ' +
-            '  height: 40px; ' +
-            '  width: 40px; ' +
-            '  background-color: darkgray; ' +
-            '  display: flex; ' +
-            '  align-items: center; ' +
-            '  justify-content: center; ' +
-            '  margin-right: 16px;"> ' +
-            '                <i class="fa-solid fa-users" style="color: yellow"></i> ' +
-            '              </div> ' +
-            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-            '                <p class="item-title" '+'style="font-size: 17px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;">How common</p> ' +
-            '                <p class="item-text" style="font-size: 15px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;">'+this.result.howCommon+'</p> ' +
-            '              </div> ' +
-            '            </li> ' +
-            '            <!-- Check if duration exists --> ' +
-            '            <li style="  display: flex; ' +
-            '  align-items: center; ' +
-            '  padding-left: 16px; ' +
-            '  padding-right: 16px; "> ' +
-            '              <div class="avatar" style="  border-radius:40px; ' +
-            '  height: 40px; ' +
-            '  width: 40px; ' +
-            '  background-color: darkgray; ' +
-            '  display: flex; ' +
-            '  align-items: center; ' +
-            '  justify-content: center; ' +
-            '  margin-right: 16px;"> ' +
-            '                <i class="fa-regular fa-clock" style="color: steelblue"></i> ' +
-            '              </div> ' +
-            '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-            '                <p class="item-title" style="font-size: 17px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;">Duration</p> ' +
-            '                <p class="item-text" style="  font-size: 15px; ' +
-            '  font-weight: bold; ' +
-            '  font-family: Helvetica, sans-serif;"> '+this.result.duration+'</p> ' +
-            '              </div> ' +
-            '            </li> ' +
-            '          </ul> ' +
-            '        </div> ' +
-            '      </td> ' +
-            '    </tr> ' +
-            '  </table> ' +
-            ' '
+          if(this.result.skinType==='Healthy skin'){
+            this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
+            this.displayImageMessage(this.msg=
+              '  <table class="card" style=" padding: 16px;' +
+              '  box-shadow: 0 0 8px rgba(255,255,255,0.2); ' +
+              '  background-color: rgba(0,0,0,0.2); '+
+              '  border-radius: 2px; ' +
+              '  margin-top: 0;"> ' +
+              '    <tr class="stack" style="flex-direction: column;"> ' +
+              '      <td class="grid" style="  horiz-align: center; ' +
+              '  vertical-align: top;"> ' +
+              '        <h5 class="title" style="  text-align: center; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif; ' +
+              '  font-size: 22px;">Uploaded image</h5> ' +
+              '        <img class="uploaded-image" style="  padding: 8px; ' +
+              '  width: 300px; ' +
+              '  object-fit: contain;" alt="Uploaded image" src="'+this.result.image+'" /> ' +
+              '      </td> ' +
+              '      <td class="grid2" style="horiz-align: center; ' +
+              '  vertical-align: top; ' +
+              '  border-left: 1px solid #ccc;"> ' +
+              '        <h5 class="title" style="text-align: center; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif; ' +
+              '  font-size: 22px;">Predictions</h5> ' +
+              '        <div class="card-content"> ' +
+              '          <ul class="list" style="list-style-type: none; ' +
+              '  padding: 0;"> ' +
+              '            <li style="display: flex; ' +
+              '  align-items: center; ' +
+              '  padding-left: 16px; ' +
+              '  padding-right: 16px;"> ' +
+              '              <div class="avatar" style="  border-radius:40px; ' +
+              '  height: 40px; ' +
+              '  width: 40px; ' +
+              '  background-color: darkgray; ' +
+              '  display: flex; ' +
+              '  align-items: center; ' +
+              '  justify-content: center; ' +
+              '  margin-right: 16px;"> ' +
+              '                <i class="fa-solid fa-virus-covid" style="color:red"></i> ' +
+              '              </div> ' +
+              '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+              '                <p class="item-title" style="font-size: 17px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">Skin type</p> ' +
+              '                <p class="item-text" style="  font-size: 15px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;"> '+this.result.skinType+'</p> ' +
+              '              </div> ' +
+              '            </li> ' +
+              '            <li style="  display: flex; ' +
+              '  align-items: center; ' +
+              '  padding-left: 16px; ' +
+              '  padding-right: 16px;"> ' +
+              '              <div class="avatar" style="border-radius:40px; ' +
+              '  height: 40px; ' +
+              '  width: 40px; ' +
+              '  background-color: darkgray; ' +
+              '  display: flex; ' +
+              '  align-items: center; ' +
+              '  justify-content: center; ' +
+              '  margin-right: 16px;"> ' +
+              '                <i class="fa-solid fa-percent"></i> ' +
+              '              </div> ' +
+              '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+              '                <p class="item-title" style="font-size: 17px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">Probability</p> ' +
+              '                <p class="item-text" style=" font-size: 15px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;"> '+this.result.probability+' % </p> ' +
+              '              </div> ' +
+              '            </li> ' +
+              '            <!-- Check if symptoms exist --> ' +
+              '            <!-- If yes, loop through symptoms and generate list items --> ' +
+              '          </ul> ' +
+              '        </div> ' +
+              '      </td> ' +
+              '    </tr> ' +
+              '  </table> ' +
+              ' '
 
-          );
+            );
+
+          }
+          else {
+            this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
+            this.displayImageMessage(this.msg=
+              '  <table class="card" style=" padding: 16px;' +
+              '  box-shadow: 0 0 8px rgba(255,255,255,0.2); ' +
+              '  background-color: rgba(0,0,0,0.2); '+
+              '  border-radius: 2px; ' +
+              '  margin-top: 0;"> ' +
+              '    <tr class="stack" style="flex-direction: column;"> ' +
+              '      <td class="grid" style="  horiz-align: center; ' +
+              '  vertical-align: top;"> ' +
+              '        <h5 class="title" style="  text-align: center; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif; ' +
+              '  font-size: 22px;">Uploaded image</h5> ' +
+              '        <img class="uploaded-image" style="  padding: 8px; ' +
+              '  width: 300px; ' +
+              '  object-fit: contain;" alt="Uploaded image" src="'+this.result.image+'" /> ' +
+              '      </td> ' +
+              '      <td class="grid2" style="horiz-align: center; ' +
+              '  vertical-align: top; ' +
+              '  border-left: 1px solid #ccc;"> ' +
+              '        <h5 class="title" style="text-align: center; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif; ' +
+              '  font-size: 22px;">Predictions</h5> ' +
+              '        <div class="card-content"> ' +
+              '          <ul class="list" style="list-style-type: none; ' +
+              '  padding: 0;"> ' +
+              '            <li style="display: flex; ' +
+              '  align-items: center; ' +
+              '  padding-left: 16px; ' +
+              '  padding-right: 16px;"> ' +
+              '              <div class="avatar" style="  border-radius:40px; ' +
+              '  height: 40px; ' +
+              '  width: 40px; ' +
+              '  background-color: darkgray; ' +
+              '  display: flex; ' +
+              '  align-items: center; ' +
+              '  justify-content: center; ' +
+              '  margin-right: 16px;"> ' +
+              '                <i class="fa-solid fa-virus-covid" style="color:red"></i> ' +
+              '              </div> ' +
+              '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+              '                <p class="item-title" style="font-size: 17px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">Skin type</p> ' +
+              '                <p class="item-text" style="  font-size: 15px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;"> '+this.result.skinType+'</p> ' +
+              '              </div> ' +
+              '            </li> ' +
+              '            <li style="  display: flex; ' +
+              '  align-items: center; ' +
+              '  padding-left: 16px; ' +
+              '  padding-right: 16px;"> ' +
+              '              <div class="avatar" style="border-radius:40px; ' +
+              '  height: 40px; ' +
+              '  width: 40px; ' +
+              '  background-color: darkgray; ' +
+              '  display: flex; ' +
+              '  align-items: center; ' +
+              '  justify-content: center; ' +
+              '  margin-right: 16px;"> ' +
+              '                <i class="fa-solid fa-percent"></i> ' +
+              '              </div> ' +
+              '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+              '                <p class="item-title" style="font-size: 17px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">Probability</p> ' +
+              '                <p class="item-text" style=" font-size: 15px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;"> '+this.result.probability+' % </p> ' +
+              '              </div> ' +
+              '            </li> ' +
+              '            <!-- Check if symptoms exist --> ' +
+              '            <!-- If yes, loop through symptoms and generate list items --> ' +
+              '            <li style=" display: flex; ' +
+              '  align-items: center; ' +
+              '  padding-left: 16px; ' +
+              '  padding-right: 16px;"> ' +
+              '              <div class="avatar" style="border-radius:40px; ' +
+              '  height: 40px; ' +
+              '  width: 40px; ' +
+              '  background-color: darkgray; ' +
+              '  display: flex; ' +
+              '  align-items: center; ' +
+              '  justify-content: center; ' +
+              '  margin-right: 16px;"> ' +
+              '                <i class="fa-solid fa-magnifying-glass" style="color: saddlebrown"></i> ' +
+              '              </div> ' +
+              '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+              '                <p class="item-title" style=" font-size: 17px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">Symptoms</p> ' +
+              '                <p class="item-text" style=" font-size: 15px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;"> '+this.result.symptoms+'</p> ' +
+              '              </div> ' +
+              '            </li> ' +
+              '            <!-- Check if treatments exist --> ' +
+              '            <!-- If yes, loop through treatments and generate list items --> ' +
+              '            <li "style=" display: flex; ' +
+              '  align-items: center; ' +
+              '  padding-left: 16px; ' +
+              '  padding-right: 16px;"> ' +
+              '              <div class="avatar" style=" border-radius:40px; ' +
+              '  height: 40px; ' +
+              '  width: 40px; ' +
+              '  background-color: darkgray; ' +
+              '  display: flex; ' +
+              '  align-items: center; ' +
+              '  justify-content: center; ' +
+              '  margin-right: 16px;"> ' +
+              '                <i class="fa-solid fa-book-medical" style="color: dodgerblue"></i> ' +
+              '              </div> ' +
+              '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+              '                <p class="item-title" style="font-size: 17px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">Treatments</p> ' +
+              '                <p class="item-text" style="font-size: 15px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;"> '+this.result.treatments+'</p> ' +
+              '              </div> ' +
+              '            </li> ' +
+              '            <!-- Check if howCommon exists --> ' +
+              '            <li style="display: flex; ' +
+              '  align-items: center; ' +
+              '  padding-left: 16px; ' +
+              '  padding-right: 16px;"> ' +
+              '              <div class="avatar" style="border-radius:40px; ' +
+              '  height: 40px; ' +
+              '  width: 40px; ' +
+              '  background-color: darkgray; ' +
+              '  display: flex; ' +
+              '  align-items: center; ' +
+              '  justify-content: center; ' +
+              '  margin-right: 16px;"> ' +
+              '                <i class="fa-solid fa-users" style="color: yellow"></i> ' +
+              '              </div> ' +
+              '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+              '                <p class="item-title" '+'style="font-size: 17px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">How common</p> ' +
+              '                <p class="item-text" style="font-size: 15px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">'+this.result.howCommon+'</p> ' +
+              '              </div> ' +
+              '            </li> ' +
+              '            <!-- Check if duration exists --> ' +
+              '            <li style="  display: flex; ' +
+              '  align-items: center; ' +
+              '  padding-left: 16px; ' +
+              '  padding-right: 16px; "> ' +
+              '              <div class="avatar" style="  border-radius:40px; ' +
+              '  height: 40px; ' +
+              '  width: 40px; ' +
+              '  background-color: darkgray; ' +
+              '  display: flex; ' +
+              '  align-items: center; ' +
+              '  justify-content: center; ' +
+              '  margin-right: 16px;"> ' +
+              '                <i class="fa-regular fa-clock" style="color: steelblue"></i> ' +
+              '              </div> ' +
+              '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
+              '                <p class="item-title" style="font-size: 17px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;">Duration</p> ' +
+              '                <p class="item-text" style="  font-size: 15px; ' +
+              '  font-weight: bold; ' +
+              '  font-family: Helvetica, sans-serif;"> '+this.result.duration+'</p> ' +
+              '              </div> ' +
+              '            </li> ' +
+              '          </ul> ' +
+              '        </div> ' +
+              '      </td> ' +
+              '    </tr> ' +
+              '  </table> ' +
+              ' '
+
+            );
+          }
         },
         error => {
           console.log(error);
