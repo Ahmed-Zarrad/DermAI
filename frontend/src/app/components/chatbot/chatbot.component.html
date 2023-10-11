@@ -78,60 +78,69 @@
   <div class="right">
     <div *ngIf="hideData">
     <h1>DermAI</h1>
-
-    <div class="examples">
-      <div class="example">
-        <div class="example-img">
-          <img src="assets/Icons/icons8-sun-100.png" alt="" style="height: 28%;width: 28%;">
-          <p>Examples</p>
-        </div>
-        <button>"Explain quantum computing in simple terms" →</button>
-        <button>"Got any creative ideas for a 10 year old's birthday?" →</button>
-        <button>"How do I make an HTTP request in Javascript?" →</button>
+      <div style="text-align: center;margin-top: 50px;">
+      <img src="assets/imgs/chatbot.gif" alt="" style=" height: 350px;width: auto">
       </div>
+<!--    <div class="examples">-->
+<!--      <div class="example">-->
+<!--        <div class="example-img">-->
+<!--          <img src="assets/Icons/icons8-sun-100.png" alt="" style="height: 28%;width: 28%;">-->
+<!--          <p>Examples</p>-->
+<!--        </div>-->
+<!--        <button>"Explain quantum computing in simple terms" →</button>-->
+<!--        <button>"Got any creative ideas for a 10 year old's birthday?" →</button>-->
+<!--        <button>"How do I make an HTTP request in Javascript?" →</button>-->
+<!--      </div>-->
 
-      <div class="example">
-        <div class="example-img">
-          <img src="assets/Icons/icons8-flash-on-100.png" alt="" style="height: 28%;width: 28%;">
-          <p>Capabilities</p>
-        </div>
-        <button>Remembers what user said earlier in the conversation</button>
-        <button>Allows user to provide follow-up corrections</button>
-        <button>Trained to decline inappropriate requests</button>
-      </div>
+<!--      <div class="example">-->
+<!--        <div class="example-img">-->
+<!--          <img src="assets/Icons/icons8-flash-on-100.png" alt="" style="height: 28%;width: 28%;">-->
+<!--          <p>Capabilities</p>-->
+<!--        </div>-->
+<!--        <button>Remembers what user said earlier in the conversation</button>-->
+<!--        <button>Allows user to provide follow-up corrections</button>-->
+<!--        <button>Trained to decline inappropriate requests</button>-->
+<!--      </div>-->
 
-      <div class="example down">
-        <div class="example-img">
-          <img src="assets/Icons/icons8-medium-risk-100.png" alt="" style="height: 28%;width: 28%;">
-          <p>Limitations</p>
-        </div>
-        <button>May occasionally generate incorrect information</button>
-        <button>May occasionally produce harmful instructions or biased content</button>
-        <button>Limited knowledge of world and events after 2021</button>
-      </div>
-    </div>
+<!--      <div class="example down">-->
+<!--        <div class="example-img">-->
+<!--          <img src="assets/Icons/icons8-medium-risk-100.png" alt="" style="height: 28%;width: 28%;">-->
+<!--          <p>Limitations</p>-->
+<!--        </div>-->
+<!--        <button>May occasionally generate incorrect information</button>-->
+<!--        <button>May occasionally produce harmful instructions or biased content</button>-->
+<!--        <button>Limited knowledge of world and events after 2021</button>-->
+<!--      </div>-->
+<!--    </div>-->
     </div>
     <div class="chat-log" id="chat-log" >
-      <div  *ngFor="let message of chatLog" [ngClass]="message.type === 'user' ? 'user-message' : 'bot-message'" [style.background-color]="message.backgroundColor" [style.color]="message.color" [style.text-align]="message.textalign" [style.padding]="message.padding" #div [innerHTML]="message.content | safeHtml">
+      <div  *ngFor="let message of chatLog" [ngClass]="message.role === 'user' ? 'user-message' : 'bot-message'"
+            [style.background-color]="message.backgroundColor" [style.color]="message.color"
+            [style.text-align]="message.textAlign" #div [innerHTML]="message.content | safeHtml">
       </div>
     </div>
     <div class="input-text">
       <div *ngIf="loading" style="color: white">
         processing ...
       </div>
-      <textarea  placeholder="send a message." [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" ></textarea>
+      <textarea  placeholder="send a message." [(ngModel)]="userInput"
+                 name="userinput" (input)="autoResize($event)" ></textarea>
       <table >
         <tr>
           <td>
-            <button  onclick="document.getElementById('file-input').click()" [disabled]="loading"><img src="assets/Icons/icons8-add-camera-100.png" alt=""> </button>
+            <button  onclick="document.getElementById('file-input').click()" [disabled]="loading">
+              <img src="assets/Icons/icons8-add-camera-100.png" alt=""> </button>
           </td>
           <td>
-            <button style="margin-left: 0.5px" type="submit" (click)="sendMessage()" [disabled]="loading" ><img src="assets/Icons/icons8-send-100.png" alt=""> </button >
+            <button style="margin-left: 0.5px" type="submit" (click)="sendMessage()" [disabled]="loading" >
+              <img src="assets/Icons/icons8-send-100.png" alt=""> </button >
           </td>
         </tr>
       </table>
-    <p class="p"><span>©2023 DermAI, Created by Ahmed Zarrad</span>. DermAI. Your Smart Skin Diagnosis Bot. Your feedback will help us improve.</p>
+    <p class="p"><span>©2023 DermAI, Created by Ahmed Zarrad</span>.
+      DermAI. Your Smart Skin Diagnosis Bot. Your feedback will help us improve.</p>
     </div>
   </div>
 </div>
-<input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" (change)="handleImageUpload($event)" [disabled]="loading" [hidden]="hidden" >
+<input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" (change)="handleImageUpload($event)"
+       [disabled]="loading" [hidden]="hidden" >

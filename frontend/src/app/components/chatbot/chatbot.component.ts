@@ -2,6 +2,7 @@ import { Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Message} from "../../models/message.model";
 import { Router } from '@angular/router';
 import {SkinResultsService} from "../../services/skin-results/skin-results.service";
+import {ChatbotService} from "../../services/chatbot/chatbot.service";
 // @ts-ignore
 import {TokenstorageService} from "../../services/tokenstorage/tokenstorage.service";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -24,12 +25,16 @@ export class ChatbotComponent implements OnInit {
   dispatch: any;
   err: any
   result: any = null;
+  resp: any = null;
+  response: any;
   loading = false;
   msg: any;
   initialRowHeight = 20;
   hideWindow: boolean =true
   hidden: boolean=true;
-  constructor(private router: Router, private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
+  isTyping = false;
+  constructor(private chatbotService: ChatbotService, private router: Router,
+              private skinResultsService: SkinResultsService, private tokenstorageService: TokenstorageService) {
 
     this.router = router;
   }
@@ -39,35 +44,67 @@ export class ChatbotComponent implements OnInit {
       this.hideWindow = value;
     });
   }
+
+
   sendMessage(): void {
-
     const message = this.userInput.trim();
-
     if (message.length === 0) return;
-    const UserMessage = '<table style=" margin-left: auto;margin-right: auto;"><tr><td><img  src="../../../assets/imgs/mainphotosquare.png" style="  width: 4vh;\n' +
-      '  height: 4vh;' +
-      '  border-radius: 100%;' +
-      '  cursor: pointer;' +
-      '  outline: none;" alt=""></td><td>'+ message + '</td></tr></table>' ;
-    this.displayUserMessage(message);
-    this.processUserMessage(message);
-
-    this.userInput = '';
+    this.loading = true;
     this.hideData = false;
+    this.displayUserMessage(message);
+    this.userInput = '';
+    this.chatbotService.chatbot(message, 'user').subscribe(
+      data => {
+        this.resp= data
+        this.loading = false;
+        console.log(data);
+        this.displayBotMessage1(this.resp.output.content);
+      },
+      error => {
+        console.log(error);
+        this.msg = 'error';
+      }
+    )
+    // this.processUserMessage(message);
   }
 
   displayUserMessage(message: any): void {
-    this.chatLog.push({content: message, type: 'user', backgroundColor: '#343541',color: 'white', textalign: 'center', padding:'5px'});
+    const UserMessage = '<div style="display: table;padding: 5px;align-items: center;"> ' +
+      '<img  src="../../../assets/imgs/mainphotosquare.png"'+
+      ' style= "  width: 4vh;' + '  height: 4vh;'+'  border-radius: 100%;'+'  cursor: pointer;' +
+      '  outline: none; margin-left: 300px;margin-right: 20px;vertical-align: middle'+ '" alt="">'+
+      '<div style="display: table-cell; vertical-align: middle;">'+'<strong>Ahmed : </strong>'+ message +'</div></div>' ;
+    this.chatLog.push({content: UserMessage, role: 'user', backgroundColor: '#343541',color: 'white', textAlign: 'left'});
   }
-  // displayBotMessage(message: any): void {
-  //   this.chatLog.push({content: message, type: 'bot', backgroundColor: '#444654', color: 'white', textalign: 'center', padding:'5px'});
-  // }
+  displayBotMessage1(message: any): void {
+    const BotMessage = '<div style="display: table;padding: 5px;align-items: center;">'+
+      '<img  src="../../../assets/imgs/logoDermAI.png" style="  width: 4vh;' +
+      '  height: 4vh;'+'  border-radius: 100%;' +'  cursor: pointer;'+
+      '  outline: none; margin-left: 300px;margin-right: 20px; background-color: white;vertical-align: middle'+
+      '" alt="">'+'<div style="display: table-cell; vertical-align: middle;">'+'<strong>DermAI : </strong>' + message + '</div></div>' ;
+    this.chatLog.push({content: BotMessage, role: 'bot', backgroundColor: '#444654', color: 'white', textAlign: 'left'});
+  }
 
-  displayImageMessage(message: any): void {
-    this.chatLog.push({ content: message, type: 'bot', backgroundColor: '#444654', color: 'white', textalign: null, padding:'20px'});
+  displayImageMessageUser(message: any): void {
+    const BotMessage = '<div style="display: table;padding: 5px;align-items: center;">'+
+      '<img  src="../../../assets/imgs/logoDermAI.png" style="  width: 4vh;' +
+      '  height: 4vh;'+'  border-radius: 100%;' +'  cursor: pointer;'+
+      '  outline: none; margin-left: 300px;margin-right: 20px; background-color: white;vertical-align: middle'+
+      '" alt="">'+'<div style="display: table-cell; vertical-align: middle;">'+ message + '</div></div>' ;
+
+    this.chatLog.push({ content: BotMessage, role: 'bot', backgroundColor: '#444654', color: 'white'});
   }
-  displayBotMessage(message: any): void {
-    this.chatLog.push({content: '', type: 'bot', backgroundColor: '#444654', color: 'white', textalign: 'center', padding:'5px'});
+  displayImageMessageBot(message: any): void {
+    const BotMessage = '<div style="display: table;padding: 5px;align-items: center;">'+
+      '<img  src="../../../assets/imgs/logoDermAI.png" style="  width: 4vh;' +
+      '  height: 4vh;'+'  border-radius: 100%;' +'  cursor: pointer;'+
+      '  outline: none; margin-left: 300px;margin-right: 20px; background-color: white;vertical-align: middle'+
+      '" alt="">'+'<div style="display: table-cell; vertical-align: middle;">'+ message + '</div></div>' ;
+
+    this.chatLog.push({ content: BotMessage, role: 'bot', backgroundColor: '#444654', color: 'white'});
+  }
+  displayBotMessage2(message: any): void {
+    this.chatLog.push({content: '', role: 'bot', backgroundColor: '#444654', color: 'white', textAlign: 'left'});
     const words = message.split(' ');
     let currentWordIndex = 0;
 
@@ -86,24 +123,23 @@ export class ChatbotComponent implements OnInit {
 
 
 
-  processUserMessage(message: any): void {
-    let response = '';
-
-    if (message.toLowerCase() === 'bonjour') {
-      response = 'Bonjour, comment puis-je vous aider aujourd\'hui?';
-    } else if (message.toLowerCase() === 'j\'ai une photo de la condition de la peau') {
-      response = 'Bien sûr, veuillez envoyer une photo de votre état de peau.';
-    } else if (message.toLowerCase() === 'test') {
-      response = '<div  id="test">sddsd</div>';
-    }else {
-      // Default response for unrecognized inputs
-      response = 'Désolé, je ne peux pas comprendre votre demande.';
-    }
-
-    setTimeout(() => {
-      this.displayBotMessage(response);
-    }, 1000);
-  }
+  // processUserMessage(message: any): void {
+  //    this.response = '';
+  //   if (message.toLowerCase() === 'bonjour') {
+  //     this.response = 'Bonjour, comment puis-je vous aider aujourd\'hui?';
+  //   } else if (message.toLowerCase() === 'j\'ai une photo de la condition de la peau') {
+  //     this.response = 'Bien sûr, veuillez envoyer une photo de votre état de peau.';
+  //   } else if (message.toLowerCase() === 'test') {
+  //     this.response = '<div  id="test">sddsd</div>';
+  //   }else {
+  //     // Default response for unrecognized inputs
+  //     this.response = 'Désolé, je ne peux pas comprendre votre demande.';
+  //   }
+  //
+  //   setTimeout(() => {
+  //     this.displayBotMessage1(this.response);
+  //   }, 1000);
+  // }
 
   handleImageUpload(event: any):void {
     this.loading = true;
@@ -112,12 +148,12 @@ export class ChatbotComponent implements OnInit {
 
       if (!allowedTypes.includes(event.target.files[0].type)) {
         this.loading = false;
-        this.displayBotMessage(this.msg= 'Invalid image type (only png, jpg, jpeg are allowed).');
+        this.displayBotMessage1(this.msg= 'Invalid image type (only png, jpg, jpeg are allowed).');
       }
 
       else if (event.target.files[0].size > 3000000) {
         this.loading = false;
-        this.displayBotMessage(this.msg = 'Image size must be less than 1MB');
+        this.displayBotMessage1(this.msg = 'Image size must be less than 1MB');
       }
 
       const skinImage: File = event.target.files[0];
@@ -128,8 +164,8 @@ export class ChatbotComponent implements OnInit {
           this.loading = false;
           this.hideData = false;
           if(this.result.skinType==='Healthy skin'){
-            this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-            this.displayImageMessage(this.msg=
+            this.displayImageMessageUser(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
+            this.displayImageMessageBot(this.msg=
               '  <table class="card" style=" padding: 16px;' +
               '  box-shadow: 0 0 8px rgba(255,255,255,0.2); ' +
               '  background-color: rgba(0,0,0,0.2); '+
@@ -217,8 +253,8 @@ export class ChatbotComponent implements OnInit {
 
           }
           else {
-            this.displayUserMessage(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-            this.displayImageMessage(this.msg=
+            this.displayImageMessageUser(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
+            this.displayImageMessageBot(this.msg=
               '  <table class="card" style=" padding: 16px;' +
               '  box-shadow: 0 0 8px rgba(255,255,255,0.2); ' +
               '  background-color: rgba(0,0,0,0.2); '+
@@ -400,23 +436,34 @@ export class ChatbotComponent implements OnInit {
 
             );
           }
+          this.chatbotService.chatbot("the result of processing the user skin image is Skin type: "+this.result.skinType+"Probability: "+this.result.probability+"% ask me 5 yes or no question to verify if he really have this skin type or this skin pathology and Do not ask all the questions at once, send each question separately and after I reply with yes or no ask me the next question until the user answer all the questions after I answer all the question tell me the result of the quiz", 'user').subscribe(
+            data => {
+              this.resp= data
+              console.log(data);
+              this.displayBotMessage1(this.resp.output.content);
+            },
+            error => {
+              console.log(error);
+              this.msg = 'error';
+            }
+          )
         },
         error => {
           console.log(error);
           this.err= error;
           this.loading = false;
           if (this.err.status===401) {
-            this.displayBotMessage(this.msg = 'Token expired. You must login to continue');
+            this.displayBotMessage1(this.msg = 'Token expired. You must login to continue');
             setTimeout(() => {
             this.tokenstorageService.logOut();}, 4000);
           }
           else if (this.err.status === 500) {
 
-            this.displayBotMessage(this.msg = 'Failed to connect to the server.');
+            this.displayBotMessage1(this.msg = 'Failed to connect to the server.');
       }
 
       else {
-            this.displayBotMessage(this.msg = 'Invalid image.');
+            this.displayBotMessage1(this.msg = 'Invalid image.');
       }
     });
     }

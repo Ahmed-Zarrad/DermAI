@@ -1,8 +1,7 @@
 export class Message {
   content!:  any;
-  type!: 'user' | 'bot';
-  backgroundColor!:  any;
-  color!:  any;
-  textalign!:  any;
-  padding!:  any;
+  role!: 'user' | 'bot';
+  backgroundColor?:  any;
+  color?:  any;
+  textAlign?:  any;
 }
