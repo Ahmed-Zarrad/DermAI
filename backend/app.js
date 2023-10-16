@@ -11,6 +11,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 
 app.use(cors());
+app.use(bodyParser.json());
 app.use(morgan("tiny"));
 app.use(
   helmet.contentSecurityPolicy({
