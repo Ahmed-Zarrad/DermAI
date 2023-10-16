@@ -6,6 +6,7 @@ const app = express();
 require("express-async-errors");
 
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const helmet = require("helmet");
 
@@ -21,6 +22,7 @@ app.use(
 );
 
 const skinResultsRouter = require("./controllers/skin-results");
+const chatbotRouter = require("./controllers/chatbot");
 const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 
@@ -57,6 +59,10 @@ app.use(
   tokenExtractor,
   userExtractor,
   skinResultsRouter
+);
+app.use(
+    "/api/v1/chatbot",
+    chatbotRouter
 );
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/login", loginRouter);
