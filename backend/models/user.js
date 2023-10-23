@@ -10,7 +10,13 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "SkinResult",
     },
-  ],
+    ],
+    chats: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Chat",
+        },
+    ],
 });
 
 userSchema.set("toJSON", {
@@ -28,7 +34,11 @@ userSchema.pre("remove", async function (next) {
   await SkinResult.deleteMany({ user: this._id });
   next();
 });
-
+userSchema.pre("remove", async function (next) {
+    // 'this' is the client being removed.
+    await Chat.deleteMany({ user: this._id });
+    next();
+});
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

@@ -63,6 +63,8 @@ app.use(
 );
 app.use(
     "/api/v1/chatbot",
+    tokenExtractor,
+    userExtractor,
     chatbotRouter
 );
 app.use("/api/v1/users", usersRouter);
