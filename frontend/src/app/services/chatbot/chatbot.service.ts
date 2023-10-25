@@ -12,17 +12,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ChatbotService {
-  private baseUrl = 'http://localhost:8000/';
+  private baseUrl = 'http://localhost:3001/api/v1/chatbot/chat/65357c51f60edb450b395adb/message';
   constructor(private httpClient: HttpClient) { }
   chatbot(content: string, role: string): Observable<any> {
-    const requestData = {
-      chats: [
+    const requestData =
         {
           role: role,
           content: content,
-        },
-      ],
-    };
+        };
     return this.httpClient.post(this.baseUrl, requestData, httpOptions)
 
       .pipe((data => {

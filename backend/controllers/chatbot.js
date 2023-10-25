@@ -112,7 +112,6 @@ chatbotRouter.post("/chat/:chatId/message", async (req, res) => {
             content: message.content
         }))
     };
-    console.log(transformedData);
     const { chats } = transformedData;
 
     const chatCompletion = await openai.chat.completions.create({

@@ -6,6 +6,6 @@
     "\\services",
     "\\utils"
   ],
-  "SelectedNode": "\\models\\chat.js",
+  "SelectedNode": "\\services\\chatbot.js",
   "PreviewInSolutionExplorer": false
 }
