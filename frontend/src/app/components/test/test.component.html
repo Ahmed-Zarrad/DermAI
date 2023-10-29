@@ -161,14 +161,16 @@
             <div class="img_cont_msg">
               <img src="assets/imgs/logoDermAI.png" class="rounded-circle user_img_msg">
             </div>
+            <div class="chatMsg">
             <div class="msg_cotainer">
-              {{m.content}}
+              {{m.content}}</div>
               <span class="msg_time">{{m.created}}</span>
             </div>
           </div>
           <div class="d-flex justify-content-end mb-4" *ngIf="m.role=='user'">
+            <div class="chatMsg_send">
             <div class="msg_cotainer_send">
-              {{m.content}}
+              {{m.content}}</div>
               <span class="msg_time_send">{{m.created}}</span>
             </div>
             <div class="img_cont_msg">
