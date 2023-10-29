@@ -1,146 +1,149 @@
-<head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <title>chatbot</title>
-</head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="dark-theme">
-<div class="home">
-  <div class="left" *ngIf="hideWindow">
-    <div class="new-chat">
-      <img src="https://cdn-icons-png.flaticon.com/128/9312/9312231.png" alt="">
-      <p>New chat</p>
-    </div>
-    <div class="chats">
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-      <div class="chat">
-        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">
-        <p>New chat</p>
-      </div>
-    </div>
-
-    <div class="line"></div>
-
-    <div class="features">
-      <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/128/3405/3405244.png" alt="">
-        <p>Clear conversations</p>
-      </div>
-      <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/128/9580/9580357.png" alt="">
-        <p>Dark mode</p>
-      </div>
-      <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/128/9297/9297112.png" alt="">
-        <p>Log out</p>
-      </div>
-    </div>
-  </div>
-  <!-- right
-
-
-    -->
-  <div class="right">
-    <div *ngIf="hideData">
-    <h1>DermAI</h1>
-      <div style="text-align: center;margin-top: 50px;">
-      <img src="assets/imgs/chatbot.gif" alt="" style=" height: 350px;width: auto">
-      </div>
-<!--    <div class="examples">-->
-<!--      <div class="example">-->
-<!--        <div class="example-img">-->
-<!--          <img src="assets/Icons/icons8-sun-100.png" alt="" style="height: 28%;width: 28%;">-->
-<!--          <p>Examples</p>-->
-<!--        </div>-->
-<!--        <button>"Explain quantum computing in simple terms" →</button>-->
-<!--        <button>"Got any creative ideas for a 10 year old's birthday?" →</button>-->
-<!--        <button>"How do I make an HTTP request in Javascript?" →</button>-->
+<!--<html>-->
+<!--<head>-->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"-->
+<!--      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="-->
+<!--      crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+<!--  <title>chatbot</title>-->
+<!--</head>-->
+<!--<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="dark-theme">-->
+<!--<div class="home">-->
+<!--  <div class="left" *ngIf="hideWindow">-->
+<!--    <div class="new-chat">-->
+<!--      <img src="https://cdn-icons-png.flaticon.com/128/9312/9312231.png" alt="">-->
+<!--      <p>New chat</p>-->
+<!--    </div>-->
+<!--    <div class="chats">-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
 <!--      </div>-->
-
-<!--      <div class="example">-->
-<!--        <div class="example-img">-->
-<!--          <img src="assets/Icons/icons8-flash-on-100.png" alt="" style="height: 28%;width: 28%;">-->
-<!--          <p>Capabilities</p>-->
-<!--        </div>-->
-<!--        <button>Remembers what user said earlier in the conversation</button>-->
-<!--        <button>Allows user to provide follow-up corrections</button>-->
-<!--        <button>Trained to decline inappropriate requests</button>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
 <!--      </div>-->
-
-<!--      <div class="example down">-->
-<!--        <div class="example-img">-->
-<!--          <img src="assets/Icons/icons8-medium-risk-100.png" alt="" style="height: 28%;width: 28%;">-->
-<!--          <p>Limitations</p>-->
-<!--        </div>-->
-<!--        <button>May occasionally generate incorrect information</button>-->
-<!--        <button>May occasionally produce harmful instructions or biased content</button>-->
-<!--        <button>Limited knowledge of world and events after 2021</button>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
+<!--      </div>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
+<!--      </div>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
+<!--      </div>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
+<!--      </div>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
+<!--      </div>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
+<!--      </div>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
+<!--      </div>-->
+<!--      <div class="chat">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9256/9256389.png" alt="">-->
+<!--        <p>New chat</p>-->
 <!--      </div>-->
 <!--    </div>-->
-    </div>
-    <div class="chat-log" id="chat-log" >
-      <div  *ngFor="let message of chatLog" [ngClass]="message.role === 'user' ? 'user-message' : 'bot-message'"
-            [style.background-color]="message.backgroundColor" [style.color]="message.color"
-            [style.text-align]="message.textAlign" #div [innerHTML]="message.content | safeHtml">
-      </div>
-    </div>
-    <div class="input-text">
-      <div *ngIf="loading" style="color: white">
-        processing ...
-      </div>
-      <textarea  placeholder="send a message." [(ngModel)]="userInput"
-                 name="userinput" (input)="autoResize($event)" ></textarea>
-      <table >
-        <tr>
-          <td>
-            <button  onclick="document.getElementById('file-input').click()" [disabled]="loading">
-              <img src="assets/Icons/icons8-add-camera-100.png" alt=""> </button>
-          </td>
-          <td>
-            <button style="margin-left: 0.5px" type="submit" (click)="sendMessage()" [disabled]="loading" >
-              <img src="assets/Icons/icons8-send-100.png" alt=""> </button >
-          </td>
-        </tr>
-      </table>
-    <p class="p"><span>©2023 DermAI, Created by Ahmed Zarrad</span>.
-      DermAI. Your Smart Skin Diagnosis Bot. Your feedback will help us improve.</p>
-    </div>
-  </div>
-</div>
-<input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" (change)="handleImageUpload($event)"
-       [disabled]="loading" [hidden]="hidden" >
+
+<!--    <div class="line"></div>-->
+
+<!--    <div class="features">-->
+<!--      <div class="feature">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/3405/3405244.png" alt="">-->
+<!--        <p>Clear conversations</p>-->
+<!--      </div>-->
+<!--      <div class="feature">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9580/9580357.png" alt="">-->
+<!--        <p>Dark mode</p>-->
+<!--      </div>-->
+<!--      <div class="feature">-->
+<!--        <img src="https://cdn-icons-png.flaticon.com/128/9297/9297112.png" alt="">-->
+<!--        <p>Log out</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  &lt;!&ndash; right-->
+
+
+<!--    &ndash;&gt;-->
+<!--  <div class="right">-->
+<!--    <div *ngIf="hideData">-->
+<!--    <h1>DermAI</h1>-->
+<!--      <div style="text-align: center;margin-top: 50px;">-->
+<!--      <img src="assets/imgs/chatbot.gif" alt="" style=" height: 350px;width: auto">-->
+<!--      </div>-->
+<!--&lt;!&ndash;    <div class="examples">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="example">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="example-img">&ndash;&gt;-->
+<!--&lt;!&ndash;          <img src="assets/Icons/icons8-sun-100.png" alt="" style="height: 28%;width: 28%;">&ndash;&gt;-->
+<!--&lt;!&ndash;          <p>Examples</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>"Explain quantum computing in simple terms" →</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>"Got any creative ideas for a 10 year old's birthday?" →</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>"How do I make an HTTP request in Javascript?" →</button>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div class="example">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="example-img">&ndash;&gt;-->
+<!--&lt;!&ndash;          <img src="assets/Icons/icons8-flash-on-100.png" alt="" style="height: 28%;width: 28%;">&ndash;&gt;-->
+<!--&lt;!&ndash;          <p>Capabilities</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>Remembers what user said earlier in the conversation</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>Allows user to provide follow-up corrections</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>Trained to decline inappropriate requests</button>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <div class="example down">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="example-img">&ndash;&gt;-->
+<!--&lt;!&ndash;          <img src="assets/Icons/icons8-medium-risk-100.png" alt="" style="height: 28%;width: 28%;">&ndash;&gt;-->
+<!--&lt;!&ndash;          <p>Limitations</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>May occasionally generate incorrect information</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>May occasionally produce harmful instructions or biased content</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>Limited knowledge of world and events after 2021</button>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="chat-log" id="chat-log" >-->
+<!--      <div  *ngFor="let message of chatLog" [ngClass]="message.role === 'user' ? 'user-message' : 'bot-message'"-->
+<!--            [style.background-color]="message.backgroundColor" [style.color]="message.color"-->
+<!--            [style.text-align]="message.textAlign" #div [innerHTML]="message.content | safeHtml">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="input-text">-->
+<!--      <div *ngIf="loading" style="color: white">-->
+<!--        processing ...-->
+<!--      </div>-->
+<!--      <textarea  placeholder="send a message." [(ngModel)]="userInput"-->
+<!--                 name="userinput" (input)="autoResize($event)" ></textarea>-->
+<!--      <table >-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <button  onclick="document.getElementById('file-input').click()" [disabled]="loading">-->
+<!--              <img src="assets/Icons/icons8-add-camera-100.png" alt=""> </button>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <button style="margin-left: 0.5px" type="submit" (click)="sendMessage()" [disabled]="loading" >-->
+<!--              <img src="assets/Icons/icons8-send-100.png" alt=""> </button >-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      </table>-->
+<!--    <p class="p"><span>©2023 DermAI, Created by Ahmed Zarrad</span>.-->
+<!--      DermAI. Your Smart Skin Diagnosis Bot. Your feedback will help us improve.</p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" (change)="handleImageUpload($event)"-->
+<!--       [disabled]="loading" [hidden]="hidden" >-->
+<!--</body>-->
+<!--</html>-->

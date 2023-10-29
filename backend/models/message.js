@@ -28,7 +28,15 @@ messageSchema.set("toJSON", {
         delete returnedObject._id;
         delete returnedObject.__v;
         delete returnedObject.chat;
-        delete returnedObject.created;
+        if (returnedObject.created) {
+            returnedObject.created = new Date(returnedObject.created).toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            });
+        }
     },
 });
 

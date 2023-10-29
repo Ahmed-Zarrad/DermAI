@@ -5,7 +5,7 @@ const Message = require("../models/message");
 const jwt = require("jsonwebtoken");
 
 chatbotRouter.get("/chat", async (req, res) => {
-    const chats = await Chat.find({ user: req.user });
+    const chats = await Chat.find({ user: req.user }).sort({ created: -1 });
 
     res.json(chats);
 });
@@ -50,6 +50,33 @@ chatbotRouter.post("/chat", async (req, res) => {
     await user.save();
 
     res.status(201).json(savedChat);
+});
+chatbotRouter.delete("/chat/:id", async (req, res) => {
+    const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
+
+    if (!req.token || !decodedToken.id) {
+        return res
+            .status(401)
+            .json({ error: { token: "Token missing or invalid." } });
+    }
+
+    let chat = await Chat.findById(req.params.id);
+
+    if (!chat) {
+        return res
+            .status(404)
+            .json({ error: { chat: "Chat not found." } });
+    }
+
+    if (chat.user.toString() !== req.user._id.toString()) {
+        return res
+            .status(401)
+            .json({ error: { chat: "User not authorized." } });
+    }
+
+    await Chat.findByIdAndRemove(req.params.id);
+
+    res.status(204).end();
 });
 chatbotRouter.get("/chat/:chatId/message", async (req, res) => {
     const { chatId } = req.params;

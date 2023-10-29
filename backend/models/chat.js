@@ -29,7 +29,15 @@ chatSchema.set("toJSON", {
         delete returnedObject._id;
         delete returnedObject.__v;
         delete returnedObject.user;
-        delete returnedObject.created;
+        if (returnedObject.created) {
+            returnedObject.created = new Date(returnedObject.created).toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            });
+        }
     },
 });
 chatSchema.pre("remove", async function (next) {

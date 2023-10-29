@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
         this.tokenstorage.saveUsername(data.username)
         this.tokenstorage.saveAuthorities(data.authorities)
 
-        this.router.navigate(["/chatbot"])
+        this.router.navigate(["/test"])
       },
       error => {
         this.msg = 'Username Or password Invalid';
