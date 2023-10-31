@@ -199,6 +199,9 @@ body,html{
   cursor: pointer;
   margin-right: 20px;
 }
+.chatlog{
+
+}
 .msg_cotainer{
   margin-top: auto;
   margin-bottom: auto;

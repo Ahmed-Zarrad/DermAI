@@ -1,43 +1,88 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/dist/mdb5/standard/core.min.css">
+  <link rel="stylesheet" id="roboto-subset.css-css" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/mdb5/fonts/roboto-subset.css?ver=3.9.0-update.5" type="text/css" media="all">
+  <link rel="canonical" href="https://mdbootstrap.com/docs/standard/extended/login/">
+  <script async="" src="https://www.clarity.ms/s/0.7.13/clarity.js"></script>
+  <script async="" src="https://www.clarity.ms/tag/f1su1ssihh"></script>
+  <script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script>
+  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+  <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-E9PS2EVWYS&amp;l=dataLayer&amp;cx=c"></script>
+  <script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-W7MBMN"></script>
 
+</head>
+<body>
 
-<div class="wrapper fadeInDown" style="margin-top: 200px">
-
-  <div id="formContent">
-    <!-- Tabs Titles -->
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <h3 class="col-5 mx-auto">SIGN IN</h3>
-      <!-- Login Form -->
-      <form name="form" #auth="ngForm" >
-
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="login (First Name)" ngModel
-               required #fn="ngModel" [(ngModel)]="form.username">
-        <a class="alert alert-danger" *ngIf="fn.invalid && fn.touched">
-          Username is a Required Field !
-        </a>
-
-        <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password"
-               ngModel required #p="ngModel" [(ngModel)]="form.password">
-
-
-        <a class="alert alert-danger" *ngIf="p.invalid && p.touched">
-          Password is a Required Field !
-        </a>
-
-        <input href="client" type="submit" [disabled]="auth.invalid" class="fadeIn fourth" value="Log In" (click)="authenticat()">
-      </form>
-
-      <div class="alert alert-primary">{{msg}}</div>
-
-      <!-- Remind Passowrd -->
-      <div id="formFooter">
-        <a class="underlineHover" href="home/createaccount">Dont have an account yet ?</a>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+             class="img-fluid" alt="Sample image">
       </div>
-      <div id="formFootera">
-        <a class="underlineHover" href="home/forgot" >Forgot Your Password ?</a>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form name="form" #auth="ngForm" (ngSubmit)="authenticat()">
+          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-linkedin-in"></i>
+            </button>
+          </div>
+
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">Or</p>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input  id="form3Example3" class="form-control form-control-lg"
+                   placeholder="Enter your username" name="login" ngModel
+                    required #fn="ngModel" [(ngModel)]="form.username"/>
+            <label class="form-label" for="form3Example3">Username</label>
+          </div>
+          <a class="alert alert-danger" *ngIf="fn.invalid && fn.touched">
+            Username is a Required Field !
+          </a>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" id="form3Example4" class="form-control form-control-lg"
+                   placeholder="Enter password" name="password" ngModel required #p="ngModel" [(ngModel)]="form.password" />
+            <label class="form-label" for="form3Example4" >Password</label>
+          </div>
+          <a class="alert alert-danger" *ngIf="p.invalid && p.touched">
+            Password is a Required Field !
+          </a>
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <label class="form-check-label" for="form2Example3">
+                Remember me
+              </label>
+            </div>
+            <a href="#!" class="text-body">Forgot password?</a>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                    [disabled]="auth.invalid" (click)="authenticat()">Login</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+                                                                              class="link-danger">Register</a></p>
+          </div>
+
+        </form>
       </div>
     </div>
   </div>
-</div>
-
-
+</section>
+</body>

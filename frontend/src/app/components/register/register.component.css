@@ -1,0 +1,60 @@
+section{
+  margin-top: 100px;
+  height: 100vh !important;
+}
+
+
+.form-control{
+  border: 1px  solid  !important;
+}
+.form-control:focus{
+  border: 2px solid  #3b71ca !important;
+}
+.form-control:focus ~ .form-label, .form-control:valid ~ .form-label {
+  top: 0;
+  background-color:#fff;
+  transform: translateY(-1.25rem) translateY(0.1rem) scale(.8);
+  padding: 0.7rem  0.37rem 0 0.37rem;
+}
+.alert{
+  --mdb-alert-padding-x: 1.5rem;
+  --mdb-alert-padding-y: 0.5rem;
+  display: flex;
+  margin-bottom: 25px;
+
+}
+
+/*.form-outline .form-control:focus~.form-label {*/
+/*  color: #3b71ca;*/
+/*}*/
+
+
+/*.form-outline .form-control~.form-label {*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  max-width: 90%;*/
+/*  white-space: nowrap;*/
+/*  overflow: hidden;*/
+/*  text-overflow: ellipsis;*/
+/*  left: 0.75rem;*/
+/*  padding-top: 0.37rem;*/
+/*  pointer-events: none;*/
+/*  transform-origin: 0 0;*/
+/*  transition: all .2s ease-out;*/
+/*  color: rgba(0,0,0,.6);*/
+/*  margin-bottom: 0;*/
+/*}*/
+/*.form-label {*/
+/*  margin-bottom: 0.5rem;*/
+/*  color: rgba(0,0,0,.6);*/
+/*}*/
+/*label {*/
+/*  display: inline-block;*/
+/*}*/
+/**, :after, :before {*/
+/*  box-sizing: border-box;*/
+/*}*/
+/*user agent stylesheet*/
+/*label {*/
+/*  cursor: default;*/
+/*}*/
