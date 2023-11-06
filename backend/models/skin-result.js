@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const {removeFromCloudinary} = require("../services/cloudinary");
 
 const skinResultSchema = new mongoose.Schema({
   image: {

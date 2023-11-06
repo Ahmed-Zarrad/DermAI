@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { removeFromCloudinary } = require("../services/cloudinary");
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -12,10 +11,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['admin', 'patient', 'doctor']
     },
-    messages: [
+    chats: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Message",
+            ref: "Chat",
         },
     ],
     firstName: String,
@@ -82,7 +81,7 @@ userSchema.set("toJSON", {
 
 userSchema.pre("remove", async function (next) {
 
-    await Message.deleteMany({ user: this._id });
+    await Chat.deleteMany({ user: this._id });
     next();
 });
 const User = mongoose.model("User", userSchema);
