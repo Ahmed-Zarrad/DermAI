@@ -67,7 +67,13 @@ app.use(
     userExtractor,
     chatbotRouter
 );
-app.use("/api/v1/users", usersRouter);
+app.use(
+    "/api/v1/users",
+    tokenExtractor,
+    userExtractor,
+    usersRouter,
+    
+);
 app.use("/api/v1/login", loginRouter);
 
 // handler of requests which result to errors

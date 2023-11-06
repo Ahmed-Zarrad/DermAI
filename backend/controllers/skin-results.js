@@ -107,5 +107,13 @@ skinResultsRouter.delete("/:id", async (req, res) => {
 
   res.status(204).end();
 });
+skinResultsRouter.delete("/", async (req, res) => {
+    const skinResults = await SkinResult.find();
+    for (const skinResult of skinResults) {
+        await removeFromCloudinary(skinResult.publicId);
+        await skinResult.remove();
+    }
+    res.status(204).end();
+});
 
 module.exports = skinResultsRouter;

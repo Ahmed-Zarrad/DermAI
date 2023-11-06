@@ -71,8 +71,8 @@
                 <span class="online_icon"></span>
               </div>
               <div class="user_info">
-                <div class="message"><span>Khalid</span><i class="fa-regular fa-trash-can "></i></div>
-                <p>Kalid is online</p>
+                <div class="message"><span>Ahmed</span><i class="fa-regular fa-trash-can "></i></div>
+                <p>Dr Ahmed is online</p>
               </div>
             </div>
           </li>
@@ -83,8 +83,8 @@
                 <span class="online_icon offline"></span>
               </div>
               <div class="user_info">
-                <span>Taherah Big</span>
-                <p>Taherah left 7 mins ago</p>
+                <span>Dr Achref Zarrad</span>
+                <p>Dr Achref left 7 mins ago</p>
               </div>
             </div>
           </li>
@@ -95,8 +95,8 @@
                 <span class="online_icon"></span>
               </div>
               <div class="user_info">
-                <span>Sami Rafi</span>
-                <p>Sami is online</p>
+                <span>Dr Sami Rafi</span>
+                <p>Dr Sami is online</p>
               </div>
             </div>
           </li>
@@ -107,8 +107,8 @@
                 <span class="online_icon offline"></span>
               </div>
               <div class="user_info">
-                <span>Nargis Hawa</span>
-                <p>Nargis left 30 mins ago</p>
+                <span>Dr Mariem Hawa</span>
+                <p>Dr Mariem left 30 mins ago</p>
               </div>
             </div>
           </li>
@@ -119,8 +119,8 @@
                 <span class="online_icon offline"></span>
               </div>
               <div class="user_info">
-                <span>Rashid Samim</span>
-                <p>Rashid left 50 mins ago</p>
+                <span>Dr Nabil</span>
+                <p>Dr Nabil left 50 mins ago</p>
               </div>
             </div>
           </li>
@@ -180,19 +180,25 @@
           </div>
         </div>
         <div class="card-footer">
+<!--          <form (ngSubmit)="sendMessage()">-->
           <div class="input-group">
             <div class="input-group-append">
-              <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
-            </div>
-            <textarea name="" class="form-control type_msg" placeholder="Type your message..." (input)="autoResize($event)"></textarea>
-            <div class="input-group-append">
-              <span class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</body>
-</html>
+              <span class="input-group-text attach_btn" onclick="document.getElementById('file-input').click()" ><i class="fas fa-image" ></i></span>
+              <input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" (change)="handleImageUpload($event)"
+                      [disabled]="loading" [hidden]=true >
+                          </div>
+                          <textarea class="form-control type_msg" placeholder="Type your message..."
+                                    [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" ></textarea>
+                          <div class="input-group-append">
+                            <span class="input-group-text send_btn" (click)="sendMessage()"
+                            ><i class="fas fa-location-arrow"></i></span>
+                          </div>
+                        </div>
+<!--          </form>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </body>
+              </html>

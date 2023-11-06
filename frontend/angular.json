@@ -28,7 +28,7 @@
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/vendors/themify-icons/css/themify-icons.css",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": ["src/assets/vendors/jquery/jquery-3.4.1.js",
                         "src/assets/vendors/bootstrap/bootstrap.bundle.js",

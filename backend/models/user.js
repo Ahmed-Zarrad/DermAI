@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const isEmail = require("validator");
-
 const SkinResult = require("./skin-result");
 
 const userSchema = new mongoose.Schema({
@@ -30,7 +28,6 @@ const userSchema = new mongoose.Schema({
     lastName: String,
     email: {
         type: String,
-        validate: [isEmail, 'invalid email']
     },
     birthday: Date,
     phone: {

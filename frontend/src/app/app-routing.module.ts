@@ -7,7 +7,6 @@ import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.
 import {TestComponent} from "./components/test/test.component";
 import {ResultComponent} from "./components/result/result.component";
 import {ProfileComponent} from "./components/profile/profile.component";
-import {RegisterComponent} from "./components/register/register.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,7 +16,6 @@ const routes: Routes = [
   { path: 'test', component: TestComponent },
   { path: 'result', component: ResultComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'register', component: RegisterComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {removeFromCloudinary} = require("../services/cloudinary");
 
 const skinResultSchema = new mongoose.Schema({
   image: {
@@ -50,6 +51,11 @@ skinResultSchema.set("toJSON", {
     delete returnedObject.publicId;
     delete returnedObject.created;
   },
+});
+skinResultSchema.pre("remove", async function (next) {
+    // 'this' is the client being removed.
+    await removeFromCloudinary({ skinResult: this.publicId });
+    next();
 });
 
 // Create a model using the schema
