@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const SkinResult = require("./skin-result");
 const chatSchema = new mongoose.Schema({
 
     subject: {
@@ -9,16 +9,18 @@ const chatSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    },
+    skinResults: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "SkinResult",
+        },
+    ],
       messages: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Message",
         },
-      ]
+      ],
 });
 
 // .toJSON method is called everytime res.send is called
@@ -28,7 +30,6 @@ chatSchema.set("toJSON", {
         returnedObject.id = returnedObject._id.toString();
         delete returnedObject._id;
         delete returnedObject.__v;
-        delete returnedObject.user;
         if (returnedObject.created) {
             returnedObject.created = new Date(returnedObject.created).toLocaleString('en-US', {
                 month: 'short',
@@ -39,6 +40,11 @@ chatSchema.set("toJSON", {
             });
         }
     },
+});
+chatSchema.pre("remove", async function (next) {
+    // 'this' is the client being removed.
+    await SkinResult.deleteMany({ chat: this._id });
+    next();
 });
 chatSchema.pre("remove", async function (next) {
     

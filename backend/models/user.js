@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const SkinResult = require("./skin-result");
+const { removeFromCloudinary } = require("../services/cloudinary");
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -8,22 +8,16 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
   passwordHash: String,
-  skinResults: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "SkinResult",
-    },
-    ],
-    chats: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Chat",
-        },
-    ],
     role: {
         type: String,
         enum: ['admin', 'patient', 'doctor']
     },
+    messages: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Message",
+        },
+    ],
     firstName: String,
     lastName: String,
     email: {
@@ -33,9 +27,6 @@ const userSchema = new mongoose.Schema({
     phone: {
         type: Number,
         length: 8,
-    },
-    photo: {
-        type: String,
     },
     country: String,
     city: String,
@@ -64,6 +55,9 @@ const userSchema = new mongoose.Schema({
             'Phytotherapist', 'Podiatrist', 'Prosthodontist', 'Psychotherapist', 'Radiologist',
             'Radiotherapist', 'Rheumatologist', 'Sexologist', 'Urologist', 'Urologist Surgeon', 'Urodynamician']
     },
+    photo: {
+        type: String,
+    },
     publicId: {
         type: String,
     },
@@ -85,14 +79,10 @@ userSchema.set("toJSON", {
   },
 });
 
+
 userSchema.pre("remove", async function (next) {
-  // 'this' is the client being removed.
-  await SkinResult.deleteMany({ user: this._id });
-  next();
-});
-userSchema.pre("remove", async function (next) {
-    // 'this' is the client being removed.
-    await Chat.deleteMany({ user: this._id });
+
+    await Message.deleteMany({ user: this._id });
     next();
 });
 const User = mongoose.model("User", userSchema);

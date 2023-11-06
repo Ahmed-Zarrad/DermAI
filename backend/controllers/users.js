@@ -5,8 +5,8 @@ const usersRouter = require("express").Router();
 const User = require("../models/user");
 const { tokenExtractor, userExtractor } = require("../utils/middleware");
 
-usersRouter.post("/", async (req, res) => {
-  const { username, password, confirmPassword } = req.body;
+usersRouter.post("/", upload.single("photo"), async (req, res) => {
+  const { username, password, confirmPassword, firstName, lastName, email, birthday, phone, country, city, address, postalcode} = req.body;
 
   const error = {};
 
@@ -41,11 +41,14 @@ usersRouter.post("/", async (req, res) => {
   }
 
   const saltRounds = 10;
-  const passwordHash = await bcrypt.hash(password, saltRounds);
+    const passwordHash = await bcrypt.hash(password, saltRounds);
 
+  const response = await uploadToCloudinary(req.file.path, "skin-images");
   const user = new User({
     username,
-    passwordHash,
+      passwordHash,
+      firstName, lastName, email, birthday, phone, country, city, address, postalcode,
+      image: response.url, publicId: response.public_id,
   });
 
   const savedUser = await user.save();

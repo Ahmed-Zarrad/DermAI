@@ -34,9 +34,9 @@ const skinResultSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  user: {
+  chat: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Chat",
   },
 });
 
@@ -47,15 +47,10 @@ skinResultSchema.set("toJSON", {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
-    delete returnedObject.user;
+    delete returnedObject.chat;
     delete returnedObject.publicId;
     delete returnedObject.created;
   },
-});
-skinResultSchema.pre("remove", async function (next) {
-    // 'this' is the client being removed.
-    await removeFromCloudinary({ skinResult: this.publicId });
-    next();
 });
 
 // Create a model using the schema
