@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 const TOKEN_KEY = 'AuthToken';
@@ -9,7 +9,7 @@ const AUTHORITIES_KEY = 'AuthAuthorities';
   providedIn: 'root'
 })
 export class TokenstorageService {
-  hideWindow: EventEmitter<any> = new EventEmitter<any>();
+  private roles: string[]=[];
   constructor(private router: Router) {}
 
   public saveToken(token: string) {
@@ -34,12 +34,15 @@ export class TokenstorageService {
     window.localStorage.removeItem(AUTHORITIES_KEY);
     window.localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
   }
-  logOut() {
-    localStorage.clear();
-    this.router.navigate(["/login"])
+  public getAuthorities(): string[] {
+    this.roles = [];
 
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      JSON.parse(localStorage.getItem(AUTHORITIES_KEY) || '{}').forEach((authority: { authority: string; }) => {
+        this.roles.push(authority.authority)
+      });
+    }
+    return this.roles;
   }
-  setHideWindow(value:any) {
-    this.hideWindow.emit(value);
-  }
+
 }

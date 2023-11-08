@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// @ts-ignore
-import {TokenstorageService} from "../../services/tokenstorage/tokenstorage.service";
+
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,20 +9,20 @@ import {TokenstorageService} from "../../services/tokenstorage/tokenstorage.serv
 })
 
 export class NavBarComponent {
-  public router: Router;
-  showWindow: boolean = true;
-  hideWindow: boolean = true;
+  isMenuVisible: boolean = false;
   user: any = localStorage.getItem('AuthUsername');
   NotConnected = true;
-  constructor(router: Router,private tokenStorageService:TokenstorageService, private route: ActivatedRoute) {
+  constructor(public router: Router, private route: ActivatedRoute) {
     this.router = router;
   }
   ngOnInit(): void {
     this.NotConnected = this.user === null;
   }
-  public hidewindow(){
-    this.hideWindow=!this.hideWindow;
-    this.tokenStorageService.setHideWindow(this.hideWindow);
+  ShowMenu() {
+    this.isMenuVisible = !this.isMenuVisible;
   }
-
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/login"])
+  }
 }

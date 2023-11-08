@@ -33,6 +33,7 @@ export class SignupComponent implements OnInit{
         this.router.navigate(["/test"])
       },
       error => {
+        console.log(error)
         this.msg = 'Username Or password Invalid';
       }
     )

@@ -184,13 +184,13 @@
           <div class="input-group">
             <div class="input-group-append">
               <span class="input-group-text attach_btn" onclick="document.getElementById('file-input').click()" ><i class="fas fa-image" ></i></span>
-              <input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg" (change)="handleImageUpload($event)"
+              <input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg"
                       [disabled]="loading" [hidden]=true >
                           </div>
                           <textarea class="form-control type_msg" placeholder="Type your message..."
                                     [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" ></textarea>
                           <div class="input-group-append">
-                            <span class="input-group-text send_btn" (click)="sendMessage()"
+                            <span class="input-group-text send_btn" (click)="sendUserMessage()"
                             ><i class="fas fa-location-arrow"></i></span>
                           </div>
                         </div>

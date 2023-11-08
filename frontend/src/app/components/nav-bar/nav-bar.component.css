@@ -11829,3 +11829,39 @@ body.light-theme nav.page-navbar.affix .username {
 .profile:hover{
   background-color: #3C7BCA;
 }
+
+.submenu{
+  z-index: 1;
+  position: absolute;
+  padding: 15px 0;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border-radius: 15px;
+}
+.submenu ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.submenu li {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  text-align: left !important;
+  display: flex;
+  align-items: center;
+}
+.submenu ul li i{
+  padding-right: 10px;
+}
+.submenu i{
+  margin-right: 10px !important;
+}
+.submenu  li:hover{
+  cursor: pointer;
+  background-color: rgba(255,255,255,0.5);
+}
+.mainMenu{
+  display: flex;
+  justify-content: center;
+}

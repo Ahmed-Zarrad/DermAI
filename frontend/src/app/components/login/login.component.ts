@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from '../../models/login.model';
 import { LoginService } from '../../services/login/login.service';
-import { TokenstorageService } from '../../services/tokenStorage/tokenstorage.service';
+import { TokenstorageService } from '../../services/tokenstorage/tokenstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +29,9 @@ export class LoginComponent implements OnInit {
         this.tokenstorage.saveAuthorities(data.authorities)
 
         this.router.navigate(["/test"])
+        setTimeout(() => {
+          this.loginservice.logout();
+        }, 3600000);
       },
       error => {
         this.msg = 'Username Or password Invalid';

@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { Login } from '../../models/login.model';
 import { JwtResponse } from '../../models/jwt-response.model';
-import { TokenstorageService } from '../tokenStorage/tokenstorage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +22,7 @@ export class LoginService {
   private  authenticateURL = 'http://localhost:3001/api/v1/login/';
 
 
-  constructor(private authhttp: HttpClient, private tokenstorage: TokenstorageService, private router: Router) {
+  constructor(private authhttp: HttpClient, private router: Router) {
     //this.user = new User();
     this.currentUserSubject = new BehaviorSubject<any>(sessionStorage.getItem(TOKEN_KEY));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -41,5 +40,9 @@ export class LoginService {
         this.login;
         return data;
       }));
+  }
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/login"])
   }
 }
