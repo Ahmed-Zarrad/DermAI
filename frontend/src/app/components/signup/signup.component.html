@@ -35,7 +35,24 @@
         <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" alt="Trendy Pants and Shoes"
              class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
       </div>
-      <div class="col-lg-6 mb-5 mb-lg-0">
+      <div class="col-lg-6 mb-5 mb-lg-0" *ngIf="!isRoleSelected">
+        <div class="card cascading-left" style="
+            background: hsla(0, 0%, 100%, 0.55);
+            backdrop-filter: blur(30px);
+            ">
+          <div class="card-body p-5 shadow-5 text-center">
+      <button type="submit" class="btn btn-primary btn-block mb-4 SelectRole" (click)="SelectDoctorRole()">
+        Sign up as Doctor
+      </button>
+      <button type="submit" class="btn btn-primary btn-block mb-4 SelectRole" (click)="SelectPatientRole()">
+        Sign up as Patient
+      </button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a  href="/login"
+                                                                                class="link-danger">Login</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-5 mb-lg-0" *ngIf="isRoleSelected">
         <div class="card cascading-left" style="
             background: hsla(0, 0%, 100%, 0.55);
             backdrop-filter: blur(30px);
@@ -171,7 +188,7 @@
               </div>
 
               <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-block mb-4">
+              <button type="submit" class="btn btn-primary btn-block mb-4" (click)="addUser(this.role)">
                 Sign up
               </button>
 

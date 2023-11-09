@@ -9,12 +9,14 @@ import {UserService} from "../../services/user/user.service";
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit{
+  user: User | undefined;
+  photo: any;
   form: any = {};
   msg = '';
   output: any;
   role: any;
-  constructor(private route: ActivatedRoute, private userservice: UserService, private router: Router, private user: User,public photo :  File) {
-    this.photo = photo;
+  isRoleSelected: boolean = false;
+  constructor(private route: ActivatedRoute, private userservice: UserService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -70,6 +72,13 @@ export class SignupComponent implements OnInit{
       );
     }
   }
-
+ SelectPatientRole(){
+    this.role = 'patient';
+   this.isRoleSelected = true;
+ }
+  SelectDoctorRole(){
+    this.role = 'doctor';
+    this.isRoleSelected = true;
+  }
 }
 

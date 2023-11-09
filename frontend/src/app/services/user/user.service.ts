@@ -50,7 +50,7 @@ export class UserService {
   constructor(private userhttp: HttpClient, private router: Router) {
   }
 
-  addUser(user: User, role: Role) {
+  addUser(user: User | undefined, role: Role) {
     return this.userhttp.post<JwtResponse>(`${this.addUserURL}/${role}`, user, httpOptions)
       .pipe(data => {
         return data;

@@ -5,18 +5,18 @@
 <!-- page navbar -->
 <nav *ngIf="router.url === '/home'||router.url === '/'" class="page-navbar" data-spy="affix" data-offset-top="10">
   <ul class="nav-navbar container">
-    <li class="nav-item"><a routerLink="home" routerLinkActive="home" class="nav-link" >Home</a></li>
-    <li class="nav-item"><a *ngIf="NotConnected" routerLink="login" class="nav-link">Log in</a>
-                         <a *ngIf="!NotConnected" routerLink="test" class="nav-link">Chat</a></li>
-    <li class="nav-item"><a routerLink="" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
-    <li class="nav-item" *ngIf="NotConnected"><a routerLink="signup" class="nav-link">Sign up</a></li>
+    <li class="nav-item"><a  href="/home" class="nav-link" >Home</a></li>
+    <li class="nav-item"><a *ngIf="NotConnected"  href="/login" class="nav-link">Log in</a>
+                         <a *ngIf="!NotConnected"  href="/test" class="nav-link">Chat</a></li>
+    <li class="nav-item"><a  href="/" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
+    <li class="nav-item" *ngIf="NotConnected"><a  href="/signup" class="nav-link">Sign up</a></li>
     <li class="nav-item mainMenu" *ngIf="!NotConnected">
       <div>
       <a class="profile" (click)="ShowMenu()">
         <img src="../../../assets/imgs/mainphotosquare.png" class="img-container" alt="">
         <small class="username" >{{user}}</small></a>
       <ul class="submenu nav-item" [hidden]="!isMenuVisible">
-        <li class=" nav-link"routerLink="profile" routerLinkActive="active-link"> <i class="fas fa-user-circle"></i> My Profile</li>
+        <li class=" nav-link" href="/profile" > <i class="fas fa-user-circle"></i> My Profile</li>
         <li class=" nav-link" (click)="logout()"> <i class="fas fa-door-open"></i> Logout</li>
       </ul>
       </div>
@@ -34,18 +34,18 @@
 
 <nav *ngIf="router.url !== '/home'&&router.url !== '/'" class="page-navbar" data-spy="affix" data-offset-top="10" style="background-color: #202123;height:62px;" >
   <ul class="nav-navbar container" >
-    <li class="nav-item"><a routerLink="home" class="nav-link" >Home</a></li>
-    <li class="nav-item"><a *ngIf="NotConnected" routerLink="login" class="nav-link">Log in</a>
-                         <a *ngIf="!NotConnected" routerLink="test" class="nav-link">Chat</a></li>
-    <li class="nav-item"><a routerLink="" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
-    <li class="nav-item" *ngIf="NotConnected"><a routerLink="signup" class="nav-link">Sign up</a></li>
+    <li class="nav-item"><a  href="/home" class="nav-link">Home</a></li>
+    <li class="nav-item"><a *ngIf="NotConnected"  href="/login" class="nav-link">Log in</a>
+                         <a *ngIf="!NotConnected"  href="/test" class="nav-link">Chat</a></li>
+    <li class="nav-item"><a  href="/" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
+    <li class="nav-item" *ngIf="NotConnected"><a  href="/signup" class="nav-link">Sign up</a></li>
     <li class="nav-item mainMenu" *ngIf="!NotConnected">
       <div>
         <a class="profile" (click)="ShowMenu()">
           <img src="../../../assets/imgs/mainphotosquare.png" class="img-container" alt="">
           <small class="username" >{{user}}</small></a>
         <ul class="submenu nav-item" [hidden]="!isMenuVisible">
-          <li class=" nav-link"routerLink="profile" routerLinkActive="active-link"> <i class="fas fa-user-circle"></i> My Profile</li>
+          <li class=" nav-link" href="/profile"  > <i class="fas fa-user-circle"></i> My Profile</li>
           <li class=" nav-link" (click)="logout()"> <i class="fas fa-door-open"></i> Logout</li>
         </ul>
       </div>
