@@ -42,13 +42,13 @@
             ">
           <div class="card-body p-5 shadow-5 text-center">
             <h2 class="fw-bold mb-5">Sign up now</h2>
-            <form #auth="ngForm" (ngSubmit)="authenticat()">
+            <form #auth="ngForm"  (ngSubmit)="addUser(this.role)">
               <!-- 2 column grid layout with text inputs for the first and last names -->
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <input type="text" id="form3Example1" class="form-control" placeholder="Enter your first name" name="firstname" ngModel
-                           required #fn="ngModel" [(ngModel)]="form.firstname" />
+                           required #fn="ngModel" [(ngModel)]="form.firstName" />
                     <label class="form-label" for="form3Example1">First name</label>
                     <i class="fas fa-user form-icon"></i>
                   </div>
@@ -56,7 +56,7 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <input type="text" id="form3Example2" class="form-control" placeholder="Enter your last name" name="lastname" ngModel
-                           required #ln="ngModel" [(ngModel)]="form.lastname" />
+                           required #ln="ngModel" [(ngModel)]="form.lastName" />
                     <label class="form-label" for="form3Example2">Last name</label>
                     <i class="fas fa-user form-icon"></i>
                   </div>
@@ -132,7 +132,7 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <input type="text" id="form3Example10" class="form-control" placeholder="Enter your postal code" name="postalcode" ngModel
-                           required #pc="ngModel" [(ngModel)]="form.postalcode" />
+                           required #pc="ngModel" [(ngModel)]="form.postalCode" />
                     <label class="form-label" for="form3Example10">Postal Code</label>
                     <i class="fas fa-box form-icon"></i>
                   </div>
@@ -156,7 +156,7 @@
               </div>
               <!-- Password input -->
               <div class="form-outline mb-4">
-                <input type="password" id="form3Example13" class="form-control"  placeholder="Enter password confirmation" name="passwordConfirmation" ngModel required #pp="ngModel" [(ngModel)]="form.passwordConfirmation"/>
+                <input type="password" id="form3Example13" class="form-control"  placeholder="Enter password confirmation" name="passwordConfirmation" ngModel required #pp="ngModel" [(ngModel)]="form.confirmPassword"/>
                 <label class="form-label" for="form3Example13">Password Confirmation</label>
                 <i class="fas fa-lock form-icon"></i>
               </div>

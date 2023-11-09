@@ -5,8 +5,23 @@ const usersRouter = require("express").Router();
 const User = require("../models/user");
 const { tokenExtractor, userExtractor } = require("../utils/middleware");
 
-usersRouter.post("/", upload.single("photo"), async (req, res) => {
-  const { username, password, confirmPassword, firstName, lastName, email, birthday, phone, country, city, address, postalcode} = req.body;
+usersRouter.post("/photo", upload.single("photo"), async (req, res) => {
+   
+    if (!req.file) {
+        return res.status(400).json({
+            error: { photo: "Photo is required." },
+        });
+    }
+    const response = await uploadToCloudinary(req.file.path, "profile-photo");
+
+    res.status(201).json({
+        photo: response.url,
+        publicId: response.public_id,});
+});
+
+usersRouter.post("/:role", async (req, res) => {
+    const { role } = req.params;
+    const { username, password, confirmPassword, firstName, lastName, email, birthday, phone, country, city, address, postalCode, speciality, photo, publicId } = req.body;
 
   const error = {};
 
@@ -34,7 +49,10 @@ usersRouter.post("/", upload.single("photo"), async (req, res) => {
   } else if (password !== confirmPassword) {
     error.password = "Passwords do not match.";
     error.confirmPassword = "Passwords do not match.";
-  }
+    }
+    if (!role) {
+        error.username = "Role is required.";
+    } 
 
   if (Object.keys(error).length > 0) {
     return res.status(400).json(error);
@@ -43,12 +61,11 @@ usersRouter.post("/", upload.single("photo"), async (req, res) => {
   const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-  const response = await uploadToCloudinary(req.file.path, "skin-images");
   const user = new User({
     username,
-      passwordHash,
-      firstName, lastName, email, birthday, phone, country, city, address, postalcode,
-      image: response.url, publicId: response.public_id,
+      passwordHash, role,
+      firstName, lastName, email, birthday, phone, country, city, address, postalCode,
+      speciality, photo, publicId,
   });
 
   const savedUser = await user.save();

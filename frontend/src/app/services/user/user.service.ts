@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { JwtResponse } from '../../models/jwt-response.model';
 import { User } from '../../models/user.model';
+import {Role} from "../../models/role";
 
 
 
@@ -16,8 +17,8 @@ const httpOptions = {
 })
 export class UserService {
 
-  addUserURL = 'http://localhost:9091/SpringMVC/servlet/add-user';
-  ajoutUserURL = 'http://localhost:9091/SpringMVC/servlet/ajouter-user';
+  private addUserURL = 'http://localhost:3001/api/v1/users';
+  private uploadPhotoUrl = 'http://localhost:3001/api/v1/users/photo'
   deleteUserURL = 'http://localhost:9091/SpringMVC/servlet';
   updateUserURL = 'http://localhost:9091/SpringMVC/servlet';
   getAllUserURL = 'http://localhost:9091/SpringMVC/servlet/retrieve-all-user';
@@ -49,9 +50,18 @@ export class UserService {
   constructor(private userhttp: HttpClient, private router: Router) {
   }
 
-  // tslint:disable-next-line:typedef
+  addUser(user: User, role: Role) {
+    return this.userhttp.post<JwtResponse>(`${this.addUserURL}/${role}`, user, httpOptions)
+      .pipe(data => {
+        return data;
+      });
+  }
+  uploadPhoto(photo: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('photo', photo);
 
-
+    return this.userhttp.post(this.uploadPhotoUrl, formData);
+  }
 
   deleteUser(idUser: any): Observable<any> {
     return this.userhttp.delete(`${this.deleteUserURL}/delete-user/${idUser}`, { responseType: 'text' });
