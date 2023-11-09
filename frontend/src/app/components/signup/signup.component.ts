@@ -13,7 +13,7 @@ export class SignupComponent implements OnInit{
   msg = '';
   output: any;
   role: any;
-  constructor(private route: ActivatedRoute, private userservice: UserService, private router: Router, private user: User,private photo :  File) {
+  constructor(private route: ActivatedRoute, private userservice: UserService, private router: Router, private user: User,public photo :  File) {
     this.photo = photo;
   }
 
