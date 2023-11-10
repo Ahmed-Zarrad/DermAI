@@ -10,36 +10,40 @@ import {UserService} from "../../services/user/user.service";
 })
 export class SignupComponent implements OnInit{
   user: User | undefined;
-  photo: any;
   form: any = {};
   msg = '';
   output: any;
   role: any;
   isRoleSelected: boolean = false;
+  photo: any;
   constructor(private route: ActivatedRoute, private userservice: UserService, private router: Router) {
   }
 
   ngOnInit(): void {
   }
-  addUser(role:any) {
-    this.user = new User(this.form.username, this.form.password, this.form.confirmPassword, this.form.firstName,
-      this.form.lastName, this.form.email, this.form.birthday, this.form.phone, this.form.country, this.form.city,
-      this.form.address, this.form.postalCode, this.form.speciality, this.form.photo,
-      this.form.publicId)
-    if (this.photo.length > 0) {
+  getFile(event: any): void{
+    this.photo = event;
+  }
+  addUser(role: any) {
+    if (this.photo.target.files.length > 0) {
       const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
-      if (!allowedTypes.includes(this.photo.type)) {
+      if (!allowedTypes.includes(this.photo.target.files[0].type)) {
         this.msg = 'Invalid image type (only png, jpg, jpeg are allowed).';
-      } else if (this.photo.size > 3000000) {
+      } else if (this.photo.target.files[0].size > 3000000) {
         this.msg = 'Image size must be less than 1MB';
       }
-      this.userservice.uploadPhoto(this.photo).subscribe(
+      const photo: File = this.photo.target.files[0];
+      this.userservice.uploadPhoto(photo).subscribe(
         data => {
           console.log(data);
           this.output = data;
-          this.form.photo = this.output.photo;
           this.form.publicId = this.output.publicId;
+          this.form.photo = this.output.photo;
+          this.user = new User(this.form.username, this.form.password, this.form.confirmPassword, this.form.firstName,
+            this.form.lastName, this.form.email, this.form.birthday, this.form.phone, this.form.country, this.form.city,
+            this.form.address, this.form.postalCode, this.form.speciality, this.form.photo,
+            this.form.publicId)
           this.userservice.addUser(this.user, role).subscribe(
             data => {
               console.log(data);

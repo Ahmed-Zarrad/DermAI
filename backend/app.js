@@ -69,8 +69,7 @@ app.use(
 );
 app.use(
     "/api/v1/users",
-    tokenExtractor,
-    userExtractor,
+
     usersRouter,
     
 );

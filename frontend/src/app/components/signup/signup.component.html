@@ -59,7 +59,7 @@
             ">
           <div class="card-body p-5 shadow-5 text-center">
             <h2 class="fw-bold mb-5">Sign up now</h2>
-            <form #auth="ngForm"  (ngSubmit)="addUser(this.role)">
+            <form name="form" #u="ngForm"  (ngSubmit)="addUser(this.role)">
               <!-- 2 column grid layout with text inputs for the first and last names -->
               <div class="row">
                 <div class="col-md-6 mb-4">
@@ -84,7 +84,7 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <input type="text" id="form3Example3" class="form-control" placeholder="Enter your username" name="username" ngModel
-                           required #un="ngModel" [(ngModel)]="form.username" />
+                           required #un="ngModel" [(ngModel)]="form.username"/>
                     <label class="form-label" for="form3Example3">Username</label>
                     <i class="fas fa-user form-icon"></i>
                   </div>
@@ -155,11 +155,9 @@
                   </div>
                 </div>
               </div>
-
-
                 <div class="form-outline mb-4">
                   <input type="file" id="form3Example6" class="form-control" placeholder="Enter your profile photo" name="photo" ngModel
-                         accept=".png, .jpg, .jpeg" required #pp="ngModel" [(ngModel)]="photo" />
+                         accept=".png, .jpg, .jpeg" required #pp="ngModel" (change)="getFile($event)"/>
                   <!--                    <label class="form-label" for="form3Example6">Profile photo</label>-->
                   <i class="fas fa-image form-icon"></i>
                 </div>
@@ -188,7 +186,7 @@
               </div>
 
               <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-block mb-4" (click)="addUser(this.role)">
+              <button type="button" [disabled]="u.invalid" class="btn btn-primary btn-block mb-4" (click)="addUser(this.role)">
                 Sign up
               </button>
 

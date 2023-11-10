@@ -1,9 +1,15 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
+const upload = require("../middlewares/upload");
 
 const User = require("../models/user");
 const { tokenExtractor, userExtractor } = require("../utils/middleware");
+
+const {
+    uploadToCloudinary,
+    removeFromCloudinary,
+} = require("../services/cloudinary");
 
 usersRouter.post("/photo", upload.single("photo"), async (req, res) => {
    
