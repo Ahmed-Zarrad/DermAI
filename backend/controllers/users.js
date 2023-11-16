@@ -57,7 +57,7 @@ usersRouter.post("/:role", async (req, res) => {
     error.confirmPassword = "Passwords do not match.";
     }
     if (!role) {
-        error.username = "Role is required.";
+        error.role = "Role is required.";
     } 
 
   if (Object.keys(error).length > 0) {

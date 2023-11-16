@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\controllers",
-    "\\models",
     "\\services",
     "\\utils"
   ],
-  "SelectedNode": "\\controllers\\chatbot.js",
+  "SelectedNode": "\\controllers\\skin-results.js",
   "PreviewInSolutionExplorer": false
 }

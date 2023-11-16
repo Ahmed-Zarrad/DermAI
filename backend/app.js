@@ -23,7 +23,7 @@ app.use(
 );
 
 const skinResultsRouter = require("./controllers/skin-results");
-const chatbotRouter = require("./controllers/chatbot");
+const chatRouter = require("./controllers/chats");
 const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 
@@ -62,14 +62,13 @@ app.use(
   skinResultsRouter
 );
 app.use(
-    "/api/v1/chatbot",
+    "/api/v1/chats",
     tokenExtractor,
     userExtractor,
-    chatbotRouter
+    chatRouter
 );
 app.use(
     "/api/v1/users",
-
     usersRouter,
     
 );

@@ -9,19 +9,18 @@ const chatSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    users: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-        },
-    ],
+    type: {
+        type: String,
+        enum: ['ChatbotChat', 'UserChat'],
+        required: true,
+    },
     skinResults: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "SkinResult",
         },
     ],
-      messages: [
+    messages: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Message",
@@ -47,11 +46,7 @@ chatSchema.set("toJSON", {
         }
     },
 });
-chatSchema.pre("remove", async function (next) {
-    // 'this' is the client being removed.
-    await User.deleteMany({ chat: this._id });
-    next();
-});
+
 chatSchema.pre("remove", async function (next) {
     // 'this' is the client being removed.
     await SkinResult.deleteMany({ chat: this._id });

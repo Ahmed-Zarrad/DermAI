@@ -6,22 +6,29 @@ const userSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
-  passwordHash: String,
+    passwordHash: String,
     role: {
         type: String,
         required: true,
         enum: ['admin', 'patient', 'doctor']
     },
-    chats: [
+    sendMessages: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Chat",
+            ref: "Message",
+        },
+    ],
+    recivedMessages: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Message",
         },
     ],
     firstName: String,
     lastName: String,
     email: {
         type: String,
+        unique: true,
     },
     birthday: Date,
     phone: {
@@ -61,6 +68,11 @@ const userSchema = new mongoose.Schema({
     publicId: {
         type: String,
     },
+    status: {
+        type: String,
+        enum: ['online', 'offline'],
+        default: 'offline'
+    },
     created: {
         type: Date,
         default: Date.now,
@@ -82,7 +94,12 @@ userSchema.set("toJSON", {
 
 userSchema.pre("remove", async function (next) {
 
-    await Chat.deleteMany({ user: this._id });
+    await Message.deleteMany({ user: this._id });
+    next();
+});
+userSchema.pre("remove", async function (next) {
+
+    await Message.deleteMany({ user: this._id });
     next();
 });
 const User = mongoose.model("User", userSchema);
