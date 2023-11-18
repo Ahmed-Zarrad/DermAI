@@ -25,6 +25,7 @@ app.use(
 const skinResultsRouter = require("./controllers/skin-results");
 const chatRouter = require("./controllers/chats");
 const usersRouter = require("./controllers/users");
+const signupRouter = require("./controllers/signup");
 const loginRouter = require("./controllers/login");
 
 const middleware = require("./utils/middleware");
@@ -69,9 +70,11 @@ app.use(
 );
 app.use(
     "/api/v1/users",
-    usersRouter,
-    
+    tokenExtractor,
+    userExtractor,
+    usersRouter,  
 );
+app.use("/api/v1/signup", signupRouter);
 app.use("/api/v1/login", loginRouter);
 
 // handler of requests which result to errors

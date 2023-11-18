@@ -14,18 +14,24 @@ const chatSchema = new mongoose.Schema({
         enum: ['ChatbotChat', 'UserChat'],
         required: true,
     },
+    users: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
+    messages: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Message",
+        },
+    ],
     skinResults: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "SkinResult",
         },
     ],
-    messages: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Message",
-        },
-      ],
 });
 
 // .toJSON method is called everytime res.send is called
@@ -46,18 +52,12 @@ chatSchema.set("toJSON", {
         }
     },
 });
-
 chatSchema.pre("remove", async function (next) {
-    // 'this' is the client being removed.
+
+    await Message.deleteMany({ chat: this._id });
     await SkinResult.deleteMany({ chat: this._id });
     next();
 });
-chatSchema.pre("remove", async function (next) {
-    
-    await Message.deleteMany({ chat: this._id });
-    next();
-});
-
 // Create a model using the schema
 const Chat = mongoose.model("Chat", chatSchema);
 

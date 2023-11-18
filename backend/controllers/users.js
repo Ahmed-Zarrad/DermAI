@@ -110,13 +110,14 @@ usersRouter.delete("/:id", async (req, res) => {
       .json({ error: { userd: "User not found." } });
   }
 
-  //if (user.toString() !== req.user._id.toString()) {
-   // return res
-    //  .status(401)
-    //  .json({ error: { user: "User not authorized." } });
- // }
+  if (userd._id.toString() !== req.user._id.toString()) {
+    return res
+     .status(401)
+      .json({ error: { user: "User not authorized." } });
+  }
 
-  await User.findByIdAndRemove(req.params.id);
+    await User.findByIdAndRemove(req.params.id);
+    await removeFromCloudinary(userd.publicId);
 
   res.status(204).end();
 });

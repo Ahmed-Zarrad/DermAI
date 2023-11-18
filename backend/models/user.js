@@ -12,16 +12,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ['admin', 'patient', 'doctor']
     },
-    sendMessages: [
+    chats: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Message",
-        },
-    ],
-    recivedMessages: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Message",
+            ref: "Chat",
         },
     ],
     firstName: String,
@@ -90,16 +84,9 @@ userSchema.set("toJSON", {
     delete returnedObject.created;
   },
 });
-
-
 userSchema.pre("remove", async function (next) {
 
-    await Message.deleteMany({ user: this._id });
-    next();
-});
-userSchema.pre("remove", async function (next) {
-
-    await Message.deleteMany({ user: this._id });
+    await Chat.deleteMany({ users: this._id });
     next();
 });
 const User = mongoose.model("User", userSchema);

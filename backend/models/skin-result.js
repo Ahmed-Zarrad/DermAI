@@ -33,6 +33,7 @@ const skinResultSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  username: String,
   chat: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Chat",
@@ -46,7 +47,7 @@ skinResultSchema.set("toJSON", {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
-    delete returnedObject.chat;
+  //delete returnedObject.chat;
     delete returnedObject.publicId;
     delete returnedObject.created;
   },

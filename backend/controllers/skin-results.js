@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const skinResultsRouter = require("express").Router();
 const upload = require("../middlewares/upload");
-
+const Chat = require("../models/chat");
 const SkinResult = require("../models/skin-result");
 const skinResultService = require("../services/skin-result");
 
@@ -11,8 +11,21 @@ const {
   removeFromCloudinary,
 } = require("../services/cloudinary");
 
-skinResultsRouter.get("/", async (req, res) => {
-  const skinResults = await SkinResult.find({ user: req.user });
+skinResultsRouter.get("/:chatId", async (req, res) => {
+    const { chatId } = req.params;
+    const chat = await Chat.findById(chatId);
+    if (!chat) {
+        return res
+            .status(404)
+            .json({ error: { chat: "Chat not found." } });
+    }
+
+    if (!chat.users.includes(req.user._id.toString())) {
+        return res
+            .status(401)
+            .json({ error: "User not authorized to view this chat." });
+    }
+    const skinResults = await SkinResult.find({ chat });
 
   res.json(skinResults);
 });
@@ -28,7 +41,7 @@ skinResultsRouter.get("/:id", async (req, res) => {
       .json({ error: { skinResult: "Skin result not found." } });
   }
 
-  if (skinResult.user.toString() !== req.user._id.toString()) {
+  if (skinResult.username.toString() !== req.user.username.toString()) {
     return res
       .status(401)
       .json({ error: "User not authorized to view this skin result." });
@@ -37,7 +50,7 @@ skinResultsRouter.get("/:id", async (req, res) => {
   res.json(skinResult);
 });
 
-skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
+skinResultsRouter.post("/:chatId", upload.single("skinImage"), async (req, res) => {
   const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
 
   if (!req.token || !decodedToken.id) {
@@ -58,13 +71,15 @@ skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
   if (!skinType || !probability || probability < 0.5) {
     return res.status(400).json({ error: { image: "Invalid image." } });
   }
-
+    const { chatId } = req.params;
+    const chat = await Chat.findById(chatId);
   const user = req.user;
 
   const response = await uploadToCloudinary(req.file.path, "skin-images");
 
-  const skinResult = new SkinResult({
-    user: user._id,
+    const skinResult = new SkinResult({
+    chat: chat._id,
+    user: user.username,
     image: response.url,
     publicId: response.public_id,
     skinType,
@@ -73,8 +88,8 @@ skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
   });
 
   const savedSkinResult = await skinResult.save();
-  user.skinResults = user.skinResults.concat(savedSkinResult._id);
-  await user.save();
+  chat.skinResults = chat.skinResults.concat(savedSkinResult._id);
+  await chat.save();
 
   res.status(201).json(savedSkinResult);
 });
@@ -96,7 +111,7 @@ skinResultsRouter.delete("/:id", async (req, res) => {
       .json({ error: { skinResult: "Skin result not found." } });
   }
 
-  if (skinResult.user.toString() !== req.user._id.toString()) {
+  if (skinResult.username.toString() !== req.user.username.toString()) {
     return res
       .status(401)
       .json({ error: { skinResult: "User not authorized." } });

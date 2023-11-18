@@ -14,14 +14,7 @@ const messageSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    sender: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    },
-    reciver: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    },
+    username: String,
     chat: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chat",
@@ -35,9 +28,7 @@ messageSchema.set("toJSON", {
         returnedObject.id = returnedObject._id.toString();
         delete returnedObject._id;
         delete returnedObject.__v;
-        delete returnedObject.sender;
-        delete returnedObject.reciver;
-        delete returnedObject.chat;
+      //delete returnedObject.chat;
         if (returnedObject.created) {
             returnedObject.created = new Date(returnedObject.created).toLocaleString('en-US', {
                 month: 'short',
