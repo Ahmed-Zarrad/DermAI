@@ -12,14 +12,16 @@ export class AuthorizeGuardService implements CanActivate{
   canActivate() {
     const authAuthorities = localStorage.getItem("AuthAuthorities");
 
-    if (
-      authAuthorities === null || // Check if authAuthorities is null
-      (authAuthorities.includes("patient") || authAuthorities.includes("doctor"))
-    ) {
-      this.router.navigate(['/login']);
-      return false;
+    if (authAuthorities === "admin") {
+      return true;
     }
-    return true;
+    localStorage.clear();
+    this.router.navigate(["/login"]);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+      return false;
+
   }
 
 }

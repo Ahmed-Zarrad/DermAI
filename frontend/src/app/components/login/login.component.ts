@@ -23,15 +23,14 @@ export class LoginComponent implements OnInit {
 
     this.loginservice.login(new Login(this.form.username, this.form.password)).subscribe(
       data => {
-        this.tokenstorage.saveToken(data.token)
-        localStorage.setItem('Type', data.type)
-        this.tokenstorage.saveUsername(data.username)
-        this.tokenstorage.saveAuthorities(data.authorities)
-
-        this.router.navigate(["/test"])
-        setTimeout(() => {
-          this.loginservice.logout();
-        }, 3600000);
+        this.tokenstorage.saveToken(data.token);
+        localStorage.setItem('Type', data.type);
+        this.tokenstorage.saveUsername(data.username);
+        this.tokenstorage.saveAuthorities(data.authorities);
+        this.tokenstorage.saveCurrentUser(data.currentUser);
+        console.log(data);
+        this.router.navigate(["/"]);
+        window.location.reload();
       },
       error => {
         this.msg = 'Username Or password Invalid';

@@ -13,11 +13,11 @@
     <li class="nav-item mainMenu" *ngIf="!NotConnected">
       <div>
       <a class="profile" (click)="ShowMenu()">
-        <img src="../../../assets/imgs/mainphotosquare.png" class="img-container" alt="">
-        <small class="username" >{{user}}</small></a>
-      <ul class="submenu nav-item" [hidden]="!isMenuVisible">
-        <li class=" nav-link" href="/profile" > <i class="fas fa-user-circle"></i> My Profile</li>
-        <li class=" nav-link" (click)="logout()"> <i class="fas fa-door-open"></i> Logout</li>
+        <img [src]= this.currentUser.photo class="img-container" alt="">
+        <small class="username nav-link" >{{currentUser.firstName}}</small></a>
+      <ul class="submenu " [hidden]="!isMenuVisible">
+        <li class=" nav-item" > <i class="fas fa-user-circle"></i><a class=" nav-link" href="/profile">My Profile</a></li>
+        <li class=" nav-item" (click)="logout()"> <i class="fas fa-door-open"></i><a class=" nav-link">Logout</a></li>
       </ul>
       </div>
     </li>
@@ -42,11 +42,11 @@
     <li class="nav-item mainMenu" *ngIf="!NotConnected">
       <div>
         <a class="profile" (click)="ShowMenu()">
-          <img src="../../../assets/imgs/mainphotosquare.png" class="img-container" alt="">
-          <small class="username" >{{user}}</small></a>
-        <ul class="submenu nav-item" [hidden]="!isMenuVisible">
-          <li class=" nav-link" href="/profile"  > <i class="fas fa-user-circle"></i> My Profile</li>
-          <li class=" nav-link" (click)="logout()"> <i class="fas fa-door-open"></i> Logout</li>
+          <img [src]= this.currentUser.photo class="img-container" alt="">
+          <small class="username nav-link" >{{currentUser.firstName}}</small></a>
+        <ul class="submenu " [hidden]="!isMenuVisible">
+          <li class=" nav-item" > <i class="fas fa-user-circle"></i><a class=" nav-link" href="/profile">My Profile</a></li>
+          <li class=" nav-item" (click)="logout()"> <i class="fas fa-door-open"></i><a class=" nav-link">Logout</a></li>
         </ul>
       </div>
     </li>

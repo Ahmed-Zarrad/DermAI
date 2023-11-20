@@ -10,14 +10,15 @@ export class AuthorizepatientguardService implements CanActivate {
   constructor(private router: Router) { }
   canActivate() {
     const authAuthorities = localStorage.getItem("AuthAuthorities");
-
-    if (
-      authAuthorities === null || // Check if authAuthorities is null
-      (authAuthorities.includes("admin") || authAuthorities.includes("doctor"))
-    ) {
-      this.router.navigate(['/login']);
-      return false;
+    if (authAuthorities === "patient") {
+      return true;
     }
-    return true;
+    localStorage.clear();
+    this.router.navigate(["/login"]);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+      return false;
+
   }
 }

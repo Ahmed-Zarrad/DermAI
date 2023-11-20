@@ -43,6 +43,7 @@ export class LoginService {
   }
   logout() {
     localStorage.clear();
-    this.router.navigate(["/login"])
+    window.location.reload();
+    this.router.navigate(["/login"]);
   }
 }

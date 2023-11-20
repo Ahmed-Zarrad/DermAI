@@ -9,15 +9,18 @@ import {ResultComponent} from "./components/result/result.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {AuthorizepatientguardService} from "./services/AuthorizePatientGuard/authorizepatientguard.service";
 import {AuthorizedoctorguardService} from "./services/AuthorizeDoctorGuard/authorizedoctorguard.service";
+import {
+  AuthorizeforgotguardServiceService
+} from "./services/AuthorizeforgotguardService/authorizeforgotguard-service.service";
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [AuthorizeforgotguardServiceService]},
   { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'test', component: TestComponent, canActivate: [AuthorizepatientguardService,AuthorizedoctorguardService]},
-  { path: 'result', component: ResultComponent, canActivate: [AuthorizepatientguardService,AuthorizedoctorguardService]},
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthorizepatientguardService,AuthorizedoctorguardService]},
+  { path: 'signup', component: SignupComponent, canActivate: [AuthorizeforgotguardServiceService]},
+  { path: 'test', component: TestComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
+  { path: 'result', component: ResultComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -3,6 +3,8 @@ import {Chat} from "../../models/chat.model";
 import {ChatbotService} from "../../services/chatbot/chatbot.service";
 import { ActivatedRoute} from '@angular/router';
 import {Message} from "../../models/message.model";
+import {User} from "../../models/user.model";
+
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -12,6 +14,7 @@ export class TestComponent implements OnInit {
   isActionMenuVisible: boolean = false;
   isDoctorsVisible : boolean =false;
   isDermAIVisible : boolean= false;
+  showData : boolean= false;
   isChatActive : any;
   ListChats: Chat[]= [];
   ListMessages: Message[]= [];
@@ -23,6 +26,8 @@ export class TestComponent implements OnInit {
   userInput: any;
   loading = false;
   idChat:any;
+  result: any;
+  reciver: User[]= [];
   constructor(private route: ActivatedRoute, private chatbotService: ChatbotService ) { }
   ngOnInit() {
   }
@@ -32,11 +37,8 @@ export class TestComponent implements OnInit {
   ShowDoctorsContacts() {
     this.isDoctorsVisible = true;
     this.isDermAIVisible = false;
-  }
-  ShowDermAI() {
-    this.isDermAIVisible = true;
-    this.isDoctorsVisible = false;
-    this.chatbotService.getAllChats().subscribe(data => {
+    const type = "UserChat";
+    this.chatbotService.getAllChats(type).subscribe(data => {
         this.ListChats = data;
       },
 
@@ -44,8 +46,20 @@ export class TestComponent implements OnInit {
         console.log(error);
       });
   }
-  createChat() {
-    this.chatbotService.crateChat().subscribe(
+  ShowDermAI() {
+    this.isDermAIVisible = true;
+    this.isDoctorsVisible = false;
+    const type = "ChatbotChat";
+    this.chatbotService.getAllChats(type).subscribe(data => {
+        this.ListChats = data;
+      },
+
+      error => {
+        console.log(error);
+      });
+  }
+  createChat(type: any) {
+    this.chatbotService.crateChat(type).subscribe(
       data => {
         console.log(data);
         this.msg = 'Chat Added Succefully !';
@@ -55,7 +69,7 @@ export class TestComponent implements OnInit {
         this.msg = 'error occured !';
       }
     );
-    this.chatbotService.getAllChats().subscribe(data => {
+    this.chatbotService.getAllChats(type).subscribe(data => {
         this.ListChats = data;
       },
 
@@ -63,7 +77,7 @@ export class TestComponent implements OnInit {
         console.log(error);
       });
   }
-  deleteChat(idChat: any) {
+  deleteChat(idChat: any, type: any) {
     this.chatbotService.deleteChat(idChat).subscribe(
       data => {
         console.log(data);
@@ -73,7 +87,7 @@ export class TestComponent implements OnInit {
       error =>
         console.log(error)
     );
-    this.chatbotService.getAllChats().subscribe(data => {
+    this.chatbotService.getAllChats(type).subscribe(data => {
         this.ListChats = data;
       },
 
@@ -93,12 +107,13 @@ export class TestComponent implements OnInit {
         console.log(error);
       });
   }
-  sendUserMessage(): void {
+  sendMessageToChatbot(): void {
+    const idChat = this.isChatActive;
     const message = this.userInput.trim();
     if (message.length === 0) return;
     this.loading = true;
     this.userInput = '';
-    this.chatbotService.chatbot(message, 'user').subscribe(
+    this.chatbotService.chatbot(message, 'user', idChat).subscribe(
       data => {
         this.resp= data
         this.loading = false;
@@ -129,7 +144,8 @@ export class TestComponent implements OnInit {
   sendBotMessage(message:any): void {
     if (message.length === 0) return;
     this.loading = true;
-    this.chatbotService.chatbot(message, 'assistant').subscribe(
+    const idChat = ""
+    this.chatbotService.chatbot(message, 'assistant', idChat).subscribe(
       data => {
         this.resp= data
         this.loading = false;
@@ -183,285 +199,12 @@ export class TestComponent implements OnInit {
   //         console.log(data);
   //         this.result = data;
   //         this.loading = false;
-  //         this.hideData = false;
-  //         if(this.result.skinType==='Healthy skin'){
-  //           this.displayImageMessageUser(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-  //           this.displayImageMessageBot(this.msg=
-  //             '  <table class="card" style=" padding: 16px;' +
-  //             '  box-shadow: 0 0 8px rgba(255,255,255,0.2); ' +
-  //             '  background-color: rgba(0,0,0,0.2); '+
-  //             '  border-radius: 2px; ' +
-  //             '  margin-top: 0;' +
-  //             '  margin-left: auto;' +
-  //             '  margin-right: auto;"> ' +
-  //             '    <tr class="stack" style="flex-direction: column;"> ' +
-  //             '      <td class="grid" style="  horiz-align: center; ' +
-  //             '  vertical-align: top;"> ' +
-  //             '        <h5 class="title" style="  text-align: center; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif; ' +
-  //             '  font-size: 22px;">Uploaded image</h5> ' +
-  //             '        <img class="uploaded-image" style="  padding: 8px; ' +
-  //             '  width: 300px; ' +
-  //             '  object-fit: contain;" alt="Uploaded image" src="'+this.result.image+'" /> ' +
-  //             '      </td> ' +
-  //             '      <td class="grid2" style="horiz-align: center; ' +
-  //             '  vertical-align: top; ' +
-  //             '  border-left: 1px solid #ccc;"> ' +
-  //             '        <h5 class="title" style="text-align: center; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif; ' +
-  //             '  font-size: 22px;">Predictions</h5> ' +
-  //             '        <div class="card-content"> ' +
-  //             '          <ul class="list" style="list-style-type: none; ' +
-  //             '  padding: 0;"> ' +
-  //             '            <li style="display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  padding-left: 16px; ' +
-  //             '  padding-right: 16px;"> ' +
-  //             '              <div class="avatar" style="  border-radius:40px; ' +
-  //             '  height: 40px; ' +
-  //             '  width: 40px; ' +
-  //             '  background-color: darkgray; ' +
-  //             '  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  justify-content: center; ' +
-  //             '  margin-right: 16px;"> ' +
-  //             '                <i class="fa-solid fa-virus-covid" style="color:red"></i> ' +
-  //             '              </div> ' +
-  //             '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-  //             '                <p class="item-title" style="font-size: 17px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">Skin type</p> ' +
-  //             '                <p class="item-text" style="  font-size: 15px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;"> '+this.result.skinType+'</p> ' +
-  //             '              </div> ' +
-  //             '            </li> ' +
-  //             '            <li style="  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  padding-left: 16px; ' +
-  //             '  padding-right: 16px;"> ' +
-  //             '              <div class="avatar" style="border-radius:40px; ' +
-  //             '  height: 40px; ' +
-  //             '  width: 40px; ' +
-  //             '  background-color: darkgray; ' +
-  //             '  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  justify-content: center; ' +
-  //             '  margin-right: 16px;"> ' +
-  //             '                <i class="fa-solid fa-percent"></i> ' +
-  //             '              </div> ' +
-  //             '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-  //             '                <p class="item-title" style="font-size: 17px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">Probability</p> ' +
-  //             '                <p class="item-text" style=" font-size: 15px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;"> '+this.result.probability+' % </p> ' +
-  //             '              </div> ' +
-  //             '            </li> ' +
-  //             '            <!-- Check if symptoms exist --> ' +
-  //             '            <!-- If yes, loop through symptoms and generate list items --> ' +
-  //             '          </ul> ' +
-  //             '        </div> ' +
-  //             '      </td> ' +
-  //             '    </tr> ' +
-  //             '  </table> ' +
-  //             ' '
-  //
-  //           );
-  //
-  //         }
-  //         else {
-  //           this.displayImageMessageUser(this.msg='<img src="'+this.result.image+'" alt="Uploaded" width="300px" />');
-  //           this.displayImageMessageBot(this.msg=
-  //             '  <table class="card" style=" padding: 16px;' +
-  //             '  box-shadow: 0 0 8px rgba(255,255,255,0.2); ' +
-  //             '  background-color: rgba(0,0,0,0.2); '+
-  //             '  border-radius: 2px; ' +
-  //             '  margin-top: 0;' +
-  //             '  margin-left: auto;' +
-  //             '  margin-right: auto;"> ' +
-  //             '    <tr class="stack" style="flex-direction: column;"> ' +
-  //             '      <td class="grid" style="  horiz-align: center; ' +
-  //             '  vertical-align: top;"> ' +
-  //             '        <h5 class="title" style="  text-align: center; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif; ' +
-  //             '  font-size: 22px;">Uploaded image</h5> ' +
-  //             '        <img class="uploaded-image" style="  padding: 8px; ' +
-  //             '  width: 300px; ' +
-  //             '  object-fit: contain;" alt="Uploaded image" src="'+this.result.image+'" /> ' +
-  //             '      </td> ' +
-  //             '      <td class="grid2" style="horiz-align: center; ' +
-  //             '  vertical-align: top; ' +
-  //             '  border-left: 1px solid #ccc;"> ' +
-  //             '        <h5 class="title" style="text-align: center; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif; ' +
-  //             '  font-size: 22px;">Predictions</h5> ' +
-  //             '        <div class="card-content"> ' +
-  //             '          <ul class="list" style="list-style-type: none; ' +
-  //             '  padding: 0;"> ' +
-  //             '            <li style="display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  padding-left: 16px; ' +
-  //             '  padding-right: 16px;"> ' +
-  //             '              <div class="avatar" style="  border-radius:40px; ' +
-  //             '  height: 40px; ' +
-  //             '  width: 40px; ' +
-  //             '  background-color: darkgray; ' +
-  //             '  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  justify-content: center; ' +
-  //             '  margin-right: 16px;"> ' +
-  //             '                <i class="fa-solid fa-virus-covid" style="color:red"></i> ' +
-  //             '              </div> ' +
-  //             '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-  //             '                <p class="item-title" style="font-size: 17px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">Skin type</p> ' +
-  //             '                <p class="item-text" style="  font-size: 15px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;"> '+this.result.skinType+'</p> ' +
-  //             '              </div> ' +
-  //             '            </li> ' +
-  //             '            <li style="  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  padding-left: 16px; ' +
-  //             '  padding-right: 16px;"> ' +
-  //             '              <div class="avatar" style="border-radius:40px; ' +
-  //             '  height: 40px; ' +
-  //             '  width: 40px; ' +
-  //             '  background-color: darkgray; ' +
-  //             '  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  justify-content: center; ' +
-  //             '  margin-right: 16px;"> ' +
-  //             '                <i class="fa-solid fa-percent"></i> ' +
-  //             '              </div> ' +
-  //             '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-  //             '                <p class="item-title" style="font-size: 17px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">Probability</p> ' +
-  //             '                <p class="item-text" style=" font-size: 15px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;"> '+this.result.probability+' % </p> ' +
-  //             '              </div> ' +
-  //             '            </li> ' +
-  //             '            <!-- Check if symptoms exist --> ' +
-  //             '            <!-- If yes, loop through symptoms and generate list items --> ' +
-  //             '            <li style=" display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  padding-left: 16px; ' +
-  //             '  padding-right: 16px;"> ' +
-  //             '              <div class="avatar" style="border-radius:40px; ' +
-  //             '  height: 40px; ' +
-  //             '  width: 40px; ' +
-  //             '  background-color: darkgray; ' +
-  //             '  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  justify-content: center; ' +
-  //             '  margin-right: 16px;"> ' +
-  //             '                <i class="fa-solid fa-magnifying-glass" style="color: saddlebrown"></i> ' +
-  //             '              </div> ' +
-  //             '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-  //             '                <p class="item-title" style=" font-size: 17px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">Symptoms</p> ' +
-  //             '                <p class="item-text" style=" font-size: 15px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;"> '+this.result.symptoms+'</p> ' +
-  //             '              </div> ' +
-  //             '            </li> ' +
-  //             '            <!-- Check if treatments exist --> ' +
-  //             '            <!-- If yes, loop through treatments and generate list items --> ' +
-  //             '            <li style=" display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  padding-left: 16px; ' +
-  //             '  padding-right: 16px;"> ' +
-  //             '              <div class="avatar" style=" border-radius:40px; ' +
-  //             '  height: 40px; ' +
-  //             '  width: 40px; ' +
-  //             '  background-color: darkgray; ' +
-  //             '  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  justify-content: center; ' +
-  //             '  margin-right: 16px;"> ' +
-  //             '                <i class="fa-solid fa-book-medical" style="color: dodgerblue"></i> ' +
-  //             '              </div> ' +
-  //             '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-  //             '                <p class="item-title" style="font-size: 17px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">Treatments</p> ' +
-  //             '                <p class="item-text" style="font-size: 15px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;"> '+this.result.treatments+'</p> ' +
-  //             '              </div> ' +
-  //             '            </li> ' +
-  //             '            <!-- Check if howCommon exists --> ' +
-  //             '            <li style="display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  padding-left: 16px; ' +
-  //             '  padding-right: 16px;"> ' +
-  //             '              <div class="avatar" style="border-radius:40px; ' +
-  //             '  height: 40px; ' +
-  //             '  width: 40px; ' +
-  //             '  background-color: darkgray; ' +
-  //             '  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  justify-content: center; ' +
-  //             '  margin-right: 16px;"> ' +
-  //             '                <i class="fa-solid fa-users" style="color: yellow"></i> ' +
-  //             '              </div> ' +
-  //             '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-  //             '                <p class="item-title" '+'style="font-size: 17px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">How common</p> ' +
-  //             '                <p class="item-text" style="font-size: 15px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">'+this.result.howCommon+'</p> ' +
-  //             '              </div> ' +
-  //             '            </li> ' +
-  //             '            <!-- Check if duration exists --> ' +
-  //             '            <li style="  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  padding-left: 16px; ' +
-  //             '  padding-right: 16px; "> ' +
-  //             '              <div class="avatar" style="  border-radius:40px; ' +
-  //             '  height: 40px; ' +
-  //             '  width: 40px; ' +
-  //             '  background-color: darkgray; ' +
-  //             '  display: flex; ' +
-  //             '  align-items: center; ' +
-  //             '  justify-content: center; ' +
-  //             '  margin-right: 16px;"> ' +
-  //             '                <i class="fa-regular fa-clock" style="color: steelblue"></i> ' +
-  //             '              </div> ' +
-  //             '              <div class="list-item" style="border-bottom: 1px solid #ccc;"> ' +
-  //             '                <p class="item-title" style="font-size: 17px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;">Duration</p> ' +
-  //             '                <p class="item-text" style="  font-size: 15px; ' +
-  //             '  font-weight: bold; ' +
-  //             '  font-family: Helvetica, sans-serif;"> '+this.result.duration+'</p> ' +
-  //             '              </div> ' +
-  //             '            </li> ' +
-  //             '          </ul> ' +
-  //             '        </div> ' +
-  //             '      </td> ' +
-  //             '    </tr> ' +
-  //             '  </table> ' +
-  //             ' '
-  //
-  //           );
-  //         }
+  //         this.showData = false;
   //         this.chatbotService.chatbot("the result of processing the user skin image is Skin type: "+this.result.skinType+"Probability: "+this.result.probability+"% ask me 5 yes or no question to verify if he really have this skin type or this skin pathology and Do not ask all the questions at once, send each question separately and after I reply with yes or no ask me the next question until the user answer all the questions after I answer all the question tell me the result of the quiz", 'system').subscribe(
   //           data => {
   //             this.resp= data
   //             console.log(data);
-  //             this.displayBotMessage1(this.resp.output.content);
+  //
   //           },
   //           error => {
   //             console.log(error);

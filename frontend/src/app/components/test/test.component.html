@@ -39,7 +39,7 @@
             </a>
           </li>
           <li [hidden]="!isDermAIVisible">
-            <a class="btn btn-primary small btn-navbar"(click)="createChat()">
+            <a class="btn btn-primary small btn-navbar"(click)="createChat('ChatbotChat')">
               Create New Chat
             </a>
           </li>
@@ -55,7 +55,7 @@
               </div>
               <div class="user_info">
                 <div class="message">
-                <span>DermAI</span><i class="fa-regular fa-trash-can" (click)="deleteChat(c.id)"></i></div>
+                <span>DermAI</span><i class="fa-regular fa-trash-can" (click)="deleteChat(c.id, 'ChatbotChat')"></i></div>
                 <p>Created: {{c.created}}</p>
               </div>
             </div>
@@ -190,7 +190,7 @@
                           <textarea class="form-control type_msg" placeholder="Type your message..."
                                     [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" ></textarea>
                           <div class="input-group-append">
-                            <span class="input-group-text send_btn" (click)="sendUserMessage()"
+                            <span class="input-group-text send_btn" (click)="sendMessageToChatbot()"
                             ><i class="fas fa-location-arrow"></i></span>
                           </div>
                         </div>

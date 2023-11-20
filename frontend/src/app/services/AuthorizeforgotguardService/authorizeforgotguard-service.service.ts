@@ -13,7 +13,7 @@ export class AuthorizeforgotguardServiceService implements CanActivate {
     if ( authAuthorities === null ) {
       return true;
     }
-       this.router.navigate(['/login']);
+       this.router.navigate(['/home']);
        return false;
      }
 

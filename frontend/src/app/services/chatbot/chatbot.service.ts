@@ -12,15 +12,15 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ChatbotService {
-  private baseUrl = 'http://localhost:3001/api/v1/chatbot/chat';
+  private baseUrl = 'http://localhost:3001/api/v1/chats';
   constructor(private httpClient: HttpClient) { }
-  chatbot(content: string, role: string): Observable<any> {
+  chatbot(content: any, role: any, idChat: any): Observable<any> {
     const requestData =
         {
           role: role,
           content: content,
         };
-    return this.httpClient.post(`${this.baseUrl}/65357c51f60edb450b395adb/message`, requestData, httpOptions)
+    return this.httpClient.post(`${this.baseUrl}/${idChat}/chatbot/message`, requestData, httpOptions)
 
       .pipe((data => {
 
@@ -29,11 +29,11 @@ export class ChatbotService {
         return data;
       }));
   }
-  getAllChats(): Observable<any> {
-    return this.httpClient.get(this.baseUrl);
+  getAllChats(type: any): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/${type}`);
   }
-  crateChat() {
-    return this.httpClient.post<JwtResponse>(this.baseUrl, httpOptions)
+  crateChat(type: any) {
+    return this.httpClient.post<JwtResponse>(`${this.baseUrl}/${type}`, httpOptions)
       .pipe(data => {
         return data;
       });

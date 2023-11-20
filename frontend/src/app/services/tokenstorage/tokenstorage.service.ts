@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
+const CURRENT_USER_KEY = 'CurrentUser';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,13 @@ export class TokenstorageService {
     return localStorage.getItem(USERNAME_KEY);
   }
 
-  public saveAuthorities(authorities: string[]) {
+  public saveAuthorities(authorities: string) {
     window.localStorage.removeItem(AUTHORITIES_KEY);
-    window.localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+    window.localStorage.setItem(AUTHORITIES_KEY, authorities);
+  }
+  public saveCurrentUser(currentUser: any){
+    window.localStorage.removeItem(CURRENT_USER_KEY);
+    window.localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(currentUser))
   }
   public getAuthorities(): string[] {
     this.roles = [];

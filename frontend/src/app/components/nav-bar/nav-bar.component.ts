@@ -11,6 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class NavBarComponent {
   isMenuVisible: boolean = false;
   user: any = localStorage.getItem('AuthUsername');
+  currentUserString = localStorage.getItem('CurrentUser');
+  currentUser = this.currentUserString ? JSON.parse(this.currentUserString) : null;
   NotConnected = true;
   constructor(public router: Router, private route: ActivatedRoute) {
     this.router = router;
@@ -23,6 +25,9 @@ export class NavBarComponent {
   }
   logout() {
     localStorage.clear();
-    this.router.navigate(["/login"])
+    this.router.navigate(["/login"]);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 }
