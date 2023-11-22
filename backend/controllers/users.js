@@ -93,6 +93,11 @@ usersRouter.get("/:id", tokenExtractor, userExtractor, async (req, res) => {
 
   res.status(404).json({ error: "user not found" });
 });
+usersRouter.get("/byRole/:role", async (req, res) => {
+    const { role } = req.params;
+    const users = await User.find({ role }).sort({ speciality: -1 });
+    res.json(users);
+});
 usersRouter.delete("/:id", async (req, res) => {
   const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
 

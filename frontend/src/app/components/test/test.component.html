@@ -9,6 +9,7 @@
   <title>Chat</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
@@ -30,17 +31,17 @@
         <ul class="chatBtnul" >
           <li [hidden]="isDermAIVisible">
             <a class="btn btn-primary small btn-navbar"(click)="ShowDermAI()">
-              Chat with DermAI
+              <i class="fas fa-robot"></i>&nbsp;&nbsp;Chat with DermAI
             </a>
           </li>
           <li [hidden]="isDoctorsVisible">
             <a class="btn btn-primary small btn-navbar"(click)="ShowDoctorsContacts()">
-              Chat with Doctors
+              <i class="fas fa-user-doctor"></i>&nbsp;&nbsp;Chat with Doctors
             </a>
           </li>
           <li [hidden]="!isDermAIVisible">
             <a class="btn btn-primary small btn-navbar"(click)="createChat('ChatbotChat')">
-              Create New Chat
+              <i class="fas fa-add"></i>&nbsp;&nbsp;Create New Chat
             </a>
           </li>
         </ul>
@@ -55,7 +56,7 @@
               </div>
               <div class="user_info">
                 <div class="message">
-                <span>DermAI</span><i class="fa-regular fa-trash-can" (click)="deleteChat(c.id, 'ChatbotChat')"></i></div>
+                <span>DermAI</span><i class="fa-regular fa-trash-can " (click)="deleteChat(c.id, 'ChatbotChat')"></i></div>
                 <p>Created: {{c.created}}</p>
               </div>
             </div>
@@ -63,64 +64,16 @@
         </ul>
       </div>
         <div class="card-body contacts_body" [hidden]="!isDoctorsVisible">
-        <ul class="contacts">
-          <li class="active">
-            <div class="d-flex bd-highlight">
-              <div class="img_cont">
-                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-                <span class="online_icon"></span>
-              </div>
-              <div class="user_info">
-                <div class="message"><span>Ahmed</span><i class="fa-regular fa-trash-can "></i></div>
-                <p>Dr Ahmed is online</p>
-              </div>
-            </div>
-          </li>
+        <ul class="contacts" *ngFor="let u of ListDoctors">
           <li>
             <div class="d-flex bd-highlight">
               <div class="img_cont">
-                <img src="https://2.bp.blogspot.com/-8ytYF7cfPkQ/WkPe1-rtrcI/AAAAAAAAGqU/FGfTDVgkcIwmOTtjLka51vineFBExJuSACLcBGAs/s320/31.jpg" class="rounded-circle user_img">
-                <span class="online_icon offline"></span>
+                <img [src]= u.photo class="rounded-circle user_img">
+                <span class="online_icon" [ngClass]="u.status == 'online' ? 'online_icon': 'offline_icon'"></span>
               </div>
               <div class="user_info">
-                <span>Dr Achref Zarrad</span>
-                <p>Dr Achref left 7 mins ago</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="d-flex bd-highlight">
-              <div class="img_cont">
-                <img src="https://i.pinimg.com/originals/ac/b9/90/acb990190ca1ddbb9b20db303375bb58.jpg" class="rounded-circle user_img">
-                <span class="online_icon"></span>
-              </div>
-              <div class="user_info">
-                <span>Dr Sami Rafi</span>
-                <p>Dr Sami is online</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="d-flex bd-highlight">
-              <div class="img_cont">
-                <img src="http://profilepicturesdp.com/wp-content/uploads/2018/07/sweet-girl-profile-pictures-9.jpg" class="rounded-circle user_img">
-                <span class="online_icon offline"></span>
-              </div>
-              <div class="user_info">
-                <span>Dr Mariem Hawa</span>
-                <p>Dr Mariem left 30 mins ago</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="d-flex bd-highlight">
-              <div class="img_cont">
-                <img src="https://static.turbosquid.com/Preview/001214/650/2V/boy-cartoon-3D-model_D.jpg" class="rounded-circle user_img">
-                <span class="online_icon offline"></span>
-              </div>
-              <div class="user_info">
-                <span>Dr Nabil</span>
-                <p>Dr Nabil left 50 mins ago</p>
+                <div class="message"><span>Dr {{u.firstName}} {{u.lastName}} ({{u.speciality}})</span><i class="fa-regular fa-trash-can "></i></div>
+                <p>Dr {{u.firstName}} is {{u.status}}</p>
               </div>
             </div>
           </li>
@@ -130,7 +83,7 @@
     </div></div>
     <div class="col-md-8 col-xl-6 chat">
       <div class="card">
-        <div class="card-header msg_head">
+        <div class="card-header msg_head" *ngIf="isDermAIVisible&&isChatActive">
           <div class="d-flex bd-highlight">
             <div class="img_cont">
               <img src="assets/imgs/logoDermAI.png" class="rounded-circle user_img">
@@ -179,8 +132,7 @@
           </div>
           </div>
         </div>
-        <div class="card-footer">
-<!--          <form (ngSubmit)="sendMessage()">-->
+        <div class="card-footer" *ngIf="isChatActive">
           <div class="input-group">
             <div class="input-group-append">
               <span class="input-group-text attach_btn" onclick="document.getElementById('file-input').click()" ><i class="fas fa-image" ></i></span>
@@ -188,13 +140,12 @@
                       [disabled]="loading" [hidden]=true >
                           </div>
                           <textarea class="form-control type_msg" placeholder="Type your message..."
-                                    [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" ></textarea>
+                                    [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" (keydown.enter)="sendMessageToChatbot()" ></textarea>
                           <div class="input-group-append">
                             <span class="input-group-text send_btn" (click)="sendMessageToChatbot()"
                             ><i class="fas fa-location-arrow"></i></span>
                           </div>
                         </div>
-<!--          </form>-->
                       </div>
                     </div>
                   </div>

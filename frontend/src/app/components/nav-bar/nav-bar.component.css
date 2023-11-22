@@ -11801,16 +11801,14 @@ body.dark-theme {
   color: white;
 }
 .img-container {
-  width: 5vh;
-  height: 5vh;
+  width: calc(36px + (15 - 12) * ((100vw - 300px) / (1300 - 300)));
+  height: calc(36px + (15 - 12) * ((100vw - 300px) / (1300 - 300)));
   border-radius: 100%;
   cursor: pointer;
   outline: none;
 
 }
-.username{
-  display:inline-block;
-}
+
 body.light-theme nav.page-navbar.affix .username {
   color: #343a40;
 }
@@ -11822,11 +11820,12 @@ body.light-theme nav.page-navbar.affix .username {
   font-weight: bold;
 }
 .profile{
-  color:#fff;
-  display:inline-block;
-  padding:4px 4px;
-  padding-right: 16px;
+  padding:4px 0 4px 5px;
   border-radius:40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 }
 .profile:hover{
   background-color: #3C7BCA;
@@ -11861,4 +11860,14 @@ body.light-theme nav.page-navbar.affix .username {
 .mainMenu{
   display: flex;
   justify-content: center;
+}
+body.light-theme .secondNav{
+  height: 70px;
+  border-bottom: 1px solid rgba(73,80,87,.2);
+  background-color: #fff;
+}
+body.dark-theme .secondNav{
+  background: #212529;
+  height: 70px;
+  border-bottom: 1px solid rgba(173,181,189,.1);
 }

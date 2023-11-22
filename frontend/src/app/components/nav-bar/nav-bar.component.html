@@ -1,5 +1,5 @@
 <head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"></head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="dark-theme">
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="light-theme">
 
 
 <!-- page navbar -->
@@ -14,7 +14,7 @@
       <div>
       <a class="profile" (click)="ShowMenu()">
         <img [src]= this.currentUser.photo class="img-container" alt="">
-        <small class="username nav-link" >{{currentUser.firstName}}</small></a>
+        <small class="nav-link" >{{currentUser.firstName}}</small></a>
       <ul class="submenu " [hidden]="!isMenuVisible">
         <li class=" nav-item" > <i class="fas fa-user-circle"></i><a class=" nav-link" href="/profile">My Profile</a></li>
         <li class=" nav-item" (click)="logout()"> <i class="fas fa-door-open"></i><a class=" nav-link">Logout</a></li>
@@ -32,7 +32,7 @@
   </ul>
 </nav><!-- end of page navbar -->
 
-<nav *ngIf="router.url !== '/home'&&router.url !== '/'" class="page-navbar" data-spy="affix" data-offset-top="10" style="background-color: #202123;height:62px;" >
+<nav *ngIf="router.url !== '/home'&&router.url !== '/'" class="page-navbar secondNav" >
   <ul class="nav-navbar container" >
     <li class="nav-item"><a  href="/home" class="nav-link">Home</a></li>
     <li class="nav-item"><a *ngIf="NotConnected"  href="/login" class="nav-link">Log in</a>
@@ -43,7 +43,7 @@
       <div>
         <a class="profile" (click)="ShowMenu()">
           <img [src]= this.currentUser.photo class="img-container" alt="">
-          <small class="username nav-link" >{{currentUser.firstName}}</small></a>
+          <small class="nav-link" >{{currentUser.firstName}}</small></a>
         <ul class="submenu " [hidden]="!isMenuVisible">
           <li class=" nav-item" > <i class="fas fa-user-circle"></i><a class=" nav-link" href="/profile">My Profile</a></li>
           <li class=" nav-item" (click)="logout()"> <i class="fas fa-door-open"></i><a class=" nav-link">Logout</a></li>
@@ -61,3 +61,12 @@
   </ul>
 </nav><!-- end of page navbar -->
 
+<div class="theme-selector">
+  <a href="javascript:void(0)" class="spinner">
+    <i class="ti-paint-bucket"></i>
+  </a>
+  <div class="body">
+    <a href="javascript:void(0)" class="light"></a>
+    <a href="javascript:void(0)" class="dark"></a>
+  </div>
+</div>

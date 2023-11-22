@@ -16,10 +16,11 @@ export class User {
   speciality?: Speciality
   photo?: string;
   publicId?: string;
+  status?: string;
 
 
   constructor( username: string, password: string, confirmPassword: string, firstName: string, lastName: string, email: string, birthday: Date, phone: string, country: string, city: string, address: string,
-              postalCode: number, speciality: Speciality, photo: string, publicId: string) {
+              postalCode: number, speciality: Speciality, photo: string, publicId: string, status: string) {
 
     this.username = username;
     this.password = password;
@@ -36,6 +37,7 @@ export class User {
     this.speciality = speciality;
     this.photo = photo;
     this.publicId = publicId;
+    this.status = status;
 
   }
 }

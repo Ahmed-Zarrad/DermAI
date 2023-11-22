@@ -43,7 +43,7 @@ export class SignupComponent implements OnInit{
           this.user = new User(this.form.username, this.form.password, this.form.confirmPassword, this.form.firstName,
             this.form.lastName, this.form.email, this.form.birthday, this.form.phone, this.form.country, this.form.city,
             this.form.address, this.form.postalCode, this.form.speciality, this.form.photo,
-            this.form.publicId)
+            this.form.publicId, this.form.status)
           this.userservice.addUser(this.user, role).subscribe(
             data => {
               console.log(data);

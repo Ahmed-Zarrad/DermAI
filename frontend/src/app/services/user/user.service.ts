@@ -76,7 +76,9 @@ export class UserService {
   getByIdUser(idUser: any): Observable<any> {
     return this.userhttp.get(`${this.getByIdUserURL}/retrieve-user-by-id/${idUser}`);
   }
-
+  getByRoleUser(role: any): Observable<any> {
+    return this.userhttp.get(`${this.addUserURL}/byRole/${role}`);
+  }
   getByPointUser(point: number): Observable<any> {
     return this.userhttp.get(this.getByPointUserURL);
   }

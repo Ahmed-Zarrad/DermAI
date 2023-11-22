@@ -1,9 +1,11 @@
 body,html{
   height: 100vh;
   margin: 0;
-  background: #005461;
-  background: -webkit-linear-gradient(to right, #CAE6E3, #008D93, #005461);
-  background: linear-gradient(to right, #CAE6E3, #008D93, #005461);
+  background: #122A5F;
+  /*background: -webkit-linear-gradient(to right, #CAE6E3, #008D93, #005461);*/
+  background: -webkit-linear-gradient(to right, #f2f6ff,#97c4fd, #66a5f2, #3d7bc6,#020844);
+  /*background: linear-gradient(to right, #CAE6E3, #008D93, #005461);*/
+  background: linear-gradient(to right, #f2f6ff,#97c4fd, #66a5f2, #3d7bc6,#020844);
 }
 
 .chat{
@@ -108,7 +110,7 @@ body,html{
   margin-bottom: 15px !important;
 }
 .active{
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.5);
 }
 .notActive{
 
@@ -145,8 +147,15 @@ body,html{
   right: 0.4em;
   border:1.5px solid white;
 }
-.offline{
-  background-color: #c23616 !important;
+.offline_icon{
+  position: absolute;
+  height: 15px;
+  width:15px;
+  background-color: #c23616;
+  border-radius: 50%;
+  bottom: 0.2em;
+  right: 0.4em;
+  border:1.5px solid white;
 }
 .user_info{
   margin-top: auto;
@@ -155,7 +164,7 @@ body,html{
   width: 100%;
 }
 .contacts li:hover{
-  background-color: rgba(186,223,220,0.5);
+  background-color: rgba(0,0,0,0.5);
 }
 .message{
   display: flex;
@@ -174,11 +183,12 @@ body,html{
   margin-right: 20px;
 }
 .user_info i:hover{
-  color: #820040;
+  /*color: #820040;*/
+  color: #1b90fa;
 }
 .user_info p{
   font-size: 10px;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.5);
 }
 .user_info2{
   margin-top: auto;
@@ -280,7 +290,7 @@ body,html{
 }
 .action_menu ul li:hover{
   cursor: pointer;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(255,255,255,0.3);
 }
 @media(max-width: 576px){
   .contacts_card{
@@ -312,8 +322,9 @@ body,html{
   width: 100%;
 }
 .btn-primary {
-  background-color: #820040;
-  color: white !important;
+  /*background-color: #820040;*/
+  background-color: #ebf5fe;
+  color: black !important;
   text-align: center;
   box-sizing: border-box;
   display: flex;
@@ -321,7 +332,10 @@ body,html{
   align-items: center;
 }
 .btn-primary:hover{
-  background-color: #008d93!important;
+  /*background-color: #008d93!important;*/
+  background-color: #1b90fa!important;
+  /*#24a0ed*/
+  color: white !important;
 }
 /*@media (min-width: 1200px) {*/
 /*  .col-xl-3 {*/

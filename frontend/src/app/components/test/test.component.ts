@@ -4,6 +4,7 @@ import {ChatbotService} from "../../services/chatbot/chatbot.service";
 import { ActivatedRoute} from '@angular/router';
 import {Message} from "../../models/message.model";
 import {User} from "../../models/user.model";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-test',
@@ -18,6 +19,8 @@ export class TestComponent implements OnInit {
   isChatActive : any;
   ListChats: Chat[]= [];
   ListMessages: Message[]= [];
+  ListDoctors: User[]= [];
+  u: any = {};
   c: any = {};
   m: any = {};
   msg:any;
@@ -27,8 +30,7 @@ export class TestComponent implements OnInit {
   loading = false;
   idChat:any;
   result: any;
-  reciver: User[]= [];
-  constructor(private route: ActivatedRoute, private chatbotService: ChatbotService ) { }
+  constructor(private route: ActivatedRoute, private chatbotService: ChatbotService, private userService: UserService) { }
   ngOnInit() {
   }
   ShowActionMenu() {
@@ -38,12 +40,19 @@ export class TestComponent implements OnInit {
     this.isDoctorsVisible = true;
     this.isDermAIVisible = false;
     const type = "UserChat";
+    const role = "doctor";
     this.chatbotService.getAllChats(type).subscribe(data => {
         this.ListChats = data;
       },
 
       error => {
         console.log(error);
+      });
+    this.userService.getByRoleUser(role).subscribe(data => {
+      this.ListDoctors = data;
+    },
+      error => {
+      console.log(error);
       });
   }
   ShowDermAI() {
