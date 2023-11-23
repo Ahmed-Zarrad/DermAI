@@ -65,6 +65,9 @@
       </div>
         <div class="card-body contacts_body" [hidden]="!isDoctorsVisible">
         <ul class="contacts" *ngFor="let u of ListDoctors">
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">{{u.speciality}}</p>
+          </div>
           <li>
             <div class="d-flex bd-highlight">
               <div class="img_cont">
@@ -72,7 +75,7 @@
                 <span class="online_icon" [ngClass]="u.status == 'online' ? 'online_icon': 'offline_icon'"></span>
               </div>
               <div class="user_info">
-                <div class="message"><span>Dr {{u.firstName}} {{u.lastName}} ({{u.speciality}})</span><i class="fa-regular fa-trash-can "></i></div>
+                <div class="message"><span>Dr {{u.firstName}} {{u.lastName}}</span><i class="fa-regular fa-trash-can "></i></div>
                 <p>Dr {{u.firstName}} is {{u.status}}</p>
               </div>
             </div>
