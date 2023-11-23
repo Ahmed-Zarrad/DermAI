@@ -81,7 +81,14 @@ userSchema.set("toJSON", {
     // the passwordHash should not be revealed
     delete returnedObject.passwordHash;
     delete returnedObject.publicId;
-    delete returnedObject.created;
+        delete returnedObject.created;
+        if (returnedObject.birthday) {
+            returnedObject.birthday = new Date(returnedObject.birthday).toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+            });
+        }
   },
 });
 userSchema.pre("remove", async function (next) {
