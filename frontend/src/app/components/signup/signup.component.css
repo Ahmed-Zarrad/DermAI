@@ -1,10 +1,9 @@
-
-section{
-  margin-top: 100px;
-  height: 100vh !important;
+body{
+  height: 100vh;
 }
-
-
+.marg{
+  padding: 45px;
+}
 .form-control{
   border: 1px  solid  !important;
   text-align: center!important;
@@ -23,9 +22,6 @@ section{
   --mdb-alert-padding-y: 0.5rem;
   display: flex;
   margin-bottom: 25px;
-
-}
-.form-control i {
 
 }
 .form-icon {
@@ -53,4 +49,28 @@ section{
 /*}*/
 .SelectRole{
   font-size: 1rem !important;
+}
+body.dark-theme {
+  background: #212529;
+}
+body.dark-theme .form-control:focus ~ .form-label, .form-control:valid ~ .form-label {
+  background-color:#000;
+}
+body.dark-theme .form-control{
+  color: #fff;
+}
+body.dark-theme .form-label{
+  color: #fff;
+}
+body.dark-theme .card-body{
+background: rgba(0,0,0,0.7);
+}
+body.dark-theme h2{
+  color: #fff;
+}
+body.dark-theme .form-icon{
+  color: #fff;
+}
+body.dark-theme option{
+  background-color: #000;
 }

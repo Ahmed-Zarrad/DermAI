@@ -32,7 +32,7 @@
   </ul>
 </nav><!-- end of page navbar -->
 
-<nav *ngIf="router.url !== '/home'&&router.url !== '/'" class="page-navbar secondNav" >
+<nav *ngIf="router.url !== '/home'&&router.url !== '/'" class="page-navbar secondNav">
   <ul class="nav-navbar container" >
     <li class="nav-item"><a  href="/home" class="nav-link">Home</a></li>
     <li class="nav-item"><a *ngIf="NotConnected"  href="/login" class="nav-link">Log in</a>

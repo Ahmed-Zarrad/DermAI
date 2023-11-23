@@ -33,3 +33,6 @@
   margin-bottom: 25px;
 
 }
+body.dark-theme {
+  background: #212529;
+}

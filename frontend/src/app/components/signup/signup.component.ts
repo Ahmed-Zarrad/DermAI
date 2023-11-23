@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../models/user.model";
 import {UserService} from "../../services/user/user.service";
+import {Speciality} from "../../models/speciality";
 
 @Component({
   selector: 'app-signup',
@@ -16,6 +17,11 @@ export class SignupComponent implements OnInit{
   role: any;
   isRoleSelected: boolean = false;
   photo: any;
+  speciality = Speciality;
+  Keyss(): Array<string> {
+    var Keys = Object.keys(this.speciality);
+    return Keys;
+  }
   constructor(private route: ActivatedRoute, private userservice: UserService, private router: Router) {
   }
 
