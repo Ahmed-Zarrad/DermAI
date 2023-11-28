@@ -126,7 +126,12 @@ body,html{
   height: 40px;
   width: 40px;
   border:1.5px solid #f5f6fa;
-
+}
+.bot_img_msg{
+  height: 40px;
+  width: 40px;
+  border:1.5px solid #f5f6fa;
+  background-color: white;
 }
 .img_cont{
   position: relative;
@@ -305,13 +310,13 @@ body,html{
     max-width: 50%;
   }
 }
-  @media (min-width: 768px) {
-    .col-md-8 {
-      -ms-flex: 0 0 66.666667%;
-      flex: 0 0 66.666667%;
-      max-width: 66.666667%;
-    }
+@media (min-width: 768px) {
+  .col-md-8 {
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
   }
+}
 .btn.small {
   min-height: 40px;
   font-size: 16px;

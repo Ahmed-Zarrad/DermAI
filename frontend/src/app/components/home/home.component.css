@@ -11048,12 +11048,12 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0);
+  background: rgba(52, 58, 64, 0.1);
   -webkit-transition: all, 1s;
   transition: all, 1s;
 }
 body.dark-theme .overlay-img .overlay {
-  background: rgba(52, 58, 64, 0.2);
+  background: rgba(52, 58, 64, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -11108,7 +11108,9 @@ body.dark-theme .overlay-img .overlay {
 .overlay-img:hover .overlay, .overlay-img:focus .overlay {
   background: rgba(33, 37, 41, 0.8);
 }
-
+body.dark-theme .overlay-img:hover .overlay, .overlay-img:focus .overlay {
+  background: rgba(33, 37, 41, 0.8);
+}
 .overlay-img:hover .des, .overlay-img:focus .des {
   top: 40%;
 }
@@ -11728,7 +11730,11 @@ body.light-theme .overlay-img .title,
 body.light-theme .overlay-img .subtitle {
   color: #fff;
 }
-
+body.dark-theme  .overlay-img p,
+body.dark-theme .overlay-img .title,
+body.dark-theme .overlay-img .subtitle {
+  color: #fff;
+}
 body.light-theme .card .card-title,
 body.light-theme .card .card-subtitle {
   color: #212529;

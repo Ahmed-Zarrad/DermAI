@@ -1,5 +1,5 @@
 <head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"></head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="light-theme">
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="dark-theme">
 
 
 <!-- page navbar -->
@@ -7,7 +7,7 @@
   <ul class="nav-navbar container">
     <li class="nav-item"><a  href="/home" class="nav-link" >Home</a></li>
     <li class="nav-item"><a *ngIf="NotConnected"  href="/login" class="nav-link">Log in</a>
-                         <a *ngIf="!NotConnected"  href="/test" class="nav-link">Chat</a></li>
+                         <a *ngIf="!NotConnected"  href="/chat" class="nav-link">Chat</a></li>
     <li class="nav-item"><a  href="/" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
     <li class="nav-item" *ngIf="NotConnected"><a  href="/signup" class="nav-link">Sign up</a></li>
     <li class="nav-item mainMenu" *ngIf="!NotConnected">
@@ -36,7 +36,7 @@
   <ul class="nav-navbar container" >
     <li class="nav-item"><a  href="/home" class="nav-link">Home</a></li>
     <li class="nav-item"><a *ngIf="NotConnected"  href="/login" class="nav-link">Log in</a>
-                         <a *ngIf="!NotConnected"  href="/test" class="nav-link">Chat</a></li>
+                         <a *ngIf="!NotConnected"  href="/chat" class="nav-link">Chat</a></li>
     <li class="nav-item"><a  href="/" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
     <li class="nav-item" *ngIf="NotConnected"><a  href="/signup" class="nav-link">Sign up</a></li>
     <li class="nav-item mainMenu" *ngIf="!NotConnected">

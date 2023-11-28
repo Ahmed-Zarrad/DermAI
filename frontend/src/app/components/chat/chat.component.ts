@@ -7,11 +7,12 @@ import {User} from "../../models/user.model";
 import {UserService} from "../../services/user/user.service";
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.css']
 })
-export class TestComponent implements OnInit {
+export class ChatComponent implements OnInit {
+
   isActionMenuVisible: boolean = false;
   isDoctorsVisible : boolean =false;
   isDermAIVisible : boolean= false;
@@ -23,7 +24,7 @@ export class TestComponent implements OnInit {
   u: any = {};
   c: any = {};
   m: any = {};
-  msg:any = "test";
+  msg:any;
   initialRowHeight = 20;
   resp: any = null;
   userInput: any;
@@ -49,10 +50,10 @@ export class TestComponent implements OnInit {
         console.log(error);
       });
     this.userService.getByRoleUser(role).subscribe(data => {
-      this.ListDoctors = data;
-    },
+        this.ListDoctors = data;
+      },
       error => {
-      console.log(error);
+        console.log(error);
       });
   }
   ShowDermAI() {
@@ -241,7 +242,4 @@ export class TestComponent implements OnInit {
   //       });
   //   }
   // }
-  alertmsg():void{
-    console.log(this.msg);
-  }
 }

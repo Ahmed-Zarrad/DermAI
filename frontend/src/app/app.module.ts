@@ -13,6 +13,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ResultComponent } from './components/result/result.component';
 import { TestComponent } from './components/test/test.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     ResultComponent,
     TestComponent,
     ProfileComponent,
+    ChatComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

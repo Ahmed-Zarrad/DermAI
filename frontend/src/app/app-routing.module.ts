@@ -3,21 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Components/login/login.component';
 import { HomeComponent } from './Components/home/home.component';
 import {SignupComponent} from "./components/signup/signup.component";
+import {ChatComponent} from "./components/chat/chat.component";
 import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 import {TestComponent} from "./components/test/test.component";
 import {ResultComponent} from "./components/result/result.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {AuthorizepatientguardService} from "./services/AuthorizePatientGuard/authorizepatientguard.service";
 import {AuthorizedoctorguardService} from "./services/AuthorizeDoctorGuard/authorizedoctorguard.service";
-import {
-  AuthorizeforgotguardServiceService
-} from "./services/AuthorizeforgotguardService/authorizeforgotguard-service.service";
+import {AuthorizeforgotguardServiceService} from "./services/AuthorizeforgotguardService/authorizeforgotguard-service.service";
+import {AlertComponent} from "./components/alert/alert.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthorizeforgotguardServiceService]},
   { path: 'home', component: HomeComponent },
+  { path: 'alert', component: AlertComponent },
   { path: '', component: HomeComponent },
   { path: 'signup', component: SignupComponent, canActivate: [AuthorizeforgotguardServiceService]},
+  { path: 'chat', component: ChatComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
   { path: 'test', component: TestComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
   { path: 'result', component: ResultComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
