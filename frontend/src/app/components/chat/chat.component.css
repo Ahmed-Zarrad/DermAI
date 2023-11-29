@@ -1,19 +1,20 @@
-body,html{
-  height: 100vh;
-  margin: 0;
-  background: #122A5F;
+body {
+  height: 100vh !important;
+  margin: 0 !important;
+  background: #020844;
   /*background: -webkit-linear-gradient(to right, #CAE6E3, #008D93, #005461);*/
   background: -webkit-linear-gradient(to right, #f2f6ff,#97c4fd, #66a5f2, #3d7bc6,#020844);
   /*background: linear-gradient(to right, #CAE6E3, #008D93, #005461);*/
   background: linear-gradient(to right, #f2f6ff,#97c4fd, #66a5f2, #3d7bc6,#020844);
 }
-
+.marg{
+  padding: 10px;
+}
 .chat{
   margin-top: auto;
   margin-bottom: auto;
 }
 .card{
-  margin-top: 7vh;
   height: 85vh;
   border-radius: 15px !important;
   background-color: rgba(0,0,0,0.4) !important;
