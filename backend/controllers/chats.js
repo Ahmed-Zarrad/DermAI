@@ -145,7 +145,13 @@ chatRouter.get("/:chatId/message", async (req, res) => {
 chatRouter.get("/:chatId/message/count", async (req, res) => {
     try {
         const { chatId } = req.params;
-        const messageCount = await Chat.countDocuments({ _id: chatId });
+        const chat = await Chat.findById(chatId);
+        if (!chat) {
+            return res.status(404).json({ error: { chat: "Chat not found." } });
+        }
+
+        const messageCount = chat.messages.length;
+
 
         res.status(200).json({ messageCount });
     } catch (error) {

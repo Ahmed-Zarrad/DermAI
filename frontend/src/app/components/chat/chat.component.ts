@@ -19,7 +19,6 @@ export class ChatComponent implements OnInit {
   isDermAIVisible : boolean= false;
   showData : boolean= false;
   isChatActive : boolean= false;
-  isChatActiveId : any;
   userActivePhoto: any;
   userActiveFirstName: any;
   userActiveLastName: any;
@@ -53,6 +52,7 @@ export class ChatComponent implements OnInit {
     this.ListMessages = [];
     this.isDoctorsVisible = true;
     this.isDermAIVisible = false;
+    this.idChat=null;
     this.userService.getByRoleUser('doctor').subscribe(data => {
         this.ListDoctors = data;
         this.chatbotService.getAllChats('UserChat').subscribe(data => {
@@ -77,6 +77,7 @@ export class ChatComponent implements OnInit {
     this.ListMessages = [];
     this.isDermAIVisible = true;
     this.isDoctorsVisible = false;
+    this.idChat=null;
     const type = "ChatbotChat";
     this.chatbotService.getAllChats(type).subscribe(data => {
         this.ListChats = data;
@@ -145,7 +146,6 @@ export class ChatComponent implements OnInit {
   }
   activateChat(idChat: any){
     this.isChatActive= true;
-    this.isChatActiveId= idChat;
     this.chatbotService.getAllMessages(idChat).subscribe(data => {
         this.ListMessages = data;
         this.idChat = idChat;
