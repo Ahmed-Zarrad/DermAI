@@ -37,7 +37,7 @@
             </a>
           </li>
           <li [hidden]="!isDermAIVisible">
-            <a class="btn btn-primary small btn-navbar"(click)="createChat('ChatbotChat')">
+            <a class="btn btn-primary small btn-navbar"(click)="createChatbotChat()">
               <i class="fas fa-add"></i>&nbsp;&nbsp;Create New Chat
             </a>
           </li>
@@ -45,7 +45,7 @@
       </div>
       <div class="card-body contacts_body" [hidden]="!isDermAIVisible">
         <ul class="contacts" *ngFor="let c of ListChats">
-          <li (click)="activateChat(c.id)" [ngClass]="isChatActive==c.id ? 'active': 'notActive'">
+          <li (click)="activateChat(c.id)" [ngClass]="isChatActiveId==c.id ? 'active': 'notActive'">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
                 <img src="assets/imgs/logoDermAI.png" class="rounded-circle user_img">
@@ -65,14 +65,25 @@
           <div class="divider d-flex align-items-center my-4">
             <p class="text-center fw-bold mx-3 mb-0">{{u.speciality}}s</p>
           </div>
-          <li>
+          <li *ngIf="!ListUsersId.includes(u.id)">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
                 <img [src]= u.photo class="rounded-circle user_img">
+              </div>
+              <div class="user_info">
+                <div class="message"><span>Dr {{u.firstName}} {{u.lastName}}</span></div>
+                <button class="btn btn-primary" (click)="createUserChat(u.id)"><i class="fas fa-add"></i>Create Chat with Doctor</button>
+              </div>
+            </div>
+          </li>
+          <li *ngIf="ListUsersId.includes(u.id)" (click)="activateChat(userc(u.id))" [ngClass]="isChatActiveId==userc(u.id)? 'active': 'notActive'">
+            <div class="d-flex bd-highlight">
+              <div class="img_cont">
+                <img [src]= userap(u.photo) class="rounded-circle user_img">
                 <span class="online_icon" [ngClass]="u.status == 'online' ? 'online_icon': 'offline_icon'"></span>
               </div>
               <div class="user_info">
-                <div class="message"><span>Dr {{u.firstName}} {{u.lastName}}</span><i class="fa-regular fa-trash-can "></i></div>
+                <div class="message"><span>Dr {{useraf(u.firstName)}} {{useral(u.lastName)}}</span><i class="fa-regular fa-trash-can "></i></div>
                 <p>Dr {{u.firstName}} is {{u.status}}</p>
               </div>
             </div>
@@ -83,15 +94,17 @@
     </div></div>
     <div class="col-md-8 col-xl-6 chat">
       <div class="card">
-        <div class="card-header msg_head" *ngIf="isDermAIVisible&&isChatActive">
+        <div class="card-header msg_head" *ngIf="isChatActive">
           <div class="d-flex bd-highlight">
             <div class="img_cont">
-              <img src="assets/imgs/logoDermAI.png" class="rounded-circle user_img">
+              <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle user_img">
+              <img *ngIf="isDoctorsVisible" [src]="userActivePhoto" class="rounded-circle user_img">
               <span class="online_icon"></span>
             </div>
             <div class="user_info2">
-              <span>Chat with DermAI</span>
-              <p>1767 Messages</p>
+              <span *ngIf="isDermAIVisible">Chat with DermAI</span>
+              <span *ngIf="isDoctorsVisible">Chat with Dr {{userActiveFirstName}}  {{userActiveFirstName}}</span>
+              <p>{{messagescount}} Messages</p>
             </div>
             <div class="video_cam" [hidden]="isDermAIVisible">
               <span><i class="fas fa-video"></i></span>
@@ -110,9 +123,10 @@
         </div>
         <div class="card-body msg_card_body">
           <div class="chatlog" *ngFor="let m of ListMessages">
-            <div class="d-flex justify-content-start mb-4" *ngIf="m.role=='assistant'">
+            <div class="d-flex justify-content-start mb-4" *ngIf="m.username!=user">
               <div class="img_cont_msg">
-                <img src="assets/imgs/logoDermAI.png" class="rounded-circle bot_img_msg">
+                <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle bot_img_msg">
+                <img *ngIf="isDoctorsVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg">
               </div>
               <div class="chatMsg">
                 <div class="msg_cotainer">
@@ -128,7 +142,7 @@
                 <span class="msg_time">{{m.created}}</span>
               </div>
             </div>
-            <div class="d-flex justify-content-end mb-4" *ngIf="m.role=='user'">
+            <div class="d-flex justify-content-end mb-4" *ngIf="m.username==user">
               <div class="chatMsg_send">
                 <div class="msg_cotainer_send">
                   {{m.content}}
@@ -137,13 +151,13 @@
                 <span class="msg_time_send">{{m.created}}</span>
               </div>
               <div class="img_cont_msg">
-                <img src="assets/imgs/mainphotosquare.png" class="rounded-circle user_img_msg">
+                <img [src]="currentUser.photo" class="rounded-circle user_img_msg">
               </div>
             </div>
           </div>
         </div>
         <div class="card-footer" *ngIf="isChatActive">
-          <div class="input-group">
+          <div class="input-group" *ngIf="isDermAIVisible">
             <div class="input-group-append">
               <span class="input-group-text attach_btn" onclick="document.getElementById('file-input').click()" ><i class="fas fa-image" ></i></span>
               <input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg"
@@ -151,8 +165,23 @@
             </div>
             <textarea class="form-control type_msg" placeholder="Type your message..."
                       [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" (keydown.enter)="sendMessageToChatbot()" ></textarea>
+
             <div class="input-group-append">
                             <span class="input-group-text send_btn" (click)="sendMessageToChatbot()"
+                            ><i class="fas fa-location-arrow"></i></span>
+            </div>
+          </div>
+          <div class="input-group" *ngIf="isDoctorsVisible">
+            <div class="input-group-append">
+              <span class="input-group-text attach_btn" onclick="document.getElementById('file-input').click()" ><i class="fas fa-image" ></i></span>
+              <input type="file" id="file-input1" name="resume" accept=".png, .jpg, .jpeg"
+                     [disabled]="loading" [hidden]=true >
+            </div>
+            <textarea class="form-control type_msg" placeholder="Type your message..."
+                      [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" (keydown.enter)="sendMessageToUser()"></textarea>
+
+            <div class="input-group-append">
+                            <span class="input-group-text send_btn" (click)="sendMessageToUser()"
                             ><i class="fas fa-location-arrow"></i></span>
             </div>
           </div>

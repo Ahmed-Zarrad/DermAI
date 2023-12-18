@@ -2,10 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\controllers",
+    "\\middlewares",
     "\\models",
     "\\services",
     "\\utils"
   ],
-  "SelectedNode": "\\models\\user.js",
+  "SelectedNode": "\\controllers\\skin-results.js",
   "PreviewInSolutionExplorer": false
 }

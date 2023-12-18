@@ -8,7 +8,8 @@ const jwt = require("jsonwebtoken");
 
 chatRouter.get("/:type", async (req, res) => {
     const { type } = req.params;
-    const chats = await Chat.find({ users: [req.user], type  }).sort({ created: -1 });
+    const authenticatedUserId = req.user._id;
+    const chats = await Chat.find({ users: authenticatedUserId, type  }).sort({ created: -1 });
     res.json(chats);
 });
 
@@ -31,12 +32,17 @@ chatRouter.get("/:id", async (req, res) => {
 
     res.json(chat);
 });
-
-chatRouter.post("/:type", async (req, res) => {
+chatRouter.post("/user/:userId", async (req, res) => {
     const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
-    const { type } = req.params;
-    const { subject } = req.body;
-    const user = req.user;
+    const { userId } = req.params;
+    const { subject, usersId } = req.body;
+    const usersIdArray = Array.isArray(usersId) ? usersId : [];
+    usersIdArray.push(userId);
+    const userss = await User.find({
+        _id: { $in: usersIdArray },
+    });
+    usersIdArray.push(req.user._id, userId);
+    userss.push(req.user);
     const error = {};
 
     if (!req.token || !decodedToken.id) {
@@ -44,21 +50,52 @@ chatRouter.post("/:type", async (req, res) => {
             .status(401)
             .json({ error: { token: "Token missing or invalid." } });
     }
-    if (!type) {
-        error.type = "Type is required.";
-    }  
     if (Object.keys(error).length > 0) {
         return res.status(400).json(error);
     }
     const chat = new Chat({
-        users: [user._id],
+        users: usersIdArray,
         subject,
-        type
+        type: 'UserChat'
     });
     const savedChat = await chat.save();
-    user.chats = user.chats.concat(savedChat._id);
-    await user.save();
-    res.status(201).json(savedChat);
+    userss.forEach(async user => {
+        user.chats = user.chats.concat(savedChat._id);
+        await user.save();
+    });
+    return res.json(savedChat);
+});
+chatRouter.post("/chatbot", async (req, res) => {
+    const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
+    const { subject, usersId } = req.body;
+    const usersIdArray = Array.isArray(usersId) ? usersId : [];
+    const userss = await User.find({
+        _id: { $in: usersIdArray },
+    });
+    usersIdArray.push(req.user._id);
+    userss.push(req.user);
+    const error = {};
+
+    if (!req.token || !decodedToken.id) {
+        return res
+            .status(401)
+            .json({ error: { token: "Token missing or invalid." } });
+    }
+   
+    if (Object.keys(error).length > 0) {
+        return res.status(400).json(error);
+    }
+    const chat = new Chat({
+        users: usersIdArray,
+        subject,
+        type: 'ChatbotChat'
+    });
+    const savedChat = await chat.save();
+    userss.forEach(async user => {
+        user.chats = user.chats.concat(savedChat._id);
+        await user.save();
+    });
+    return res.json(savedChat);
 });
 chatRouter.delete("/:id", async (req, res) => {
     const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
@@ -104,6 +141,17 @@ chatRouter.get("/:chatId/message", async (req, res) => {
     const messages = await Message.find({ chat });
 
     res.json(messages);
+});
+chatRouter.get("/:chatId/message/count", async (req, res) => {
+    try {
+        const { chatId } = req.params;
+        const messageCount = await Chat.countDocuments({ _id: chatId });
+
+        res.status(200).json({ messageCount });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 chatRouter.get("/:chatId/message/:id", async (req, res) => {

@@ -23,17 +23,34 @@ export class ChatbotService {
     return this.httpClient.post(`${this.baseUrl}/${idChat}/chatbot/message`, requestData, httpOptions)
 
       .pipe((data => {
-
-
-        this.chatbot;
         return data;
       }));
+  }
+  sendMessageToUser(content: any, idChat: any): Observable<any> {
+    const requestData =
+      {
+        content: content,
+      };
+    return this.httpClient.post(`${this.baseUrl}/${idChat}/user/message`, requestData, httpOptions)
+
+      .pipe((data => {
+        return data;
+      }));
+  }
+  getMessagescount(idChat: any): Observable<any>{
+    return this.httpClient.get(`${this.baseUrl}/${idChat}/message/count`);
   }
   getAllChats(type: any): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/${type}`);
   }
-  crateChat(type: any) {
-    return this.httpClient.post<JwtResponse>(`${this.baseUrl}/${type}`, httpOptions)
+  crateUserChat(userId: any): Observable<any> {
+    return this.httpClient.post<JwtResponse>(`${this.baseUrl}/user/${userId}`, httpOptions)
+      .pipe(data => {
+        return data;
+      });
+  }
+  crateChatbotChat(): Observable<any> {
+    return this.httpClient.post<JwtResponse>(`${this.baseUrl}/chatbot`, httpOptions)
       .pipe(data => {
         return data;
       });

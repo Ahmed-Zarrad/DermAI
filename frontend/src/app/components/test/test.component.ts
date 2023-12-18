@@ -67,18 +67,16 @@ export class TestComponent implements OnInit {
         console.log(error);
       });
   }
-  createChat(type: any) {
-    this.chatbotService.crateChat(type).subscribe(
+  createChatbotChat() {
+    this.chatbotService.crateChatbotChat().subscribe(
       data => {
-        console.log(data);
-        this.msg = 'Chat Added Succefully !';
       },
       error => {
         console.log(error);
         this.msg = 'error occured !';
       }
     );
-    this.chatbotService.getAllChats(type).subscribe(data => {
+    this.chatbotService.getAllChats('ChatbotChat').subscribe(data => {
         this.ListChats = data;
       },
 

@@ -1,6 +1,7 @@
 import {Speciality} from "./speciality";
 
 export class User {
+  id?: string;
   username!: string;
   password!: string;
   confirmPassword!: string;
@@ -17,7 +18,7 @@ export class User {
   photo?: string;
   publicId?: string;
   status?: string;
-
+  chats?:any;
 
   constructor( username: string, password: string, confirmPassword: string, firstName: string, lastName: string, email: string, birthday: Date, phone: string, country: string, city: string, address: string,
               postalCode: number, speciality: Speciality, photo: string, publicId: string, status: string) {
