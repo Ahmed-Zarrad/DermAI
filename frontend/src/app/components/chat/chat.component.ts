@@ -57,7 +57,6 @@ export class ChatComponent implements OnInit {
         this.ListDoctors = data;
         this.chatbotService.getAllChats('UserChat').subscribe(data => {
             this.ListChats = data;
-            console.log(this.ListChats);
             this.ListChats.forEach(chat => {
                 chat.users.forEach(id => {
               this.ListUsersId.push(id);
@@ -156,7 +155,6 @@ export class ChatComponent implements OnInit {
       });
     this.chatbotService.getMessagescount(idChat).subscribe(data => {
         this.messagescount = data.messageCount;
-        console.log(this.messagescount);
       },
 
       error => {
@@ -275,12 +273,27 @@ export class ChatComponent implements OnInit {
       }
 
       const skinImage: File = event.target.files[0];
-      this.skinResultsService.uploadSkinImage(skinImage).subscribe(
+      this.skinResultsService.uploadSkinImage(skinImage, this.idChat).subscribe(
         data => {
           this.result = data;
           this.loading = false;
-          this.showData = false;
-          this.chatbotService.chatbot("the result of processing the user skin image is Skin type: "+this.result.skinType+"Probability: "+this.result.probability+"% ask me 5 yes or no question to verify if he really have this skin type or this skin pathology and Do not ask all the questions at once, send each question separately and after I reply with yes or no ask me the next question until the user answer all the questions after I answer all the question tell me the result of the quiz", 'system', this.c.id).subscribe(
+          this.chatbotService.sendSkinResultMessage(this.result.photo, this.idChat).subscribe(
+            data => {
+              console.log(data);
+              this.ListMessages.push(data);
+            },
+            error => {
+              console.log(error);
+              this.msg = 'error';
+            });
+          this.chatbotService.chatbot("the result of processing the user " +
+            "skin image is: Skin type: "+this.result.skinType+", Probability: "+this.result.probability+"% " +
+            "ask the user 5 yes or no question to verify if he really have this skin disease or no " +
+            "and Do not ask all the questions at once, send each question separately and after the user " +
+            "reply with yes or no ask the user the next question until the user answer all the questions after " +
+            "the user answer all the questions Tell him whether his answers indicate symptoms of the skin disease " +
+            "or not and then suggest to him to chat with one of the application dermatologists Doctor Achref Zarrad "
+            , 'system', this.idChat).subscribe(
             data => {
               this.resp= data
 

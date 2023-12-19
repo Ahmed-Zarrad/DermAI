@@ -50,6 +50,7 @@ skinResultSchema.set("toJSON", {
   //delete returnedObject.chat;
     delete returnedObject.publicId;
     delete returnedObject.created;
+    returnedObject.probability = (returnedObject.probability * 100).toFixed(2);
   },
 });
 

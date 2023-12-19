@@ -10,10 +10,10 @@ export class SkinResultsService {
   private baseUrl = 'http://localhost:3001/api/v1/skin-results/';
   constructor(private httpClient: HttpClient) { }
 
-  uploadSkinImage(skinImage: File): Observable<any> {
+  uploadSkinImage(skinImage: File, idChat: any): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('skinImage', skinImage);
 
-    return this.httpClient.post(this.baseUrl, formData);
+    return this.httpClient.post(`${this.baseUrl}/${idChat}/`, formData);
   }
 }

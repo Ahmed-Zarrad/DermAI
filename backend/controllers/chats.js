@@ -279,8 +279,8 @@ chatRouter.post("/:chatId/skinResult/message/", async (req, res) => {
     const message = new Message({
         chat: chat._id,
         username: user.username,
-        role: "dermai",
-        content,
+        role: 'dermai',
+        content
     });
     const savedMessage = await message.save();
     chat.messages = chat.messages.concat(savedMessage._id);

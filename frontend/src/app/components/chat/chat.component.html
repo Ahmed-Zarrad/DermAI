@@ -145,8 +145,8 @@
             <div class="d-flex justify-content-end mb-4" *ngIf="m.username==user">
               <div class="chatMsg_send">
                 <div class="msg_cotainer_send">
-                  {{m.content}}
-                  <img src="'+this.result.image+'" alt="Uploaded" width="300px" *ngIf="m.role=='dermai'" />
+                  <small *ngIf="m.role!='dermai'">{{m.content}}</small>
+                  <img [src]="m.content" alt="Uploaded" width="300px" *ngIf="m.role=='dermai'" />
                 </div>
                 <span class="msg_time_send">{{m.created}}</span>
               </div>
@@ -161,7 +161,7 @@
             <div class="input-group-append">
               <span class="input-group-text attach_btn" onclick="document.getElementById('file-input').click()" ><i class="fas fa-image" ></i></span>
               <input type="file" id="file-input" name="resume" accept=".png, .jpg, .jpeg"
-                     [disabled]="loading" [hidden]=true >
+                     [disabled]="loading" [hidden]=true (change)="handleImageUpload($event)">
             </div>
             <textarea class="form-control type_msg" placeholder="Type your message..."
                       [(ngModel)]="userInput" name="userinput" (input)="autoResize($event)" (keydown.enter)="sendMessageToChatbot()" ></textarea>

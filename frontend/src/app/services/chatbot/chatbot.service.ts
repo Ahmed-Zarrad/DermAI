@@ -37,6 +37,17 @@ export class ChatbotService {
         return data;
       }));
   }
+  sendSkinResultMessage(content: any, idChat: any): Observable<any> {
+    const requestData =
+      {
+        content: content,
+      };
+    return this.httpClient.post(`${this.baseUrl}/${idChat}/skinResult/message`, requestData, httpOptions)
+
+      .pipe((data => {
+        return data;
+      }));
+  }
   getMessagescount(idChat: any): Observable<any>{
     return this.httpClient.get(`${this.baseUrl}/${idChat}/message/count`);
   }
