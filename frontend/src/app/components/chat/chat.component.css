@@ -24,6 +24,17 @@ body {
   overflow-y: auto;
   white-space: nowrap;
 }
+.contacts_body::-webkit-scrollbar{
+  width: 10px;
+}
+.contacts_body::-webkit-scrollbar-track{
+  background-color: transparent;
+  border-radius: 100px;
+}
+.contacts_body::-webkit-scrollbar-thumb{
+  background-color: #f0f0f0;
+  border-radius: 100px;
+}
 .chatBtn{
   justify-content: center;
   align-items: center;
@@ -31,6 +42,17 @@ body {
 }
 .msg_card_body{
   overflow-y: auto;
+}
+.msg_card_body::-webkit-scrollbar{
+  width: 10px;
+}
+.msg_card_body::-webkit-scrollbar-track{
+  background-color: transparent;
+  border-radius: 100px;
+}
+.msg_card_body::-webkit-scrollbar-thumb{
+  background-color: #f0f0f0;
+  border-radius: 100px;
 }
 .card-header{
   border-radius: 15px 15px 0 0 !important;
@@ -383,4 +405,10 @@ body.dark-theme .btn-primary{
 }
 body.dark-theme .btn-primary i{
   color: white !important;
+}
+body.dark-theme .msg_card_body::-webkit-scrollbar-thumb{
+  background-color: #303030;
+}
+body.dark-theme .contacts_body::-webkit-scrollbar-thumb{
+  background-color: #303030;
 }
