@@ -10,7 +10,7 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body>
+<body class="dark-theme">
 <div class="container-fluid h-100">
   <div class="row justify-content-center h-100">
     <div class="marg"></div>
@@ -47,7 +47,7 @@
           <li (click)="activateChat(c.id)" [ngClass]="idChat==c.id ? 'active': 'notActive'">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
-                <img src="assets/imgs/logoDermAI.png" class="rounded-circle user_img">
+                <img src="assets/imgs/logoDermAI.png" class="rounded-circle user_img" alt="">
                 <span class="online_icon"></span>
               </div>
               <div class="user_info">
@@ -67,7 +67,7 @@
           <li *ngIf="!ListUsersId.includes(u.id)">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
-                <img [src]= u.photo class="rounded-circle user_img">
+                <img [src]= u.photo class="rounded-circle user_img" alt="">
               </div>
               <div class="user_info">
                 <div class="message"><span>Dr {{u.firstName}} {{u.lastName}}</span></div>
@@ -78,7 +78,7 @@
           <li *ngIf="ListUsersId.includes(u.id)" (click)="activateChat(userc(u.id))" [ngClass]="idChat==userc(u.id)? 'active': 'notActive'">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
-                <img [src]= userap(u.photo) class="rounded-circle user_img">
+                <img [src]= userap(u.photo) class="rounded-circle user_img" alt="">
                 <span class="online_icon" [ngClass]="u.status == 'online' ? 'online_icon': 'offline_icon'"></span>
               </div>
               <div class="user_info">
@@ -96,11 +96,11 @@
         <div class="card-header msg_head" *ngIf="isChatActive">
           <div class="d-flex bd-highlight">
             <div class="img_cont" *ngIf="isDermAIVisible">
-              <img  src="assets/imgs/logoDermAI.png" class="rounded-circle user_img">
+              <img  src="assets/imgs/logoDermAI.png" class="rounded-circle user_img" alt="">
               <span class="online_icon"></span>
             </div>
             <div class="img_cont" *ngIf="isDoctorsVisible">
-              <img  [src]="userActivePhoto" class="rounded-circle user_img">
+              <img  [src]="userActivePhoto" class="rounded-circle user_img" alt="">
               <span class="online_icon" [ngClass]="u.status == 'online' ? 'online_icon': 'offline_icon'"></span>
             </div>
             <div class="user_info2">
@@ -126,41 +126,46 @@
         <div class="card-body msg_card_body">
           <div class="chatlog" *ngFor="let m of ListMessages">
             <div *ngFor="let sr of ListResults">
-            <div class="d-flex justify-content-start mb-4" *ngIf="m.username!=user || m.role=='dermai'">
-              <div class="img_cont_msg">
-                <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle bot_img_msg">
-                <img *ngIf="isDoctorsVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg">
-              </div>
-              <div class="chatMsg">
-                <div class="msg_cotainer" *ngIf="m.role!='dermai'">
-                  {{m.content}}
-                </div>
-                <div class="msg_cotainer" *ngIf="m.role=='dermai'">
-                  <app-result [image]="sr.image"
-                              [skinType]="sr.skinType"
-                              [probability]="sr.probability"
-                              [symptoms]="sr.symptoms"
-                              [treatments]="sr.treatments"
-                              [howCommon]="sr.howCommon"
-                              [duration]="sr.duration" ></app-result></div>
-
-                <span class="msg_time">{{m.created}}</span>
-              </div>
-            </div>
             <div class="d-flex justify-content-end mb-4" *ngIf="m.username==user && m.role!='system'">
               <div class="chatMsg_send">
+                <div class="msgcrud_send">
+                  <i class="fas fa-ellipsis-vertical"></i>
                 <div class="msg_cotainer_send" *ngIf="!m.content.includes('http://res.cloudinary.com/')">
                   {{m.content}}
                 </div>
                   <div class="msg_cotainer_send" *ngIf="m.content.includes('http://res.cloudinary.com/')">
                   <img [src]="m.content" alt="Uploaded" width="300px" />
                 </div>
+                </div>
                 <span class="msg_time_send">{{m.created}}</span>
               </div>
               <div class="img_cont_msg">
-                <img [src]="currentUser.photo" class="rounded-circle user_img_msg">
+                <img [src]="currentUser.photo" class="rounded-circle user_img_msg" alt="">
               </div>
             </div>
+              <div class="d-flex justify-content-start mb-4" *ngIf="m.username!=user|| m.content.includes('http://res.cloudinary.com/')">
+                <div class="img_cont_msg">
+                  <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle bot_img_msg" alt="">
+                  <img *ngIf="isDoctorsVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg" alt="">
+                </div>
+                <div class="chatMsg">
+                  <div class="msgcrud">
+                  <div class="msg_cotainer" *ngIf="!m.content.includes('http://res.cloudinary.com/')">
+                    {{m.content}}
+                  </div>
+                  <div class="msg_cotainer" *ngIf="m.content.includes('http://res.cloudinary.com/')">
+                    <app-result [image]="sr.image"
+                                [skinType]="sr.skinType"
+                                [probability]="sr.probability"
+                                [symptoms]="sr.symptoms"
+                                [treatments]="sr.treatments"
+                                [howCommon]="sr.howCommon"
+                                [duration]="sr.duration" ></app-result></div>
+                    <i class="fas fa-ellipsis-vertical"></i>
+                  </div>
+                  <span class="msg_time">{{m.created}}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

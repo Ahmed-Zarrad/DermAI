@@ -284,6 +284,24 @@ body {
   flex-direction: column;
   align-items: flex-end;
 }
+.msgcrud{
+  display: flex;
+  align-items: center;
+}
+.msgcrud i{
+  margin-left: 1rem;
+  color: white;
+  cursor: pointer;
+}
+.msgcrud_send{
+  display: flex;
+  align-items: center;
+}
+.msgcrud_send i{
+  margin-right: 1rem;
+  color: white;
+  cursor: pointer;
+}
 .msg_head{
   position: relative;
 }

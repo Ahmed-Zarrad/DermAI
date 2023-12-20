@@ -1,3 +1,6 @@
+body{
+  border-radius: 15px;
+}
 .card {
   padding: 16px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
@@ -81,7 +84,15 @@
   font-weight: bold;
   font-family: Helvetica, sans-serif;
 }
+p{
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
 body.dark-theme .card{
+  background-color: #3c3f41;
+  color: white !important;
+}
+body.dark-theme{
   background-color: #303030;
   color: white !important;
 }
