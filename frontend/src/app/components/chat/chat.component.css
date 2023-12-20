@@ -263,6 +263,9 @@ body {
   position: relative;
   color: white ;
 }
+.msg_cotainer_send img{
+  border-radius: 15px;
+}
 .msg_time{
   color: rgba(255,255,255,0.5);
   font-size: 10px;

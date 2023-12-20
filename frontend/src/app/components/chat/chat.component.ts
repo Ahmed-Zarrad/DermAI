@@ -6,6 +6,7 @@ import {Message} from "../../models/message.model";
 import {User} from "../../models/user.model";
 import {UserService} from "../../services/user/user.service";
 import {SkinResultsService} from "../../services/skin-results/skin-results.service";
+import {SkinResults} from "../../models/skin-results.model";
 
 @Component({
   selector: 'app-chat',
@@ -26,17 +27,20 @@ export class ChatComponent implements OnInit {
   ListUsersId: any= [];
   ListMessages: Message[]= [];
   ListDoctors: User[]= [];
+  ListResults: SkinResults[]= [];
   u: any = {};
   c: any = {};
   m: any = {};
+  sr: any = {};
   msg:any;
-  messagescount:any;
+  messagesCount:any;
   initialRowHeight = 20;
   resp: any = null;
   userInput: any;
   loading = false;
   idChat:any;
   result: any;
+  nResults: any;
   err: any
   user: any = localStorage.getItem('AuthUsername');
   currentUserString = localStorage.getItem('CurrentUser');
@@ -144,40 +148,36 @@ export class ChatComponent implements OnInit {
       });
   }
   activateChat(idChat: any){
+    this.idChat = idChat;
     this.isChatActive= true;
     this.chatbotService.getAllMessages(idChat).subscribe(data => {
         this.ListMessages = data;
-        this.idChat = idChat;
+        this.messagesCount = this.ListMessages.length
       },
 
       error => {
         console.log(error);
       });
-    this.chatbotService.getMessagescount(idChat).subscribe(data => {
-        this.messagescount = data.messageCount;
+    this.skinResultsService.getAllResults(this.idChat).subscribe(
+      data =>{
+        this.ListResults = data;
+        this.nResults = this.ListResults.length;
       },
-
       error => {
         console.log(error);
+        this.msg = 'error';
       });
+
   }
   sendMessageToUser(): void {
-    const idChat = this.isChatActive;
     const message = this.userInput.trim();
     if (message.length === 0) return;
     this.loading = true;
     this.userInput = '';
-    this.chatbotService.sendMessageToUser(message, idChat).subscribe(
+    this.chatbotService.sendMessageToUser(message, this.idChat).subscribe(
       data => {
-        this.resp= data
+        this.ListMessages.push(data);
         this.loading = false;
-        this.chatbotService.getAllMessages(this.idChat).subscribe(data => {
-            this.ListMessages = data;
-          },
-
-          error => {
-            console.log(error);
-          });
       },
       error => {
         console.log(error);
@@ -186,64 +186,36 @@ export class ChatComponent implements OnInit {
     );
   }
   sendMessageToChatbot(): void {
-    const idChat = this.isChatActive;
     const message = this.userInput.trim();
     if (message.length === 0) return;
     this.loading = true;
-    this.userInput = '';
-    this.chatbotService.chatbot(message, 'user', idChat).subscribe(
+    this.userInput = "";
+    this.chatbotService.chatbot(message, 'user', this.idChat).subscribe(
       data => {
-        this.resp= data
+        this.ListMessages.push(data.User);
+        this.ListMessages.push(data.DermAI);
         this.loading = false;
-        this.chatbotService.getAllMessages(this.idChat).subscribe(data => {
-            this.ListMessages = data;
-          },
-
-          error => {
-            console.log(error);
-          });
       },
       error => {
         console.log(error);
         this.msg = 'error';
       }
     );
-    this.chatbotService.getAllMessages(this.idChat).subscribe(data => {
-        this.ListMessages = data;
-      },
-
-      error => {
-        console.log(error);
-      });
   }
   sendBotMessage(message:any): void {
     if (message.length === 0) return;
     this.loading = true;
-    const idChat = this.isChatActive
-    this.chatbotService.chatbot(message, 'assistant', idChat).subscribe(
+    this.chatbotService.chatbot(message, 'assistant', this.idChat).subscribe(
       data => {
-        this.resp= data
+        this.ListMessages.push(data.User);
+        this.ListMessages.push(data.DermAI);
         this.loading = false;
-        this.chatbotService.getAllMessages(this.idChat).subscribe(data => {
-            this.ListMessages = data;
-          },
-
-          error => {
-            console.log(error);
-          });
       },
       error => {
         console.log(error);
         this.msg = 'error';
       }
     );
-    this.chatbotService.getAllMessages(this.idChat).subscribe(data => {
-        this.ListMessages = data;
-      },
-
-      error => {
-        console.log(error);
-      });
   }
   autoResize(event: Event): void {
     const element = event.target as HTMLTextAreaElement;
@@ -276,8 +248,20 @@ export class ChatComponent implements OnInit {
       this.skinResultsService.uploadSkinImage(skinImage, this.idChat).subscribe(
         data => {
           this.result = data;
-          this.loading = false;
-          this.chatbotService.sendSkinResultMessage(this.result.photo, this.idChat).subscribe(
+          this.ListResults.push(data);
+          this.nResults = this.ListResults.length;
+
+          this.chatbotService.chatbot(this.result.image,'user', this.idChat).subscribe(
+            data => {
+              console.log(data);
+              this.ListMessages.push(data.User);
+              this.ListMessages.push(data.DermAI);
+            },
+            error => {
+              console.log(error);
+              this.msg = 'error';
+            });
+          this.chatbotService.sendSkinResultMessage(this.nResults,'dermai', this.idChat).subscribe(
             data => {
               console.log(data);
               this.ListMessages.push(data);
@@ -295,14 +279,15 @@ export class ChatComponent implements OnInit {
             "or not and then suggest to him to chat with one of the application dermatologists Doctor Achref Zarrad "
             , 'system', this.idChat).subscribe(
             data => {
-              this.resp= data
+              this.ListMessages.push(data.DermAI);
 
             },
             error => {
               console.log(error);
               this.msg = 'error';
             }
-          )
+          );
+          this.loading = false;
         },
         error => {
           console.log(error);

@@ -6,8 +6,8 @@
 <nav *ngIf="router.url === '/home'||router.url === '/'" class="page-navbar" data-spy="affix" data-offset-top="10">
   <ul class="nav-navbar container">
     <li class="nav-item"><a  href="/home" class="nav-link" >Home</a></li>
-    <li class="nav-item"><a *ngIf="NotConnected"  href="/login" class="nav-link">Log in</a>
-                         <a *ngIf="!NotConnected"  href="/chat" class="nav-link">Chat</a></li>
+    <li class="nav-item" *ngIf="NotConnected" ><a href="/login" class="nav-link">Log in</a></li>
+    <li class="nav-item" *ngIf="!NotConnected"><a href="/chat" class="nav-link">Chat</a></li>
     <li class="nav-item"><a  href="/" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
     <li class="nav-item" *ngIf="NotConnected"><a  href="/signup" class="nav-link">Sign up</a></li>
     <li class="nav-item mainMenu" *ngIf="!NotConnected">
@@ -35,8 +35,8 @@
 <nav *ngIf="router.url !== '/home'&&router.url !== '/'" class="page-navbar secondNav">
   <ul class="nav-navbar container" >
     <li class="nav-item"><a  href="/home" class="nav-link">Home</a></li>
-    <li class="nav-item"><a *ngIf="NotConnected"  href="/login" class="nav-link">Log in</a>
-                         <a *ngIf="!NotConnected"  href="/chat" class="nav-link">Chat</a></li>
+    <li class="nav-item" *ngIf="NotConnected" ><a href="/login" class="nav-link">Log in</a></li>
+    <li class="nav-item" *ngIf="!NotConnected"><a href="/chat" class="nav-link">Chat</a></li>
     <li class="nav-item"><a  href="/" class="nav-link"><img src="assets/imgs/logoDermAI.png" alt="" ></a></li>
     <li class="nav-item" *ngIf="NotConnected"><a  href="/signup" class="nav-link">Sign up</a></li>
     <li class="nav-item mainMenu" *ngIf="!NotConnected">
@@ -50,8 +50,13 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item search">
-      <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i> Search</a>
+    <li class="nav-item"><a href="" class="nav-link">
+      <i class="fas fa-bell"></i>
+      <span class="badge rounded-pill badge-notification bg-danger">9</span>&nbsp;&nbsp;Notifications
+    </a></li>
+
+    <li class="nav-item search" *ngIf="NotConnected">
+      <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i>  Search</a>
       <div class="search-wrapper">
         <form>
           <input type="search" class="form-control" name="" placeholder="hit enter to search">

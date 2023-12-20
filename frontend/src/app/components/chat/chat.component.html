@@ -1,7 +1,3 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 <head>
   <title>Chat</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -10,6 +6,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container-fluid h-100">
@@ -27,17 +26,17 @@
       <div class="chatBtn">
         <ul class="chatBtnul" >
           <li [hidden]="isDermAIVisible">
-            <a class="btn btn-primary small btn-navbar"(click)="ShowDermAI()">
+            <a class="btn btn-primary small btn-navbar" (click)="ShowDermAI()">
               <i class="fas fa-robot"></i>&nbsp;&nbsp;Chat with DermAI
             </a>
           </li>
           <li [hidden]="isDoctorsVisible">
-            <a class="btn btn-primary small btn-navbar"(click)="ShowDoctorsContacts()">
+            <a class="btn btn-primary small btn-navbar" (click)="ShowDoctorsContacts()">
               <i class="fas fa-user-doctor"></i>&nbsp;&nbsp;Chat with Doctors
             </a>
           </li>
           <li [hidden]="!isDermAIVisible">
-            <a class="btn btn-primary small btn-navbar"(click)="createChatbotChat()">
+            <a class="btn btn-primary small btn-navbar" (click)="createChatbotChat()">
               <i class="fas fa-add"></i>&nbsp;&nbsp;Create New Chat
             </a>
           </li>
@@ -96,15 +95,18 @@
       <div class="card">
         <div class="card-header msg_head" *ngIf="isChatActive">
           <div class="d-flex bd-highlight">
-            <div class="img_cont">
-              <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle user_img">
-              <img *ngIf="isDoctorsVisible" [src]="userActivePhoto" class="rounded-circle user_img">
+            <div class="img_cont" *ngIf="isDermAIVisible">
+              <img  src="assets/imgs/logoDermAI.png" class="rounded-circle user_img">
               <span class="online_icon"></span>
+            </div>
+            <div class="img_cont" *ngIf="isDoctorsVisible">
+              <img  [src]="userActivePhoto" class="rounded-circle user_img">
+              <span class="online_icon" [ngClass]="u.status == 'online' ? 'online_icon': 'offline_icon'"></span>
             </div>
             <div class="user_info2">
               <span *ngIf="isDermAIVisible">Chat with DermAI</span>
-              <span *ngIf="isDoctorsVisible">Chat with Dr {{userActiveFirstName}}  {{userActiveFirstName}}</span>
-              <p>{{messagescount}} Messages</p>
+              <span *ngIf="isDoctorsVisible">Chat with Dr {{userActiveFirstName}}  {{userActiveLastName}}</span>
+              <p>{{messagesCount}} Messages</p>
             </div>
             <div class="video_cam" [hidden]="isDermAIVisible">
               <span><i class="fas fa-video"></i></span>
@@ -123,36 +125,42 @@
         </div>
         <div class="card-body msg_card_body">
           <div class="chatlog" *ngFor="let m of ListMessages">
-            <div class="d-flex justify-content-start mb-4" *ngIf="m.username!=user">
+            <div *ngFor="let sr of ListResults">
+            <div class="d-flex justify-content-start mb-4" *ngIf="m.username!=user || m.role=='dermai'">
               <div class="img_cont_msg">
                 <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle bot_img_msg">
                 <img *ngIf="isDoctorsVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg">
               </div>
               <div class="chatMsg">
-                <div class="msg_cotainer">
+                <div class="msg_cotainer" *ngIf="m.role!='dermai'">
                   {{m.content}}
-                  <app-result [image]="result.image"
-                              [skinType]="result.skinType"
-                              [probability]="result.probability"
-                              [symptoms]="result.symptoms"
-                              [treatments]="result.treatments"
-                              [howCommon]="result.howCommon"
-                              [duration]="result.duration" *ngIf="m.role=='dermai'"></app-result></div>
+                </div>
+                <div class="msg_cotainer" *ngIf="m.role=='dermai'">
+                  <app-result [image]="sr.image"
+                              [skinType]="sr.skinType"
+                              [probability]="sr.probability"
+                              [symptoms]="sr.symptoms"
+                              [treatments]="sr.treatments"
+                              [howCommon]="sr.howCommon"
+                              [duration]="sr.duration" ></app-result></div>
 
                 <span class="msg_time">{{m.created}}</span>
               </div>
             </div>
-            <div class="d-flex justify-content-end mb-4" *ngIf="m.username==user">
+            <div class="d-flex justify-content-end mb-4" *ngIf="m.username==user && m.role!='system'">
               <div class="chatMsg_send">
-                <div class="msg_cotainer_send">
-                  <small *ngIf="m.role!='dermai'">{{m.content}}</small>
-                  <img [src]="m.content" alt="Uploaded" width="300px" *ngIf="m.role=='dermai'" />
+                <div class="msg_cotainer_send" *ngIf="!m.content.includes('http://res.cloudinary.com/')">
+                  {{m.content}}
+                </div>
+                  <div class="msg_cotainer_send" *ngIf="m.content.includes('http://res.cloudinary.com/')">
+                  <img [src]="m.content" alt="Uploaded" width="300px" />
                 </div>
                 <span class="msg_time_send">{{m.created}}</span>
               </div>
               <div class="img_cont_msg">
                 <img [src]="currentUser.photo" class="rounded-circle user_img_msg">
               </div>
+            </div>
             </div>
           </div>
         </div>

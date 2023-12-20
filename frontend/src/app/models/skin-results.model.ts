@@ -6,7 +6,7 @@ export class SkinResults {
   probability!: number;
   symptoms!: any;
   treatments!: any;
-  howCommong!: string;
+  howCommon!: string;
   duration!: string;
   created!: Date;
   user! : User;

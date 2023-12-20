@@ -231,7 +231,7 @@ chatRouter.post("/:chatId/chatbot/message/", async (req, res) => {
         messages: [
             {
                 role: "system",
-                content: "You are DermAI. You are a chatbot who acts as a dermatologist to help users",
+                content: "You are DermAI. You are a chatbot who acts as a dermatologist to help users, the system composed of 2 AI models who the forst one is gpt-3.5-turbo and the second one is Inceptionv3 model who is able predict predict which skin disease the patient has.",
             },
             {
                 role: "system",
@@ -264,11 +264,14 @@ chatRouter.post("/:chatId/skinResult/message/", async (req, res) => {
     const { chatId } = req.params;
     const user = req.user;
     const chat = await Chat.findById(chatId);
-    const { content } = req.body;
+    const { content, role } = req.body;
     const error = {};
 
     if (!content) {
         error.content = "content is required.";
+    }
+    if (!role) {
+        error.content = "role is required.";
     }
     if (!chatId) {
         error.chatId = "chatId is required.";
@@ -279,7 +282,7 @@ chatRouter.post("/:chatId/skinResult/message/", async (req, res) => {
     const message = new Message({
         chat: chat._id,
         username: user.username,
-        role: 'dermai',
+        role,
         content
     });
     const savedMessage = await message.save();

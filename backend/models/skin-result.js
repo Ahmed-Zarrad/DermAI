@@ -20,7 +20,7 @@ const skinResultSchema = new mongoose.Schema({
   symptoms: {
     type: [String],
   },
-  howCommong: {
+  howCommon: {
     type: String,
   },
   treatments: {

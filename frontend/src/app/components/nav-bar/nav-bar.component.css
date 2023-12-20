@@ -11871,3 +11871,18 @@ body.dark-theme .secondNav{
   height: 70px;
   border-bottom: 1px solid rgba(173,181,189,.1);
 }
+.notif i{
+  font-size: calc(18px + (15 - 12) * ((100vw - 300px) / (1300 - 300))) !important;
+}
+.badge-notification{
+  --mdb-badge-font-size: 0.6rem;
+  --mdb-badge-padding-x: 0.45em;
+  --mdb-badge-padding-y: 0.2em;
+  --mdb-badge-margin-top: -0.1rem;
+  --mdb-badge-margin-left: -0.5rem;
+  position: absolute;
+  font-size: var(--mdb-badge-font-size);
+  padding: var(--mdb-badge-padding-y) var(--mdb-badge-padding-x);
+  margin-top: var(--mdb-badge-margin-top);
+  margin-left: var(--mdb-badge-margin-left);
+}

@@ -7,7 +7,7 @@ import { Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class SkinResultsService {
-  private baseUrl = 'http://localhost:3001/api/v1/skin-results/';
+  private baseUrl = 'http://localhost:3001/api/v1/skin-results';
   constructor(private httpClient: HttpClient) { }
 
   uploadSkinImage(skinImage: File, idChat: any): Observable<any> {
@@ -15,5 +15,8 @@ export class SkinResultsService {
     formData.append('skinImage', skinImage);
 
     return this.httpClient.post(`${this.baseUrl}/${idChat}/`, formData);
+  }
+  getAllResults(idChat: any): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/${idChat}`);
   }
 }

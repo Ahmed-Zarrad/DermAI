@@ -37,9 +37,10 @@ export class ChatbotService {
         return data;
       }));
   }
-  sendSkinResultMessage(content: any, idChat: any): Observable<any> {
+  sendSkinResultMessage(content: any, role: any, idChat: any): Observable<any> {
     const requestData =
       {
+        role: role,
         content: content,
       };
     return this.httpClient.post(`${this.baseUrl}/${idChat}/skinResult/message`, requestData, httpOptions)
