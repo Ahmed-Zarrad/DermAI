@@ -217,12 +217,10 @@ chatRouter.post("/:chatId/chatbot/message/", async (req, res) => {
     await chat.save();
     const AllMessages = await Message.find({ chat });
     const transformedData = {
-        chats: AllMessages
-            .filter(message => ["user", "assistant", "system"].includes(message.role))
-            .map(message => ({
-                role: message.role,
-                content: message.content
-            }))
+        chats: AllMessages.map(message => ({
+            role: message.role,
+            content: message.content
+        }))
     };
     const { chats } = transformedData;
 
@@ -253,43 +251,6 @@ chatRouter.post("/:chatId/chatbot/message/", async (req, res) => {
         User: savedMessage,
         DermAI: savedMessageAssistant,
     });
-});
-chatRouter.post("/:chatId/skinResult/message/", async (req, res) => {
-    const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
-    if (!req.token || !decodedToken.id) {
-        return res
-            .status(401)
-            .json({ error: { token: "Token missing or invalid." } });
-    }
-    const { chatId } = req.params;
-    const user = req.user;
-    const chat = await Chat.findById(chatId);
-    const { content, role } = req.body;
-    const error = {};
-
-    if (!content) {
-        error.content = "content is required.";
-    }
-    if (!role) {
-        error.content = "role is required.";
-    }
-    if (!chatId) {
-        error.chatId = "chatId is required.";
-    }
-    if (Object.keys(error).length > 0) {
-        return res.status(400).json(error);
-    }
-    const message = new Message({
-        chat: chat._id,
-        username: user.username,
-        role,
-        content
-    });
-    const savedMessage = await message.save();
-    chat.messages = chat.messages.concat(savedMessage._id);
-    await chat.save();
-
-    res.status(201).json(savedMessage);
 });
 chatRouter.post("/:chatId/user/message/", async (req, res) => {
     const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);

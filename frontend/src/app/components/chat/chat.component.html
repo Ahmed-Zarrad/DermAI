@@ -60,11 +60,12 @@
         </ul>
       </div>
       <div class="card-body contacts_body" [hidden]="!isDoctorsVisible">
-        <ul class="contacts" *ngFor="let u of ListDoctors">
+        <ul class="contacts" *ngFor="let s of ListSpecialities">
           <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0">{{u.speciality}}s</p>
+            <p class="text-center fw-bold mx-3 mb-0">{{s}}s</p>
           </div>
-          <li *ngIf="!ListUsersId.includes(u.id)">
+          <div *ngFor="let u of ListDoctors">
+          <li *ngIf="!ListUsersId.includes(u.id)&& u.speciality==s">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
                 <img [src]= u.photo class="rounded-circle user_img" alt="">
@@ -75,7 +76,7 @@
               </div>
             </div>
           </li>
-          <li *ngIf="ListUsersId.includes(u.id)" (click)="activateChat(userc(u.id))" [ngClass]="idChat==userc(u.id)? 'active': 'notActive'">
+          <li *ngIf="ListUsersId.includes(u.id)&& u.speciality==s" (click)="activateChat(userc(u.id))" [ngClass]="idChat==userc(u.id)? 'active': 'notActive'">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
                 <img [src]= userap(u.photo) class="rounded-circle user_img" alt="">
@@ -87,6 +88,7 @@
               </div>
             </div>
           </li>
+          </div>
         </ul>
       </div>
       <div class="card-footer"></div>
@@ -123,7 +125,43 @@
             </ul>
           </div>
         </div>
-        <div class="card-body msg_card_body">
+        <div class="card-body msg_card_body" *ngIf="ListResults.length===0">
+          <div class="chatlog" *ngFor="let m of ListMessages">
+              <div class="d-flex justify-content-end mb-4" *ngIf="m.username==user && m.role!='system'">
+                <div class="chatMsg_send">
+                  <div class="msgcrud_send">
+                    <i class="fas fa-ellipsis-vertical"></i>
+                    <div class="msg_cotainer_send" *ngIf="!m.content.includes('http://res.cloudinary.com/')">
+                      {{m.content}}
+                    </div>
+                    <div class="msg_cotainer_send" *ngIf="m.content.includes('http://res.cloudinary.com/')">
+                      <img [src]="m.content" alt="Uploaded" width="300px" />
+                    </div>
+                  </div>
+                  <span class="msg_time_send">{{m.created}}</span>
+                </div>
+                <div class="img_cont_msg">
+                  <img [src]="currentUser.photo" class="rounded-circle user_img_msg" alt="">
+                </div>
+              </div>
+              <div class="d-flex justify-content-start mb-4" *ngIf="m.username!=user|| m.content.includes('http://res.cloudinary.com/')">
+                <div class="img_cont_msg">
+                  <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle bot_img_msg" alt="">
+                  <img *ngIf="isDoctorsVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg" alt="">
+                </div>
+                <div class="chatMsg">
+                  <div class="msgcrud">
+                    <div class="msg_cotainer" *ngIf="!m.content.includes('http://res.cloudinary.com/')">
+                      {{m.content}}
+                    </div>
+                    <i class="fas fa-ellipsis-vertical"></i>
+                  </div>
+                  <span class="msg_time">{{m.created}}</span>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="card-body msg_card_body" *ngIf="ListResults.length>0">
           <div class="chatlog" *ngFor="let m of ListMessages">
             <div *ngFor="let sr of ListResults">
             <div class="d-flex justify-content-end mb-4" *ngIf="m.username==user && m.role!='system'">

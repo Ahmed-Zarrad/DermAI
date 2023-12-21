@@ -25,6 +25,7 @@ export class ChatComponent implements OnInit {
   userActiveLastName: any;
   ListChats: Chat[]= [];
   ListUsersId: any= [];
+  ListSpecialities: any= [];
   ListMessages: Message[]= [];
   ListDoctors: User[]= [];
   ListResults: SkinResults[]= [];
@@ -32,6 +33,7 @@ export class ChatComponent implements OnInit {
   c: any = {};
   m: any = {};
   sr: any = {};
+  s: any = {};
   msg:any;
   messagesCount:any;
   initialRowHeight = 20;
@@ -53,12 +55,20 @@ export class ChatComponent implements OnInit {
   }
   ShowDoctorsContacts() {
     this.isChatActive = false;
+    this.ListChats = [];
     this.ListMessages = [];
+    this.ListResults = [];
+    this.ListSpecialities = [];
     this.isDoctorsVisible = true;
     this.isDermAIVisible = false;
     this.idChat=null;
     this.userService.getByRoleUser('doctor').subscribe(data => {
         this.ListDoctors = data;
+        let specialtiesSet = new Set();
+        this.ListDoctors.forEach(doctor => {
+          specialtiesSet.add(doctor.speciality);
+        });
+        this.ListSpecialities = Array.from(specialtiesSet);
         this.chatbotService.getAllChats('UserChat').subscribe(data => {
             this.ListChats = data;
             this.ListChats.forEach(chat => {
@@ -77,7 +87,10 @@ export class ChatComponent implements OnInit {
   }
   ShowDermAI() {
     this.isChatActive = false;
+    this.ListChats = [];
     this.ListMessages = [];
+    this.ListResults = [];
+    this.ListSpecialities = [];
     this.isDermAIVisible = true;
     this.isDoctorsVisible = false;
     this.idChat=null;
@@ -93,7 +106,7 @@ export class ChatComponent implements OnInit {
   createChatbotChat() {
     this.chatbotService.crateChatbotChat().subscribe(
       data => {
-        this.ListChats.push(data);
+        this.ListChats.unshift(data);
       },
       error => {
         console.log(error);
@@ -104,7 +117,7 @@ export class ChatComponent implements OnInit {
   createUserChat(userId:any) {
     this.chatbotService.crateUserChat(userId).subscribe(
       data => {
-        this.ListChats.push(data);
+        this.ListChats.unshift(data);
       },
       error => {
         console.log(error);
@@ -135,6 +148,7 @@ export class ChatComponent implements OnInit {
     this.chatbotService.deleteChat(idChat).subscribe(
       data => {
         this.msg = 'Chat deleted succefully !';
+        this.resp = data;
       },
       error =>
         console.log(error)
@@ -256,15 +270,6 @@ export class ChatComponent implements OnInit {
               console.log(data);
               this.ListMessages.push(data.User);
               this.ListMessages.push(data.DermAI);
-            },
-            error => {
-              console.log(error);
-              this.msg = 'error';
-            });
-          this.chatbotService.sendSkinResultMessage(this.nResults,'dermai', this.idChat).subscribe(
-            data => {
-              console.log(data);
-              this.ListMessages.push(data);
             },
             error => {
               console.log(error);
