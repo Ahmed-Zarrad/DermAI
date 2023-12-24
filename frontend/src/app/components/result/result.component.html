@@ -33,7 +33,7 @@
             </li>
             <!-- Check if symptoms exist -->
             <!-- If yes, loop through symptoms and generate list items -->
-            <li>
+            <li *ngIf="symptoms!=null">
               <div class="avatar">
                 <i class="fa-solid fa-magnifying-glass" style="color: saddlebrown"></i>
               </div>
@@ -44,7 +44,7 @@
             </li>
             <!-- Check if treatments exist -->
             <!-- If yes, loop through treatments and generate list items -->
-            <li>
+            <li *ngIf="treatments!=null">
               <div class="avatar">
                 <i class="fa-solid fa-book-medical" style="color: dodgerblue"></i>
               </div>
@@ -54,7 +54,7 @@
               </div>
             </li>
             <!-- Check if howCommon exists -->
-            <li>
+            <li *ngIf="howCommon!=null">
               <div class="avatar">
                 <i class="fa-solid fa-users" style="color: yellow"></i>
               </div>
@@ -64,7 +64,7 @@
               </div>
             </li>
             <!-- Check if duration exists -->
-            <li>
+            <li *ngIf="duration!=null">
               <div class="avatar">
                 <i class="fa-regular fa-clock" style="color: steelblue"></i>
               </div>

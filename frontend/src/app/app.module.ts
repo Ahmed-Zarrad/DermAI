@@ -15,6 +15,7 @@ import { TestComponent } from './components/test/test.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { AdminSpaceComponent } from './components/admin-space/admin-space.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AlertComponent } from './components/alert/alert.component';
     ProfileComponent,
     ChatComponent,
     AlertComponent,
+    AdminSpaceComponent,
   ],
   imports: [
     BrowserModule,

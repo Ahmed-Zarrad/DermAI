@@ -1,4 +1,5 @@
 import {Speciality} from "./speciality";
+import {Status} from "./status";
 
 export class User {
   id?: string;
@@ -17,11 +18,11 @@ export class User {
   speciality?: Speciality
   photo?: string;
   publicId?: string;
-  status?: string;
+  status?: Status;
   chats?:any;
 
   constructor( username: string, password: string, confirmPassword: string, firstName: string, lastName: string, email: string, birthday: Date, phone: string, country: string, city: string, address: string,
-              postalCode: number, speciality: Speciality, photo: string, publicId: string, status: string) {
+              postalCode: number, speciality: Speciality, photo: string, publicId: string, status: Status) {
 
     this.username = username;
     this.password = password;

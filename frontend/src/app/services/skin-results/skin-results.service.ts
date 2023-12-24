@@ -19,4 +19,7 @@ export class SkinResultsService {
   getAllResults(idChat: any): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/${idChat}`);
   }
+  getResultById(id:any): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/byId/${id}`);
+  }
 }

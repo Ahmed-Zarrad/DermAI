@@ -23,8 +23,8 @@ loginRouter.post("/", async (req, res) => {
     return res.status(401).json({
       error: "Invalid username or password.",
     });
-  }
-
+    }
+  await User.findByIdAndUpdate(user._id, { status: 'online' });
   const userForToken = {
     username: user.username,
     id: user._id,

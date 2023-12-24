@@ -126,6 +126,19 @@ usersRouter.delete("/:id", async (req, res) => {
 
   res.status(204).end();
 });
+usersRouter.put('/updateStatus', (req, res) => {
+    const userId = req.user._id;
+    const { status } = req.body;
+
+    User.findByIdAndUpdate(userId, { status: status }, { new: true }, (err, updatedUser) => {
+        if (err) {
+
+            res.status(500).send({ message: 'Error updating user status', error: err });
+        } else {
+            res.status(200).send({ message: 'User status updated successfully', user: updatedUser });
+        }
+    });
+});
 
 
 module.exports = usersRouter;

@@ -17,17 +17,20 @@ export class ChatComponent implements OnInit {
 
   isActionMenuVisible: boolean = false;
   isDoctorsVisible : boolean =false;
+  isPatientVisible : boolean =false;
   isDermAIVisible : boolean= false;
   showData : boolean= false;
   isChatActive : boolean= false;
   userActivePhoto: any;
   userActiveFirstName: any;
   userActiveLastName: any;
+  userActiveStatus: any;
   ListChats: Chat[]= [];
   ListUsersId: any= [];
   ListSpecialities: any= [];
   ListMessages: Message[]= [];
   ListDoctors: User[]= [];
+  ListPatients: User[]= [];
   ListResults: SkinResults[]= [];
   u: any = {};
   c: any = {};
@@ -44,7 +47,8 @@ export class ChatComponent implements OnInit {
   result: any;
   nResults: any;
   err: any
-  user: any = localStorage.getItem('AuthUsername');
+  user: any = localStorage.getItem('AuthUsername')
+  role: any = localStorage.getItem('AuthAuthorities');
   currentUserString = localStorage.getItem('CurrentUser');
   currentUser = this.currentUserString ? JSON.parse(this.currentUserString) : null;
   constructor(private route: ActivatedRoute, private chatbotService: ChatbotService, private userService: UserService, private skinResultsService: SkinResultsService, private router: Router) { }
@@ -60,10 +64,11 @@ export class ChatComponent implements OnInit {
     this.ListResults = [];
     this.ListSpecialities = [];
     this.isDoctorsVisible = true;
+    this.isPatientVisible = false;
     this.isDermAIVisible = false;
     this.idChat=null;
     this.userService.getByRoleUser('doctor').subscribe(data => {
-        this.ListDoctors = data;
+        this.ListDoctors = data.filter((doctor: { id: string })=> doctor.id !== this.currentUser.id);
         let specialtiesSet = new Set();
         this.ListDoctors.forEach(doctor => {
           specialtiesSet.add(doctor.speciality);
@@ -85,6 +90,34 @@ export class ChatComponent implements OnInit {
         console.log(error);
       });
   }
+  ShowPatientsContacts() {
+    this.isChatActive = false;
+    this.ListChats = [];
+    this.ListMessages = [];
+    this.ListResults = [];
+    this.ListSpecialities = [];
+    this.isPatientVisible = true;
+    this.isDoctorsVisible = false;
+    this.isDermAIVisible = false;
+    this.idChat=null;
+    this.userService.getByRoleUser('patient').subscribe(data => {
+        this.ListPatients = data;
+        this.chatbotService.getAllChats('UserChat').subscribe(data => {
+            this.ListChats = data;
+            this.ListChats.forEach(chat => {
+              chat.users.forEach(id => {
+                this.ListUsersId.push(id);
+              });
+            });
+          },
+          error => {
+            console.log(error);
+          });
+      },
+      error => {
+        console.log(error);
+      });
+  }
   ShowDermAI() {
     this.isChatActive = false;
     this.ListChats = [];
@@ -92,6 +125,7 @@ export class ChatComponent implements OnInit {
     this.ListResults = [];
     this.ListSpecialities = [];
     this.isDermAIVisible = true;
+    this.isPatientVisible = false;
     this.isDoctorsVisible = false;
     this.idChat=null;
     const type = "ChatbotChat";
@@ -143,6 +177,9 @@ export class ChatComponent implements OnInit {
   }
   useral(lastName:any):String{
     return this.userActiveLastName = lastName;
+  }
+  useras(status:any):String{
+    return this.userActiveStatus = status;
   }
   deleteChat(idChat: any, type: any) {
     this.chatbotService.deleteChat(idChat).subscribe(

@@ -11,7 +11,10 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {AuthorizepatientguardService} from "./services/AuthorizePatientGuard/authorizepatientguard.service";
 import {AuthorizedoctorguardService} from "./services/AuthorizeDoctorGuard/authorizedoctorguard.service";
 import {AuthorizeforgotguardServiceService} from "./services/AuthorizeforgotguardService/authorizeforgotguard-service.service";
+import {AuthorizecombinedguardService} from "./services/authorizecombinedguard/authorizecombinedguard.service";
 import {AlertComponent} from "./components/alert/alert.component";
+import {AdminSpaceComponent} from "./components/admin-space/admin-space.component";
+import {AuthorizeGuardService} from "./services/AuthorizeGuard/authorize-guard.service";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthorizeforgotguardServiceService]},
@@ -19,10 +22,11 @@ const routes: Routes = [
   { path: 'alert', component: AlertComponent },
   { path: '', component: HomeComponent },
   { path: 'signup', component: SignupComponent, canActivate: [AuthorizeforgotguardServiceService]},
-  { path: 'chat', component: ChatComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
-  { path: 'test', component: TestComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
-  { path: 'result', component: ResultComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthorizepatientguardService || AuthorizedoctorguardService]},
+  { path: 'chat', component: ChatComponent, canActivate: [AuthorizecombinedguardService]},
+  { path: 'test', component: TestComponent, canActivate: [AuthorizecombinedguardService]},
+  { path: 'result', component: ResultComponent, canActivate: [AuthorizecombinedguardService]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthorizecombinedguardService]},
+  { path: 'admin-space', component: AdminSpaceComponent, canActivate: [AuthorizeGuardService]},
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -9,7 +9,6 @@ export class AuthorizedoctorguardService implements CanActivate {
   constructor(private router: Router) { }
   canActivate() {
     const authAuthorities = localStorage.getItem("AuthAuthorities");
-
     if (authAuthorities === "doctor") {
       return true;
     }

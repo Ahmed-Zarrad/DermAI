@@ -35,6 +35,11 @@
               <i class="fas fa-user-doctor"></i>&nbsp;&nbsp;Chat with Doctors
             </a>
           </li>
+          <li [hidden]="isPatientVisible||role==='patient'">
+            <a class="btn btn-primary small btn-navbar" (click)="ShowPatientsContacts()">
+              <i class="fas fa-user"></i>&nbsp;&nbsp;Chat with Patients
+            </a>
+          </li>
           <li [hidden]="!isDermAIVisible">
             <a class="btn btn-primary small btn-navbar" (click)="createChatbotChat()">
               <i class="fas fa-add"></i>&nbsp;&nbsp;Create New Chat
@@ -80,7 +85,7 @@
             <div class="d-flex bd-highlight">
               <div class="img_cont">
                 <img [src]= userap(u.photo) class="rounded-circle user_img" alt="">
-                <span class="online_icon" [ngClass]="u.status == 'online' ? 'online_icon': 'offline_icon'"></span>
+                <span class="online_icon" [ngClass]="useras(u.status) == 'online' ? 'online_icon': 'offline_icon'"></span>
               </div>
               <div class="user_info">
                 <div class="message"><span>Dr {{useraf(u.firstName)}} {{useral(u.lastName)}}</span><i class="fa-regular fa-trash-can "></i></div>
@@ -89,6 +94,33 @@
             </div>
           </li>
           </div>
+        </ul>
+      </div>
+      <div class="card-body contacts_body" [hidden]="!isPatientVisible">
+        <ul class="contacts" *ngFor="let u of ListPatients">
+            <li *ngIf="!ListUsersId.includes(u.id)">
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                  <img [src]= u.photo class="rounded-circle user_img" alt="">
+                </div>
+                <div class="user_info">
+                  <div class="message"><span>{{u.firstName}} {{u.lastName}}</span></div>
+                  <button class="btn btn-primary" (click)="createUserChat(u.id)"><i class="fas fa-add"></i>Create Chat with Patient</button>
+                </div>
+              </div>
+            </li>
+            <li *ngIf="ListUsersId.includes(u.id)" (click)="activateChat(userc(u.id))" [ngClass]="idChat==userc(u.id)? 'active': 'notActive'">
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                  <img [src]= userap(u.photo) class="rounded-circle user_img" alt="">
+                  <span class="online_icon" [ngClass]="useras(u.status) == 'online' ? 'online_icon': 'offline_icon'"></span>
+                </div>
+                <div class="user_info">
+                  <div class="message"><span>{{useraf(u.firstName)}} {{useral(u.lastName)}}</span><i class="fa-regular fa-trash-can "></i></div>
+                  <p>{{u.firstName}} is {{u.status}}</p>
+                </div>
+              </div>
+            </li>
         </ul>
       </div>
       <div class="card-footer"></div>
@@ -101,13 +133,14 @@
               <img  src="assets/imgs/logoDermAI.png" class="rounded-circle user_img" alt="">
               <span class="online_icon"></span>
             </div>
-            <div class="img_cont" *ngIf="isDoctorsVisible">
+            <div class="img_cont" *ngIf="isDoctorsVisible||isPatientVisible">
               <img  [src]="userActivePhoto" class="rounded-circle user_img" alt="">
-              <span class="online_icon" [ngClass]="u.status == 'online' ? 'online_icon': 'offline_icon'"></span>
+              <span class="online_icon" [ngClass]="userActiveStatus == 'online' ? 'online_icon': 'offline_icon'"></span>
             </div>
             <div class="user_info2">
               <span *ngIf="isDermAIVisible">Chat with DermAI</span>
               <span *ngIf="isDoctorsVisible">Chat with Dr {{userActiveFirstName}}  {{userActiveLastName}}</span>
+              <span *ngIf="isPatientVisible">Chat with {{userActiveFirstName}}  {{userActiveLastName}}</span>
               <p>{{messagesCount}} Messages</p>
             </div>
             <div class="video_cam" [hidden]="isDermAIVisible">
@@ -147,7 +180,7 @@
               <div class="d-flex justify-content-start mb-4" *ngIf="m.username!=user|| m.content.includes('http://res.cloudinary.com/')">
                 <div class="img_cont_msg">
                   <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle bot_img_msg" alt="">
-                  <img *ngIf="isDoctorsVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg" alt="">
+                  <img *ngIf="isDoctorsVisible||isPatientVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg" alt="">
                 </div>
                 <div class="chatMsg">
                   <div class="msgcrud">
@@ -184,7 +217,7 @@
               <div class="d-flex justify-content-start mb-4" *ngIf="m.username!=user|| m.content.includes('http://res.cloudinary.com/')">
                 <div class="img_cont_msg">
                   <img *ngIf="isDermAIVisible" src="assets/imgs/logoDermAI.png" class="rounded-circle bot_img_msg" alt="">
-                  <img *ngIf="isDoctorsVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg" alt="">
+                  <img *ngIf="isDoctorsVisible||isPatientVisible" [src]="userActivePhoto"  class="rounded-circle user_img_msg" alt="">
                 </div>
                 <div class="chatMsg">
                   <div class="msgcrud">
@@ -222,7 +255,7 @@
                             ><i class="fas fa-location-arrow"></i></span>
             </div>
           </div>
-          <div class="input-group" *ngIf="isDoctorsVisible">
+          <div class="input-group" *ngIf="isDoctorsVisible||isPatientVisible">
             <div class="input-group-append">
               <span class="input-group-text attach_btn" onclick="document.getElementById('file-input').click()" ><i class="fas fa-image" ></i></span>
               <input type="file" id="file-input1" name="resume" accept=".png, .jpg, .jpeg"

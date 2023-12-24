@@ -35,8 +35,6 @@ export class LoginService {
     return this.authhttp.post<JwtResponse>(this.authenticateURL, login, httpOptions)
 
       .pipe((data => {
-
-
         this.login;
         return data;
       }));

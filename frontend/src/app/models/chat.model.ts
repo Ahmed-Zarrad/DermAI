@@ -1,4 +1,5 @@
 import {User} from "./user.model";
+import {SkinResults} from "./skin-results.model";
 
 export class Chat {
   id!: any;
@@ -6,5 +7,6 @@ export class Chat {
   type!: any;
   created!:  Date;
   users!: User[] ;
+  skinResults!: SkinResults[] ;
 
 }

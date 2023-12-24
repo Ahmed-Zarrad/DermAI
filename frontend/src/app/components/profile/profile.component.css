@@ -57,3 +57,46 @@ body{
 body.dark-theme {
   background: #212529;
 }
+.form-select{
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 15px;
+  width: auto;
+}
+.user_info p{
+  font-size: 15px;
+  color: gray;
+}
+.message{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.user_info span{
+  font-size: 20px;
+  color: black;
+  width: 100%;
+}
+.user_info{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 15px;
+  width: 100%;
+}
+.user_img{
+  height: 70px;
+  width: 70px;
+  border:1.5px solid #f5f6fa;
+  background-color: white;
+}
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: black;
+}
+.divider p{
+  color: black;
+}
+

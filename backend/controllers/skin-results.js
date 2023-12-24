@@ -30,7 +30,7 @@ skinResultsRouter.get("/:chatId", async (req, res) => {
   res.json(skinResults);
 });
 
-skinResultsRouter.get("/:id", async (req, res) => {
+skinResultsRouter.get("/byId/:id", async (req, res) => {
   const skinResult = await SkinResult.findOne({
     _id: req.params.id,
   });
@@ -79,7 +79,7 @@ skinResultsRouter.post("/:chatId", upload.single("skinImage"), async (req, res) 
 
     const skinResult = new SkinResult({
     chat: chat._id,
-    user: user.username,
+    username: user.username,
     image: response.url,
     publicId: response.public_id,
     skinType,
