@@ -93,6 +93,10 @@ usersRouter.get("/:id", tokenExtractor, userExtractor, async (req, res) => {
 
   res.status(404).json({ error: "user not found" });
 });
+usersRouter.get("/", async (req, res) => {
+    const users = await User.find().sort({ speciality: -1 });
+    res.json(users);
+});
 usersRouter.get("/byRole/:role", async (req, res) => {
     const { role } = req.params;
     const users = await User.find({ role }).sort({ speciality: -1 });

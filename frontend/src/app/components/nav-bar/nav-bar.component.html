@@ -25,10 +25,15 @@
       </ul>
       </div>
     </li>
-    <li class="nav-item" *ngIf="!NotConnected"><a href="" class="nav-link">
+    <li class="nav-item" *ngIf="!NotConnected">
+      <div><a (click)="ShowNotifMenu()" class="nav-link">
       <i class="fas fa-bell"></i>
-      <span class="badge rounded-pill badge-notification bg-danger">9</span>&nbsp;&nbsp;Notifications
-    </a></li>
+      <span class="badge rounded-pill badge-notification bg-danger">{{notificationCount}}</span>&nbsp;&nbsp;Notifications
+    </a>
+      <ul class="submenu " [hidden]="!isNotifMenuVisible" >
+        <li class=" nav-item" *ngFor="let n of ListNotifications" ><img [src]= this.n.image class="img-container" alt=""><a class=" nav-link" href="/profile">{{n.title}}</a><i class="fas fa-trash"></i></li>
+      </ul></div>
+    </li>
 
     <li class="nav-item search" *ngIf="NotConnected">
       <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i>  Search</a>
@@ -60,10 +65,16 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item" *ngIf="!NotConnected"><a href="" class="nav-link">
+    <li class="nav-item" *ngIf="!NotConnected"><div>
+      <a (click)="ShowNotifMenu()" class="nav-link">
       <i class="fas fa-bell"></i>
-      <span class="badge rounded-pill badge-notification bg-danger">9</span>&nbsp;&nbsp;Notifications
-    </a></li>
+      <span class="badge rounded-pill badge-notification bg-danger">{{notificationCount}}</span>&nbsp;&nbsp;Notifications
+    </a>
+      <ul class="submenu" [hidden]="!isNotifMenuVisible">
+        <li class=" nav-item" *ngFor="let n of ListNotifications"><img [src]= this.n.image class="img-container" alt=""><a class=" nav-link" href="/profile">{{n.title}}</a></li>
+      </ul>
+    </div>
+    </li>
 
     <li class="nav-item search" *ngIf="NotConnected">
       <a href="javascript:void(0)" class="nav-link search-toggle"><i class="ti-search"></i>  Search</a>

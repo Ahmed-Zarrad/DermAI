@@ -1,20 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Chat} from "../../models/chat.model";
+import {Notification} from "../../models/notification.model";
 import {ChatbotService} from "../../services/chatbot/chatbot.service";
+import {NotificationService} from "../../services/notification/notification.service";
 import {ActivatedRoute, Router} from '@angular/router';
 import {Message} from "../../models/message.model";
 import {User} from "../../models/user.model";
 import {UserService} from "../../services/user/user.service";
 import {SkinResultsService} from "../../services/skin-results/skin-results.service";
 import {SkinResults} from "../../models/skin-results.model";
+import {interval, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
-
+export class ChatComponent implements OnInit, OnDestroy {
+  private subscription!: Subscription;
+  private readonly refreshInterval = 100;
   isActionMenuVisible: boolean = false;
   isDoctorsVisible : boolean =false;
   isPatientVisible : boolean =false;
@@ -25,6 +29,7 @@ export class ChatComponent implements OnInit {
   userActiveFirstName: any;
   userActiveLastName: any;
   userActiveStatus: any;
+  userId: any;
   ListChats: Chat[]= [];
   ListUsersId: any= [];
   ListSpecialities: any= [];
@@ -38,7 +43,7 @@ export class ChatComponent implements OnInit {
   sr: any = {};
   s: any = {};
   msg:any;
-  messagesCount:any;
+  messagesCount:number=0;
   initialRowHeight = 20;
   resp: any = null;
   userInput: any;
@@ -47,17 +52,25 @@ export class ChatComponent implements OnInit {
   result: any;
   nResults: any;
   err: any
-  user: any = localStorage.getItem('AuthUsername')
+  user: any = localStorage.getItem('AuthUsername');
   role: any = localStorage.getItem('AuthAuthorities');
   currentUserString = localStorage.getItem('CurrentUser');
   currentUser = this.currentUserString ? JSON.parse(this.currentUserString) : null;
-  constructor(private route: ActivatedRoute, private chatbotService: ChatbotService, private userService: UserService, private skinResultsService: SkinResultsService, private router: Router) { }
-  ngOnInit() {
+  constructor(private route: ActivatedRoute, private chatbotService: ChatbotService, private notificationService: NotificationService, private userService: UserService, private skinResultsService: SkinResultsService, private router: Router) { }
+  ngOnInit(): void {
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
   ShowActionMenu() {
     this.isActionMenuVisible = !this.isActionMenuVisible;
   }
   ShowDoctorsContacts() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.isChatActive = false;
     this.ListChats = [];
     this.ListMessages = [];
@@ -91,6 +104,9 @@ export class ChatComponent implements OnInit {
       });
   }
   ShowPatientsContacts() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.isChatActive = false;
     this.ListChats = [];
     this.ListMessages = [];
@@ -119,6 +135,9 @@ export class ChatComponent implements OnInit {
       });
   }
   ShowDermAI() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.isChatActive = false;
     this.ListChats = [];
     this.ListMessages = [];
@@ -160,6 +179,7 @@ export class ChatComponent implements OnInit {
     );
   }
   userc(id:any):String{
+    this.userId = id;
     this.ListChats.forEach(chat => {
       chat.users.forEach(uid => {
         if (uid==id){
@@ -198,9 +218,30 @@ export class ChatComponent implements OnInit {
         console.log(error);
       });
   }
-  activateChat(idChat: any){
+  activateUserChat(idChat: any){
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.idChat = idChat;
     this.isChatActive= true;
+    this.subscription = interval(this.refreshInterval).subscribe(() => {
+    this.chatbotService.getAllMessages(idChat).subscribe(data => {
+        this.ListMessages = data;
+        this.messagesCount = this.ListMessages.length
+      },
+
+      error => {
+        console.log(error);
+      });
+    });
+  }
+  activateChatbotChat(idChat: any){
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.idChat = idChat;
+    this.isChatActive= true;
+    this.subscription = interval(this.refreshInterval).subscribe(() => {
     this.chatbotService.getAllMessages(idChat).subscribe(data => {
         this.ListMessages = data;
         this.messagesCount = this.ListMessages.length
@@ -218,7 +259,7 @@ export class ChatComponent implements OnInit {
         console.log(error);
         this.msg = 'error';
       });
-
+    });
   }
   sendMessageToUser(): void {
     const message = this.userInput.trim();
@@ -229,6 +270,15 @@ export class ChatComponent implements OnInit {
       data => {
         this.ListMessages.push(data);
         this.loading = false;
+        this.notificationService.addNotification(this.userId, 'New message from '+this.currentUser.role+' '+' '+this.currentUser.firstName+' '+this.currentUser.lastName, this.currentUser.firstName+':'+' '+message, this.currentUser.photo).subscribe(
+          data => {
+          },
+          error => {
+            console.log(error);
+            this.msg = 'error occured !';
+          }
+        );
+
       },
       error => {
         console.log(error);

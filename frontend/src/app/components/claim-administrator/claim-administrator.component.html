@@ -1,0 +1,73 @@
+<div class="marg"></div>
+<div class="container">
+  <div class="row mt-3">
+<div class="col">
+  <button class="button" routerLink="/admin-space"><h3><i class="fa fa-tags" aria-hidden="true"></i>Return</h3></button>
+</div>
+<div class="col">
+  <button class="button" (click)="ViewClaim()"><h3><i class="fa fa-tags" aria-hidden="true"></i>Show Claim</h3></button>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div *ngIf="show">
+
+  <div class="container mt-5">
+    <table class="table table-borderless table-responsive card-1 p-4">
+        <thead>
+            <tr class="border-bottom">
+                <th> <span class="ml-2">Id</span> </th>
+                <th> <span class="ml-2">Title</span> </th>
+                <th> <span class="ml-2">Description</span> </th>
+              <th> <span class="ml-2">State</span> </th>
+                <th> <span class="ml-2">Date</span> </th>
+                <th> <span class="ml-4">Action</span> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of ListClaim">
+
+                <td>
+                    <div class="p-2 d-flex flex-row align-items-center mb-2">
+                        <div class="d-flex flex-column ml-2"> <span class="d-block font-weight-bold">{{c.idClaim}}</span> </div>
+                    </div>
+                </td>
+
+               <td>
+                    <div class="p-2 d-flex flex-row align-items-center mb-2">
+                        <div class="d-flex flex-column ml-2"> <span class="d-block font-weight-bold">{{c.titleClaim}}</span> </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="p-2 d-flex flex-row align-items-center mb-2">
+                        <div class="d-flex flex-column ml-2"> <span class="d-block font-weight-bold">{{c.descriptionClaim}}</span> </div>
+                    </div>
+                </td>
+
+              <td>
+                <div class="p-2 d-flex flex-row align-items-center mb-2">
+                  <div class="d-flex flex-column ml-2"> <span class="d-block font-weight-bold">{{c.stateClaim}}</span> </div>
+                </div>
+              </td>
+
+               <td>
+                    <div class="p-2 d-flex flex-row align-items-center mb-2">
+                        <div class="d-flex flex-column ml-2"> <span class="d-block font-weight-bold">{{c.dateClaim}}</span> </div>
+                    </div>
+                </td>
+
+ <td class="text-center"><button class="btn btn-cool-blues btn-xs" ><span class="glyphicon glyphicon-remove"></span> Reply</button>
+   <button class="btn btn-danger btn-xs" (click)="DeleteClaim(c.idClaim)"><span class="glyphicon glyphicon-remove"></span> Delete</button></td>
+
+            </tr>
+
+
+        </tbody>
+    </table>
+</div>
+</div>

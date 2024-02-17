@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-
+const Chat = require("./chat");
+const Notification = require("./notification");
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -16,6 +17,12 @@ const userSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Chat",
+        },
+    ],
+    notifications: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Notification",
         },
     ],
     firstName: String,
@@ -94,6 +101,7 @@ userSchema.set("toJSON", {
 userSchema.pre("remove", async function (next) {
 
     await Chat.deleteMany({ users: this._id });
+    await Notification.deleteMany({ users: this._id });
     next();
 });
 const User = mongoose.model("User", userSchema);

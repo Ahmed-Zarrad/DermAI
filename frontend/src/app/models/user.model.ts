@@ -1,5 +1,6 @@
 import {Speciality} from "./speciality";
 import {Status} from "./status";
+import {Role} from "./role";
 
 export class User {
   id?: string;
@@ -8,6 +9,7 @@ export class User {
   confirmPassword!: string;
   firstName?: string;
   lastName?: string;
+  role?: Role;
   email?: string;
   birthday?: Date;
   phone?: string;

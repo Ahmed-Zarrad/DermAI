@@ -10,7 +10,7 @@ import {Speciality} from "../../models/speciality";
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit{
-  user: User | undefined;
+  user?: User;
   form: any = {};
   msg = '';
   output: any;
@@ -55,6 +55,10 @@ export class SignupComponent implements OnInit{
               console.log(data);
               this.msg = 'User Added Succefully !';
               this.form = " ";
+              this.router.navigate(["/login"]);
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
             },
             error => {
               console.log(error);

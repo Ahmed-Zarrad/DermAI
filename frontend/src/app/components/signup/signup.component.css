@@ -53,9 +53,6 @@ body{
 body.dark-theme {
   background: #212529;
 }
-body.dark-theme .form-control:focus ~ .form-label, .form-control:valid ~ .form-label {
-  background-color:#000;
-}
 body.dark-theme .form-control{
   color: #fff;
 }
@@ -74,3 +71,4 @@ body.dark-theme .form-icon{
 body.dark-theme option{
   background-color: #000;
 }
+

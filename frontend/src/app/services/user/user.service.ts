@@ -17,13 +17,13 @@ const httpOptions = {
 })
 export class UserService {
 
-  private UserURL = 'http://localhost:3001/api/v1/users';
+  private UserURL = 'http://localhost:3001/api/v1';
 
   constructor(private userhttp: HttpClient) {
   }
 
   addUser(user: User | undefined, role: Role) {
-    return this.userhttp.post<JwtResponse>(`${this.UserURL}/${role}`, user, httpOptions)
+    return this.userhttp.post<JwtResponse>(`${this.UserURL}/signup/${role}`, user, httpOptions)
       .pipe(data => {
         return data;
       });
@@ -32,13 +32,32 @@ export class UserService {
     const formData: FormData = new FormData();
     formData.append('photo', photo);
 
-    return this.userhttp.post(`${this.UserURL}/photo`, formData);
+    return this.userhttp.post(`${this.UserURL}/signup/photo`, formData);
   }
   getByRoleUser(role: any): Observable<any> {
-    return this.userhttp.get(`${this.UserURL}/byRole/${role}`);
+    return this.userhttp.get(`${this.UserURL}/users/byRole/${role}`);
   }
   updateStaus(status: Status): Observable<any> {
-    return this.userhttp.put(`${this.UserURL}/updateStatus`,{ status }, httpOptions);
+    return this.userhttp.put(`${this.UserURL}/users/updateStatus`,{ status }, httpOptions);
   }
-
+  ajouterUser(user: User): Observable<any> {
+    return this.userhttp.post<JwtResponse>(this.UserURL, user).pipe(data => {
+      return data;
+    })
+  }
+  deleteUser(idUser: any): Observable<any> {
+    return this.userhttp.delete(`${this.UserURL}/delete-user/${idUser}`, { responseType: 'text' });
+  }
+  updateUser(user: User): Observable<any> {
+    return this.userhttp.put<JwtResponse>(`${this.UserURL}`, user, httpOptions)
+  }
+  getAllUser(): Observable<any> {
+    return this.userhttp.get(`${this.UserURL}/users`);
+  }
+  getByUsernameUser(username: string): Observable<any> {
+    return this.userhttp.get(`${this.UserURL}/retrieve-user-by-username/${username}`);
+  }
+  updatePassword(email: string, password: string, confirmPassword: string) {
+    return this.userhttp.put('http://localhost:9091/SpringMVC/servlet/updatepassword/' + email + '/' + password + '/' + confirmPassword, { responseType: 'text' });
+  }
 }

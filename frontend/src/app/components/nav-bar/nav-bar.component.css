@@ -11818,6 +11818,7 @@ body.light-theme nav.page-navbar.affix .username {
   margin-left: 5px;
   display:inline-block;
   font-weight: bold;
+  color: black;
 }
 .profile{
   padding:4px 0 4px 5px;
@@ -11835,7 +11836,7 @@ body.light-theme nav.page-navbar.affix .username {
   z-index: 1;
   position: absolute;
   padding: 15px 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(255,255,255,0.5);
   color: white;
   border-radius: 15px;
 }
@@ -11855,7 +11856,7 @@ body.light-theme nav.page-navbar.affix .username {
 
 .submenu  li:hover{
   cursor: pointer;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(0,0,0,0.5);
 }
 .mainMenu{
   display: flex;
@@ -11871,6 +11872,15 @@ body.dark-theme .secondNav{
   height: 70px;
   border-bottom: 1px solid rgba(173,181,189,.1);
 }
+body.dark-theme .submenu{
+  background-color: rgba(0,0,0,0.5);
+}
+body.dark-theme .submenu li:hover{
+  background-color: rgba(255,255,255,0.5);
+}
+body.dark-theme .nav-item i{
+  color:white;
+}
 .notif i{
   font-size: calc(18px + (15 - 12) * ((100vw - 300px) / (1300 - 300))) !important;
 }
@@ -11885,4 +11895,7 @@ body.dark-theme .secondNav{
   padding: var(--mdb-badge-padding-y) var(--mdb-badge-padding-x);
   margin-top: var(--mdb-badge-margin-top);
   margin-left: var(--mdb-badge-margin-left);
+}
+.nav-item{
+  cursor: pointer;
 }

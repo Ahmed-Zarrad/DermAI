@@ -49,7 +49,7 @@
       </div>
       <div class="card-body contacts_body" [hidden]="!isDermAIVisible">
         <ul class="contacts" *ngFor="let c of ListChats">
-          <li (click)="activateChat(c.id)" [ngClass]="idChat==c.id ? 'active': 'notActive'">
+          <li (click)="activateChatbotChat(c.id)" [ngClass]="idChat==c.id ? 'active': 'notActive'">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
                 <img src="assets/imgs/logoDermAI.png" class="rounded-circle user_img" alt="">
@@ -81,7 +81,7 @@
               </div>
             </div>
           </li>
-          <li *ngIf="ListUsersId.includes(u.id)&& u.speciality==s" (click)="activateChat(userc(u.id))" [ngClass]="idChat==userc(u.id)? 'active': 'notActive'">
+          <li *ngIf="ListUsersId.includes(u.id)&& u.speciality==s" (click)="activateUserChat(userc(u.id))" [ngClass]="idChat==userc(u.id)? 'active': 'notActive'">
             <div class="d-flex bd-highlight">
               <div class="img_cont">
                 <img [src]= userap(u.photo) class="rounded-circle user_img" alt="">
@@ -109,7 +109,7 @@
                 </div>
               </div>
             </li>
-            <li *ngIf="ListUsersId.includes(u.id)" (click)="activateChat(userc(u.id))" [ngClass]="idChat==userc(u.id)? 'active': 'notActive'">
+            <li *ngIf="ListUsersId.includes(u.id)" (click)="activateUserChat(userc(u.id))" [ngClass]="idChat==userc(u.id)? 'active': 'notActive'">
               <div class="d-flex bd-highlight">
                 <div class="img_cont">
                   <img [src]= userap(u.photo) class="rounded-circle user_img" alt="">

@@ -2,7 +2,9 @@
   margin-top: 140px!important;
 }
 body {
-  margin-top: 70px !important;
+}
+.marg{
+  padding: 45px;
 }
 .row{
   margin-top: 70px;

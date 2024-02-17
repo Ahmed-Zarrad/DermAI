@@ -8,6 +8,8 @@ import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.
 import {TestComponent} from "./components/test/test.component";
 import {ResultComponent} from "./components/result/result.component";
 import {ProfileComponent} from "./components/profile/profile.component";
+import {ClaimAdministratorComponent} from "./components/claim-administrator/claim-administrator.component";
+import {UserComponent} from "./components/user/user.component";
 import {AuthorizepatientguardService} from "./services/AuthorizePatientGuard/authorizepatientguard.service";
 import {AuthorizedoctorguardService} from "./services/AuthorizeDoctorGuard/authorizedoctorguard.service";
 import {AuthorizeforgotguardServiceService} from "./services/AuthorizeforgotguardService/authorizeforgotguard-service.service";
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'result', component: ResultComponent, canActivate: [AuthorizecombinedguardService]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthorizecombinedguardService]},
   { path: 'admin-space', component: AdminSpaceComponent, canActivate: [AuthorizeGuardService]},
+  { path: 'admin-space/manage-accounts', component: UserComponent, canActivate: [AuthorizeGuardService]},
+  { path: 'admin-space/manage-claims', component: ClaimAdministratorComponent, canActivate: [AuthorizeGuardService]},
   { path: '**', component: PageNotFoundComponent }
 ];
 
